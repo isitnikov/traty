@@ -19,45 +19,47 @@
 <body>
 <div class="container">
     <div class="row">
-        <form class="form-horizontal" method="post">
-            <fieldset>
+        <div class="col-sm col-md col-lg">
+            <form class="form-horizontal" method="post">
+                <fieldset>
 
-                <!-- Form Name -->
-                <legend><a href="">Расходы</a></legend>
+                    <!-- Form Name -->
+                    <legend><a href="">Расходы</a></legend>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Имя</label>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Имя</label>
 
-                    <div class="col-md-4">
-                        <input id="field-name" name="name" type="text" placeholder="продукты"
-                               class="form-control input-md">
-                        <span class="help-block">Имя или категория расходов</span>
+                        <div class="col-md-4">
+                            <input id="field-name" name="name" type="text" placeholder="продукты"
+                                   class="form-control input-md">
+                            <span class="help-block">Имя или категория расходов</span>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Сумма</label>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Сумма</label>
 
-                    <div class="col-md-4">
-                        <input id="field-amount" name="amount" type="text" placeholder="99.70"
-                               class="form-control input-md">
-                        <span class="help-block">Сумма</span>
+                        <div class="col-md-4">
+                            <input id="field-amount" name="amount" type="text" placeholder="99.70"
+                                   class="form-control input-md">
+                            <span class="help-block">Сумма</span>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Button -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="singlebutton"></label>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="singlebutton"></label>
 
-                    <div class="col-md-4">
-                        <button type="submit" id="singlebutton" class="btn btn-success">Сохранить</button>
+                        <div class="col-md-4">
+                            <button type="submit" id="singlebutton" class="btn btn-success">Сохранить</button>
+                        </div>
                     </div>
-                </div>
 
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </div>
 </body>
