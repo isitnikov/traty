@@ -1,5 +1,5 @@
 <?php
-$config['base_url'] = 'http://m.co/misc/money/pub/';
+$config['base_url'] = '/';
 
 define("APP_ROOT_PATH", realpath(__DIR__ . DIRECTORY_SEPARATOR . '..'));
 define("BASE_URL", $config['base_url']);
