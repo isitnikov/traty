@@ -23,7 +23,7 @@
             <fieldset>
 
                 <!-- Form Name -->
-                <legend><a href="">Расходы</a></legend>
+                <legend><a href="">За сегодня: 540 грн</a></legend>
 
                 <!-- Text input-->
                 <div class="form-group">
