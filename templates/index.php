@@ -44,13 +44,18 @@
 
                     <div class="col-md-5">
                         <select id="category" name="name" class="form-control input-lg">
-                            <option value="1">Продукты</option>
-                            <option value="2">Отдых</option>
-                            <option value="3">Медицина</option>
-                            <option value="4">Транспорт</option>
-                            <option value="5">Авто</option>
-                            <option value="6">Квартира</option>
-                            <option value="7">Разное</option>
+                            <option value="Транспорт">Транспорт</option>
+                            <option value="Продукты">Продукты</option>
+                            <option value="Одежда">Одежда</option>
+                            <option value="Отдых">Отдых</option>
+                            <option value="Медицина">Медицина</option>
+                            <option value="Авто">Авто</option>
+                            <option value="Жилье">Жилье</option>
+                            <option value="Еда вне дома">Еда вне дома</option>
+                            <option value="Обучение">Обучение</option>
+                            <option value="Работа">Работа</option>
+                            <option value="Спорт">Спорт</option>
+                            <option value="Разное">Разное</option>
                         </select>
                     </div>
                 </div>
@@ -75,7 +80,7 @@
 
                             <div class="col-md-4">
                                 <?php $dateValue = date('d/m/Y') ?>
-                                <input id="field-date" name="date" type="text" placeholder="<?php echo date('d/m/Y') ?>"
+                                <input id="field-date" name="date" type="text" placeholder="<?php echo $dateValue ?>"
                                        class="form-control input-lg" value="<?php echo $dateValue ?>">
                             </div>
                         </div>
