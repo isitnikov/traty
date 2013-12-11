@@ -39,14 +39,21 @@
                 <legend><a href="">За сегодня: <?php echo $todayAmount ?> грн</a></legend>
 
                 <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Имя</label>
-
-                    <div class="col-md-4">
-                        <input id="field-name" name="name" type="text" placeholder="продукты"
-                               class="form-control input-lg">
-                    </div>
+<div class="form-group">
+                <label class="col-md-4 control-label" for="category">Категория</label>
+                <div class="col-md-5">
+                    <select id="category" name="name" class="form-control input-lg">
+                        <option value="1">Продукты</option>
+                        <option value="2">Квартира</option>
+                        <option value="3">Авто</option>
+                        <option value="4">Отдых</option>
+                        <option value="5">Медицина</option>
+                        <option value="6">Разное</option>
+                    </select>
                 </div>
+    </div>
+
+
 
                 <div class="row">
                     <div class="col-xs-6">
