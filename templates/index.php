@@ -36,7 +36,7 @@
             <fieldset>
 
                 <!-- Form Name -->
-                <legend><a href="">За сегодня: 540 грн</a></legend>
+                <legend><a href="">За сегодня: <?php echo $todayAmount ?> грн</a></legend>
 
                 <!-- Text input-->
                 <div class="form-group">

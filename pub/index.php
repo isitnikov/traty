@@ -11,7 +11,7 @@ if (!file_exists(APP_CONFIGS_PATH . 'config.php')) {
 }
 
 require APP_CONFIGS_PATH . 'config.php';
-require APP_MODELS_PATH  . 'operation.php';
+require APP_MODELS_PATH  . 'Operation.php';
 
 define("BASE_URL", $config['base_url']);
 
@@ -22,5 +22,9 @@ if (!empty($_POST)) {
     $operation->save();
     header('Location: ' . BASE_URL);
 }
+
+$operationCollection = new OperationCollection();
+
+$todayAmount = $operationCollection->getTodayAmount();
 
 require APP_TEMPLATES_PATH  . 'index.php';
