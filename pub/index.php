@@ -15,6 +15,37 @@ require APP_MODELS_PATH  . 'Operation.php';
 
 define("BASE_URL", $config['base_url']);
 
+$connection = new PDO('mysql:host=' . $config['db']['host'] .
+    ';dbname=' . $config['db']['db'], $config['db']['user'], $config['db']['pass'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+
+class App
+{
+    static protected $_config;
+
+    /**
+     * @param mixed $config
+     */
+    public static function setConfig($config)
+    {
+        self::$_config = $config;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getConfig()
+    {
+        return self::$_config;
+    }
+    static public function getConnection()
+    {
+        return $connection = new PDO('mysql:host=' . self::getConfig()['db']['host'] .
+            ';dbname=' . self::getConfig()['db']['db'], self::getConfig()['db']['user'], self::getCOnfig()['db']['pass'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+    }
+}
+
+App::setConfig($config);
+
 if (!empty($_POST)) {
     $operation = new Operation();
     $operation->setName($_POST['name']);

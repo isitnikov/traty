@@ -1,2 +1,6 @@
 <?php
 $config['base_url'] = '/';
+$config['db']['host'] = 'localhost';
+$config['db']['db'] = 'money';
+$config['db']['user'] = 'root';
+$config['db']['pass'] = 'root';

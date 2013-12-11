@@ -10,7 +10,7 @@ class OperationDb
     public function getConnection()
     {
         if (!$this->_connection) {
-            $this->_connection = new PDO('mysql:host=localhost;dbname=money', 'root', 'root', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+            $this->_connection = App::getConnection();
         }
 
         return $this->_connection;
