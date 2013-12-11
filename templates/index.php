@@ -64,7 +64,7 @@
 
                             <div class="col-md-4">
                                 <input id="field-amount" name="amount" type="text" placeholder="99.70"
-                                       class="form-control input-lg">
+                                       class="form-control input-lg" pattern="\d*">
                             </div>
                         </div>
                     </div>
