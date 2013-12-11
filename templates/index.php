@@ -46,7 +46,7 @@
                         <select id="category" name="name" class="form-control input-lg">
                             <option value="Транспорт">Транспорт</option>
                             <option value="Продукты">Продукты</option>
-                            <option value="Одежда">Одежда</option>
+                            <option value="Одежда, косметика">Одежда, косметика</option>
                             <option value="Отдых">Отдых</option>
                             <option value="Медицина">Медицина</option>
                             <option value="Авто">Авто</option>
@@ -56,6 +56,9 @@
                             <option value="Работа">Работа</option>
                             <option value="Спорт">Спорт</option>
                             <option value="Разное">Разное</option>
+                            <option value="Домашние животные">Домашние животные</option>
+                            <option value="Долги, кредиты">Долги, кредиты</option>
+                            <option value="Накопления">Накопления</option>
                         </select>
                     </div>
                 </div>
