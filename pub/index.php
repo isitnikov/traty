@@ -15,9 +15,6 @@ require APP_MODELS_PATH  . 'Operation.php';
 
 define("BASE_URL", $config['base_url']);
 
-$connection = new PDO('mysql:host=' . $config['db']['host'] .
-    ';dbname=' . $config['db']['db'], $config['db']['user'], $config['db']['pass'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-
 class App
 {
     static protected $_config;
