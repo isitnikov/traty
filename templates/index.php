@@ -63,7 +63,7 @@
                             <label class="col-md-4 control-label" for="textinput">Сумма</label>
 
                             <div class="col-md-4">
-                                <input id="field-amount" name="amount" type="number" placeholder="99.70"
+                                <input id="field-amount" name="amount" type="text" placeholder="99.70" pattern="[0-9]+[.,]?[0-9]*"
                                        class="form-control input-lg">
                             </div>
                         </div>
