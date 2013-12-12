@@ -23,10 +23,7 @@ class OperationCollection extends OperationDb
        foreach ($rows as $row) {
            $id = $row['id'];
            $operation = new Operation();
-           $operation->setId($row['id']);
-           $operation->setName($row['name']);
-           $operation->setAmount($row['amount']);
-           $operation->setDate($row['date']);
+           $this->map($operation, $row);
            $operations[$id] = $operation;
        }
 
