@@ -5,6 +5,24 @@ require APP_MODELS_PATH . 'OperationCollection.php';
 
 class Operation
 {
+
+    protected $_id;
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->_id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->_id;
+    }
     protected $_name;
     protected $_amount;
     protected $_date;
@@ -65,5 +83,17 @@ class Operation
     {
         $db = new OperationDb();
         $db->save($this);
+    }
+
+    public function load($id)
+    {
+        $db = new OperationDb();
+        $db->load($this, $id);
+    }
+
+    public function delete()
+    {
+        $db = new OperationDb();
+        $db->delete($this);
     }
 }

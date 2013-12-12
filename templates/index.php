@@ -31,7 +31,7 @@
 </head>
 <body>
 <div class="container">
-        <form class="form-horizontal" method="post">
+        <form class="form-horizontal" method="post" action="<?php echo BASE_URL . '?controller=operation&action=save'?>">
             <fieldset>
 
                 <!-- Form Name -->
@@ -113,7 +113,7 @@
             <tr>
                 <td><?php echo $operation->getName() ?></td>
                 <td><?php echo $operation->getAmount() ?> <span class="currency"></span> грн.</td>
-                <td><a href=""><span class="glyphicon glyphicon-remove-circle"></span> Удалить</a></td>
+                <td><a href="<?php echo BASE_URL . '?controller=operation&action=delete&operation_id=' . $operation->getId() ?>">Удалить</a></td>
             </tr>
             <?php endforeach ?>
         </table>

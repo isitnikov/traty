@@ -31,4 +31,31 @@ class OperationDb
         }
 
     }
+
+    public function load($operation, $id)
+    {
+        $query = "SELECT * FROM operation WHERE id = ${id}";
+        $row = $this->getConnection()->query($query)->fetch();
+
+        $this->map($operation, $row);
+
+        return $operation;
+    }
+
+    public function delete($operation)
+    {
+        $id = $operation->getId();
+        $query = "DELETE FROM operation WHERE id = ${id}";
+        return $this->getConnection()->query($query);
+    }
+
+    public function map($object, $data)
+    {
+        foreach ($data as $key => $value) {
+            $setter = 'set' . ucfirst($key);
+            $object->$setter($value);
+        }
+
+        return $object;
+    }
 }
