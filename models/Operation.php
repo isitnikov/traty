@@ -7,6 +7,29 @@ class Operation
 {
     protected $_name;
     protected $_amount;
+    protected $_date;
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $dateArray = explode('/', $date);
+        $day = $dateArray[0];
+        $month = $dateArray[1];
+        $year = $dateArray[2];
+
+        $date = sprintf("%s-%s-%s 00:00:00", $year, $month, $day);
+        $this->_date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->_date;
+    }
 
     /**
      * @param mixed $amount

@@ -26,9 +26,11 @@ CREATE TABLE `operation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `name` (`name`,`amount`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `name` (`name`,`amount`),
+  KEY `timestamp` (`date`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -40,4 +42,4 @@ CREATE TABLE `operation` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-10 17:14:10
+-- Dump completed on 2013-12-12 15:51:03

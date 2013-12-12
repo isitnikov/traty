@@ -47,6 +47,7 @@ if (!empty($_POST)) {
     $operation = new Operation();
     $operation->setName($_POST['name']);
     $operation->setAmount($_POST['amount']);
+    $operation->setDate($_POST['date']);
     $operation->save();
     header('Location: ' . BASE_URL);
 }

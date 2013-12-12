@@ -20,10 +20,11 @@ class OperationDb
     {
         $data = array(
             $operation->getName(),
-            $operation->getAmount()
+            $operation->getAmount(),
+            $operation->getDate()
         );
         try {
-            $statement = $this->getConnection()->prepare("INSERT INTO operation VALUES(NULL, ?,?)");
+            $statement = $this->getConnection()->prepare("INSERT INTO operation VALUES(NULL, ?,?,?)");
             $statement->execute($data);
         } catch (Exception $e) {
             print $e->getMessage();
