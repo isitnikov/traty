@@ -14,12 +14,6 @@ class Operation
      */
     public function setDate($date)
     {
-        $dateArray = explode('/', $date);
-        $day = trim($dateArray[0]);
-        $month = trim($dateArray[1]);
-        $year = trim($dateArray[2]);
-
-        $date = sprintf("%s-%s-%s 00:00:00", $year, $month, $day);
         $this->_date = $date;
     }
 

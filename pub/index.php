@@ -47,7 +47,15 @@ if (!empty($_POST)) {
     $operation = new Operation();
     $operation->setName($_POST['name']);
     $operation->setAmount($_POST['amount']);
-    $operation->setDate($_POST['date']);
+
+    $date = $_POST['date'];
+    $dateArray = explode('/', $date);
+    $day = trim($dateArray[0]);
+    $month = trim($dateArray[1]);
+    $year = trim($dateArray[2]);
+    $date = sprintf("%s-%s-%s 00:00:00", $year, $month, $day);
+    $operation->setDate($date);
+
     $operation->save();
     header('Location: ' . BASE_URL);
 }
@@ -55,5 +63,6 @@ if (!empty($_POST)) {
 $operationCollection = new OperationCollection();
 
 $todayAmount = $operationCollection->getTodayAmount();
+$todayOperations = $operationCollection->getTodayOperations();
 
 require APP_TEMPLATES_PATH  . 'index.php';

@@ -109,12 +109,13 @@
                 <th>Сумма</th>
                 <th>Действия</th>
             </tr>
-
+            <?php foreach ($todayOperations as $operation): ?>
             <tr>
-                <td>Продукты</td>
-                <td>10 <span class="currency"></span> грн.</td>
+                <td><?php echo $operation->getName() ?></td>
+                <td><?php echo $operation->getAmount() ?> <span class="currency"></span> грн.</td>
                 <td><a href=""><span class="glyphicon glyphicon-remove-circle"></span> Удалить</a></td>
             </tr>
+            <?php endforeach ?>
         </table>
 </div>
 </body>
