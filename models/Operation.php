@@ -15,9 +15,9 @@ class Operation
     public function setDate($date)
     {
         $dateArray = explode('/', $date);
-        $day = $dateArray[0];
-        $month = $dateArray[1];
-        $year = $dateArray[2];
+        $day = trim($dateArray[0]);
+        $month = trim($dateArray[1]);
+        $year = trim($dateArray[2]);
 
         $date = sprintf("%s-%s-%s 00:00:00", $year, $month, $day);
         $this->_date = $date;
@@ -36,6 +36,7 @@ class Operation
      */
     public function setAmount($amount)
     {
+        $amount = trim(str_replace(',', '.', $amount));
         $this->_amount = $amount;
     }
 
