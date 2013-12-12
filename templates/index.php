@@ -118,7 +118,7 @@
             <tr>
                 <td>Продукты</td>
                 <td>10</td>
-                <td><a href=""><span class="glyphicon glyphicon-remove-circle"></span> Удалить</a></td>
+                <td><a href="" class="btn btn-default"><span class="glyphicon glyphicon-remove-circle"></span> Удалить</a></td>
             </tr>
         </table>
 </div>
