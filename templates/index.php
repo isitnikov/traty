@@ -113,7 +113,7 @@
             <tr>
                 <td><?php echo $operation->getName() ?></td>
                 <td><?php echo $operation->getAmount() ?> <span class="currency"></span> грн.</td>
-                <td><a href="<?php echo BASE_URL . '?controller=operation&action=delete&operation_id=' . $operation->getId() ?>">Удалить</a></td>
+                <td><a href="<?php echo BASE_URL . '?controller=operation&action=delete&operation_id=' . $operation->getId() ?>" onclick="return confirm('Удалить?')">Удалить</a></td>
             </tr>
             <?php endforeach ?>
         </table>
