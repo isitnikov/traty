@@ -31,7 +31,6 @@
 </head>
 <body>
 <div class="container">
-    <div class="col-sm col-md col-lg">
         <form class="form-horizontal" method="post">
             <fieldset>
 
@@ -102,7 +101,26 @@
 
             </fieldset>
         </form>
-    </div>
+
+        <table class="table">
+            <caption>Операции за сегодня</caption>
+            <tr>
+                <th>Категория</th>
+                <th>Сумма</th>
+                <th></th>
+            </tr>
+
+            <tr>
+                <td>Продукты</td>
+                <td>10</td>
+                <td><a href=""><span class="glyphicon glyphicon-remove-circle"></span> Удалить</a></td>
+            </tr>
+            <tr>
+                <td>Продукты</td>
+                <td>10</td>
+                <td><a href=""><span class="glyphicon glyphicon-remove-circle"></span> Удалить</a></td>
+            </tr>
+        </table>
 </div>
 </body>
 </html>
