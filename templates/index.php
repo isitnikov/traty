@@ -103,22 +103,17 @@
         </form>
 
         <table class="table">
-            <caption>Операции за сегодня</caption>
+            <caption class="text-left">Операции за сегодня</caption>
             <tr>
                 <th>Категория</th>
                 <th>Сумма</th>
-                <th></th>
+                <th>Действия</th>
             </tr>
 
             <tr>
                 <td>Продукты</td>
-                <td>10</td>
+                <td>10 <span class="currency"></span> грн.</td>
                 <td><a href=""><span class="glyphicon glyphicon-remove-circle"></span> Удалить</a></td>
-            </tr>
-            <tr>
-                <td>Продукты</td>
-                <td>10</td>
-                <td><a href="" class="btn btn-default"><span class="glyphicon glyphicon-remove-circle"></span> Удалить</a></td>
             </tr>
         </table>
 </div>
