@@ -1,5 +1,12 @@
 <?php
 
+spl_autoload_register('autoloader');
+function autoloader($class)
+{
+    require $class . '.php';
+}
+
+
 class App
 {
     static protected $_config;

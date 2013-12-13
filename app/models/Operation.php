@@ -1,8 +1,5 @@
 <?php
 
-require APP_MODELS_PATH . 'OperationDb.php';
-require APP_MODELS_PATH . 'OperationCollection.php';
-
 class Operation
 {
 

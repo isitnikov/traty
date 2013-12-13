@@ -6,13 +6,14 @@ define("APP_MODELS_PATH", APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'models' . DIREC
 define("APP_CONFIGS_PATH", APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR);
 define("APP_CONTROLLERS_PATH", APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR);
 
+set_include_path(get_include_path() . PATH_SEPARATOR . APP_MODELS_PATH);
+
 if (!file_exists(APP_CONFIGS_PATH . 'config.php')) {
     echo "Create config file";
     die();
 }
 
 require APP_CONFIGS_PATH . 'config.php';
-require APP_MODELS_PATH  . 'Operation.php';
 
 define("BASE_URL", $config['base_url']);
 
