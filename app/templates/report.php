@@ -37,12 +37,15 @@ require 'header.php';
                         $amount = $row['amount'];
                         $percent = round($amount * 100 / $fullSum);
                     ?>
+                    <table style="width: 100%; ">
+                        <tr><td style="width: 80%">
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percent ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent?>%; background-color: #FFD273; color: #333">
                             <span class=""><?php echo $row['name'] ?></span>
                         </div>
-                        <div class="text-right" style="min-width: 100px"><?php echo $row['amount'] ?> <?php if ($percent < 80) echo GeneralHelper::getCurrencySign() ?></div>
-                    </div>
+                    </div></td>
+                            <td style="vertical-align: top; padding-left:10px">
+                    <?php echo $row['amount'] . ' ' . GeneralHelper::getCurrencySign() ?></td>
                     <?php endforeach ?>
 
                 </div>
