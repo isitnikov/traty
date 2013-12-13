@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">За сегодня: <?php echo GeneralHelper::getTodayAmount() ?> грн</a></a>
+        <a class="navbar-brand" href="<?php echo BASE_URL ?>">За сегодня: <?php echo GeneralHelper::getTodayAmount() ?> грн</a></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
