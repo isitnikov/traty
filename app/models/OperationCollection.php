@@ -33,7 +33,7 @@ class OperationCollection extends OperationDb
     public function getWeekOperationsGrouped($weekNum)
     {
         $weekNum = (int) $weekNum;
-        $query = "SELECT name, SUM(amount) AS amount FROM operation WHERE WEEK(date) = ${weekNum} AND MONTH(CURDATE()) = MONTH(date) GROUP BY name ORDER BY amount DESC";
+        $query = "SELECT name, SUM(amount) AS amount FROM operation WHERE WEEK(date) = ${weekNum} GROUP BY name ORDER BY amount DESC";
         $rows = $this->getConnection()->query($query)->fetchAll();
 
         return $rows;

@@ -6,8 +6,6 @@ require 'header.php';
 
         <?php
         $line = 0;
-        $shouldPrint = false;
-        $prevMonth = 0;
         for ($i = 53; $i >= 1; $i--):
             ?>
 
@@ -20,11 +18,6 @@ require 'header.php';
             foreach ($rows as $row) {
                 $fullWeekSum += $row['amount'];
             }
-            if ($prevMonth != GeneralHelper::getMonthByWeek($i)) {
-                $prevMonth = GeneralHelper::getMonthByWeek($i);
-                $shouldPrint = true;
-            }
-            $fullMonthSum[GeneralHelper::getMonthByWeek($i)] = $fullWeekSum;
             ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -68,9 +61,6 @@ require 'header.php';
                     </div>
                 </div>
             </div>
-            <?php if ($shouldPrint): ?>
-            <div>Итого: <?php print array_sum($fullMonthSum) ?></div>
-            <?php $shouldPrint = false; endif ?>
         <?php endfor ?>
     </div>
 </div>
