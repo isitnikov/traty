@@ -38,19 +38,22 @@ require 'header.php';
                 <div class="col-xs-6">
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Сумма</label>
+                        <label class="col-md-4 control-label sr-only" for="textinput">Сумма</label>
 
                         <div class="col-md-4">
+                            <div class="input-group">
                             <input id="field-amount" name="amount" type="text" placeholder="00.00"
                                    pattern="[0-9]+[.,]?[0-9]*"
                                    class="form-control input-lg">
+                            <span class="input-group-addon">грн.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Дата</label>
+                        <label class="col-md-4 control-label sr-only" for="textinput">Дата</label>
 
                         <div class="col-md-4">
                             <?php $dateValue = date('d/m/Y') ?>
