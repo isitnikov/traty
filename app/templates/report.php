@@ -33,7 +33,7 @@
 <div class="container">
     <div class="panel-group" id="accordion">
 
-        <?php for ($i = 1; $i<= 53; $i++): ?>
+        <?php for ($i = 53; $i >= 1; $i--): ?>
 
         <?php
         $rows = $db->getWeekOperationsGrouped($i);
@@ -62,6 +62,7 @@
                         $amount = $row['amount'];
                         $percent = $amount * 100 / $fullSum;
                     ?>
+                        <span class=""><?php echo $row['name'] ?></span>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percent ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent?>%;">
                             <span class=""><?php echo $row['name'] ?></span>
