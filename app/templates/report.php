@@ -6,6 +6,8 @@ require 'header.php';
 
         <?php
         $line = 0;
+        $shouldPrint = false;
+        $prevMonth = 0;
         for ($i = 53; $i >= 1; $i--):
             ?>
 
@@ -14,10 +16,15 @@ require 'header.php';
             if (empty($rows)) continue;
 
             $line++;
-            $fullSum = 0;
+            $fullWeekSum = 0;
             foreach ($rows as $row) {
-                $fullSum += $row['amount'];
+                $fullWeekSum += $row['amount'];
             }
+            if ($prevMonth != GeneralHelper::getMonthByWeek($i)) {
+                $prevMonth = GeneralHelper::getMonthByWeek($i);
+                $shouldPrint = true;
+            }
+            $fullMonthSum[GeneralHelper::getMonthByWeek($i)] = $fullWeekSum;
             ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -28,7 +35,7 @@ require 'header.php';
                         </a>
 
                         <div
-                            class="pull-right"><?php echo $fullSum ?> <?php echo GeneralHelper::getCurrencySign() ?></div>
+                            class="pull-right"><?php echo $fullWeekSum ?> <?php echo GeneralHelper::getCurrencySign() ?></div>
                     </h4>
                 </div>
                 <div id="collapse<?php echo $i ?>" class="panel-collapse collapse">
@@ -38,7 +45,7 @@ require 'header.php';
                         <?php foreach ($rows as $row): ?>
                             <?php
                             $amount = $row['amount'];
-                            $percent = round($amount * 100 / $fullSum);
+                            $percent = round($amount * 100 / $fullWeekSum);
                             ?>
                             <table style="width: 100%; ">
                                 <tr>
@@ -61,8 +68,10 @@ require 'header.php';
                     </div>
                 </div>
             </div>
+            <?php if ($shouldPrint): ?>
+            <div>Итого: <?php print array_sum($fullMonthSum) ?></div>
+            <?php $shouldPrint = false; endif ?>
         <?php endfor ?>
-
     </div>
 </div>
 </body>
