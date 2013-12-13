@@ -35,17 +35,13 @@ require 'header.php';
                     <?php foreach ($rows as $row): ?>
                     <?php
                         $amount = $row['amount'];
-                        $percent = $amount * 100 / $fullSum;
+                        $percent = round($amount * 100 / $fullSum);
                     ?>
-<!--                    <div class="row">
-                    <div class="col-xs-6"><?php echo $row['name'] ?></div>
-                    <div class="col-xs-6 text-right"><?php echo $row['amount'] ?> грн.</div>
-                    </div>-->
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percent ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent?>%; background-color: #FFD273; color: #333">
                             <span class=""><?php echo $row['name'] ?></span>
                         </div>
-                        <div class="text-right"><?php echo $row['amount'] ?> грн.</div>
+                        <div class="text-right"><?php echo $row['amount'] ?> <?php if ($percent < 80) echo GeneralHelper::getCurrencySign() ?></div>
                     </div>
                     <?php endforeach ?>
 
