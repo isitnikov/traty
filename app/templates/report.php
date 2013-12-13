@@ -33,10 +33,12 @@
 <div class="container">
     <div class="panel-group" id="accordion">
 
-        <?php for ($i = 53; $i >= 1; $i--): ?>
-
         <?php
         $line = 0;
+        for ($i = 53; $i >= 1; $i--):
+        ?>
+
+        <?php
         $rows = $db->getWeekOperationsGrouped($i);
         if (empty($rows)) continue;
 
@@ -50,7 +52,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i ?>">
-                         <?php echo $i ?> неделя <?php if ($line === 1) echo "(текущая)" ?>
+                         <?php echo $i ?> неделя <?php if ($line == 1) echo "(текущая)" ?>
                     </a>
                     <div class="pull-right"><?php echo $fullSum ?> <?php echo GeneralHelper::getCurrencySign() ?></div>
                 </h4>
