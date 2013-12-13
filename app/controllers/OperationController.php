@@ -6,7 +6,6 @@ class OperationController extends AbstractController
     {
         $operationCollection = new OperationCollection();
 
-        $todayAmount = $operationCollection->getTodayAmount();
         $todayOperations = $operationCollection->getTodayOperations();
 
         require APP_TEMPLATES_PATH  . 'index.php';

@@ -6,4 +6,13 @@ class GeneralHelper
     {
         return 'грн.';
     }
+
+    static public function getTodayAmount()
+    {
+        $operationCollection = new OperationCollection();
+
+        $todayAmount = $operationCollection->getTodayAmount();
+
+        return $todayAmount;
+    }
 }
