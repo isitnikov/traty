@@ -16,48 +16,7 @@ require APP_MODELS_PATH  . 'Operation.php';
 
 define("BASE_URL", $config['base_url']);
 
-class App
-{
-    static protected $_config;
-
-    /**
-     * @param mixed $config
-     */
-    public static function setConfig($config)
-    {
-        self::$_config = $config;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getConfig()
-    {
-        return self::$_config;
-    }
-    static public function getConnection()
-    {
-        $connection = new PDO('mysql:host=' . self::getConfig()['db']['host'] .
-            ';dbname=' . self::getConfig()['db']['db'], self::getConfig()['db']['user'], self::getCOnfig()['db']['pass'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-        $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        return $connection;
-    }
-}
-
+require APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'App.php';
 App::setConfig($config);
-$controllerName = isset($_GET['controller'])? $_GET['controller'] : 'operation';
-$controllerName = ucfirst($controllerName) . 'Controller';
-$actionName     = isset($_GET['action'])? $_GET['action'] : 'view';
-$actionName     = $actionName . 'Action';
-
-require APP_CONTROLLERS_PATH . 'OperationController.php';
-$controller = new $controllerName;
-
-if (!method_exists($controller, $actionName)) {
-    $actionName = 'notFoundAction';
-}
-$controller->$actionName();
-
-
-
+App::run();
 
