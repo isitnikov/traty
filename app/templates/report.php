@@ -37,15 +37,15 @@ require 'header.php';
                         $amount = $row['amount'];
                         $percent = $amount * 100 / $fullSum;
                     ?>
-                    <div class="row">
+<!--                    <div class="row">
                     <div class="col-xs-6"><?php echo $row['name'] ?></div>
                     <div class="col-xs-6 text-right"><?php echo $row['amount'] ?> грн.</div>
-                    </div>
+                    </div>-->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percent ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent?>%;">
-                            <span class="sr-only"><?php echo $row['name'] ?></span>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percent ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent?>%; background-color: #FFD273; color: #333">
+                            <span class=""><?php echo $row['name'] ?></span>
                         </div>
-                        <div class="text-right sr-only"><?php echo $row['amount'] ?> грн.</div>
+                        <div class="text-right"><?php echo $row['amount'] ?> грн.</div>
                     </div>
                     <?php endforeach ?>
 
