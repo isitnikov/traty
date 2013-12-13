@@ -1,6 +1,6 @@
 <?php
 
-define("APP_ROOT_PATH", realpath(__DIR__ . DIRECTORY_SEPARATOR . '..'));
+define("APP_ROOT_PATH", realpath(__DIR__ . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR . 'app');
 define("APP_TEMPLATES_PATH", APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR);
 define("APP_MODELS_PATH", APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR);
 define("APP_CONFIGS_PATH", APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR);
@@ -16,7 +16,7 @@ require APP_MODELS_PATH  . 'Operation.php';
 
 define("BASE_URL", $config['base_url']);
 
-require APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'App.php';
+require APP_ROOT_PATH . DIRECTORY_SEPARATOR . 'App.php';
 App::setConfig($config);
 App::run();
 
