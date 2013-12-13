@@ -36,7 +36,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                         49 неделя (9.12.13 - 15.12.13)
+                         49 неделя (текущая)
                     </a>
                     <div class="pull-right">4000 <?php echo GeneralHelper::getCurrencySign() ?></div>
                 </h4>
@@ -62,7 +62,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                        49 неделя (9.12.13 - 15.12.13)
+                        49 неделя
                     </a>
                     <div class="pull-right">4000 <?php echo GeneralHelper::getCurrencySign() ?></div>
                 </h4>
