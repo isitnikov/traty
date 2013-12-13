@@ -1,6 +1,6 @@
 <?php
 
-class OperationController
+class OperationController extends AbstractController
 {
     public function viewAction()
     {
@@ -44,8 +44,4 @@ class OperationController
         header('Location: ' . BASE_URL);
     }
 
-    public function notFoundAction()
-    {
-        header('Location: ' . BASE_URL);
-    }
 }
