@@ -32,58 +32,49 @@
 <body>
 <div class="container">
     <div class="panel-group" id="accordion">
+
+        <?php for ($i = 1; $i<= 53; $i++): ?>
+
+        <?php
+        $rows = $db->getWeekOperationsGrouped($i);
+        if (empty($rows)) continue;
+
+        $fullSum = 0;
+        foreach ($rows as $row) {
+            $fullSum += $row['amount'];
+        }
+        ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                         49 неделя (текущая)
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i ?>">
+                         <?php echo $i ?> неделя (текущая)
                     </a>
-                    <div class="pull-right">4000 <?php echo GeneralHelper::getCurrencySign() ?></div>
+                    <div class="pull-right"><?php echo $fullSum ?> <?php echo GeneralHelper::getCurrencySign() ?></div>
                 </h4>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
+            <div id="collapse<?php echo $i ?>" class="panel-collapse collapse in">
                 <div class="panel-body">
+
+
+                    <?php foreach ($rows as $row): ?>
+                    <?php
+                        $amount = $row['amount'];
+                        $percent = $amount * 100 / $fullSum;
+                    ?>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            <span class="">Продукты</span>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percent ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent?>%;">
+                            <span class=""><?php echo $row['name'] ?></span>
                         </div>
-                        <div class="text-right">550 грн.</div>
+                        <div class="text-right"><?php echo $row['amount'] ?> грн.</div>
                     </div>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            <span class="">Транспорт</span>
-                        </div>
-                        <div class="text-right">550 грн.</div>
-                    </div>
+                    <?php endforeach ?>
+
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                        49 неделя
-                    </a>
-                    <div class="pull-right">4000 <?php echo GeneralHelper::getCurrencySign() ?></div>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            <span class="">Продукты</span>
-                        </div>
-                        <div class="text-right">550 грн.</div>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            <span class="">Транспорт</span>
-                        </div>
-                        <div class="text-right">550 грн.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endfor ?>
+
     </div>
 </div>
 </body>
