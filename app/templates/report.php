@@ -53,7 +53,7 @@
                     <div class="pull-right"><?php echo $fullSum ?> <?php echo GeneralHelper::getCurrencySign() ?></div>
                 </h4>
             </div>
-            <div id="collapse<?php echo $i ?>" class="panel-collapse collapse in">
+            <div id="collapse<?php echo $i ?>" class="panel-collapse collapse">
                 <div class="panel-body">
 
 
