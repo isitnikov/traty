@@ -26,7 +26,7 @@ require 'header.php';
                         <option value="Работа">Работа</option>
                         <option value="Спорт">Спорт</option>
                         <option value="Разное">Разное</option>
-                        <option value="Домашние животные">Домашние животные</option>
+                        <option value="Домашние животные">Питомцы</option>
                         <option value="Долги, кредиты">Долги, кредиты</option>
                         <option value="Накопления">Накопления</option>
                     </select>
