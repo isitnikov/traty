@@ -36,9 +36,11 @@
         <?php for ($i = 53; $i >= 1; $i--): ?>
 
         <?php
+        $line = 0;
         $rows = $db->getWeekOperationsGrouped($i);
         if (empty($rows)) continue;
 
+        $line++;
         $fullSum = 0;
         foreach ($rows as $row) {
             $fullSum += $row['amount'];
@@ -48,7 +50,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i ?>">
-                         <?php echo $i ?> неделя (текущая)
+                         <?php echo $i ?> неделя <?php if ($line == 1) echo "(текущая)" ?>
                     </a>
                     <div class="pull-right"><?php echo $fullSum ?> <?php echo GeneralHelper::getCurrencySign() ?></div>
                 </h4>
