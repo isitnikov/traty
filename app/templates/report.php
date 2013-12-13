@@ -63,7 +63,7 @@
                         $percent = $amount * 100 / $fullSum;
                     ?>
                         <span class=""><?php echo $row['name'] ?></span>
-                    <div class="progress">
+                    <div class="progress" style="color: white; background-color: #bbb">
                         <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percent ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent?>%;">
                             <span class=""><?php echo $row['name'] ?></span>
                         </div>
