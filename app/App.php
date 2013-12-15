@@ -54,4 +54,10 @@ class App
         }
         return $controller->$actionName();
     }
+
+    static public function getBaseUrl()
+    {
+        $config = self::getConfig();
+        return $config['base_url'];
+    }
 }
