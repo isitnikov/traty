@@ -47,7 +47,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
         <ul class="nav navbar-nav">
             <li class="active"><a href="<?php echo BASE_URL ?>">Главная</a></li>
-            <li><a href="<?php echo BASE_URL . '?controller=report&action=view' ?>">Отчеты за неделю</a></li>
+            <li><a href="<?php echo BASE_URL . '?controller=report&action=view' ?>">Отчеты</a></li>
         </ul>
     </div>
     <!-- /.navbar-collapse -->
