@@ -51,6 +51,7 @@ class User
      */
     public function getUsername()
     {
+        $this->_username = strtolower(trim($this->_username));
         return $this->_username;
     }
 

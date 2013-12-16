@@ -50,8 +50,13 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-7">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-lock"></span> Вход на сайт</div>
+                <div class="panel-heading" style="padding-bottom: 0px">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" style="border-bottom: 0px">
+                        <li class="active"><a href="#home" data-toggle="tab">Войти на сайт</a></li>
+                        <li><a href="#profile" data-toggle="tab">Регистрация</a></li>
+                    </ul>
+                </div>
                 <div class="panel-body">
 
                     <?php if (App::getRequest('message')): ?>
@@ -61,7 +66,23 @@
                     </div>
                     <?php endif ?>
 
-                    <form class="form-horizontal" role="form" method="post" action="<?= App::getBaseUrl() . '?controller=user&action=auth'?>">
+
+
+
+
+
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home">AAAAAA</div>
+                        <div class="tab-pane" id="profile">...</div>
+                    </div>
+
+
+
+
+
+                    <form class="form-horizontal" role="form" method="post" action="<?= GeneralHelper::getUrl('user', 'auth') ?>">
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">
                                 Имя пользователя</label>

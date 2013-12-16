@@ -22,7 +22,7 @@ class UserController extends AbstractController
 
         $user = App::getUser();
         $user->setUsername($username);
-        $user->setPassword(GeneralHelper::hash($password));
+        $user->setPassword(GeneralHelper::hash(trim($password)));
         $result = $user->auth($rememberMe);
 
         if ($result === true) {
