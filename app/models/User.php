@@ -84,7 +84,12 @@ class User
     public function loadUserByUsername()
     {
         $db = new UserDb();
-        return $db->loadUserByUsername($this);
+        $db->loadUserByUsername($this);
+
+        if ($this->getId()) {
+            return true;
+        }
+        return false;
     }
 
     protected function _auth($rememberMe)
