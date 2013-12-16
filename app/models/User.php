@@ -5,6 +5,23 @@ class User
     protected $_id;
     protected $_username;
     protected $_password;
+    protected $_hash;
+
+    /**
+     * @param mixed $hash
+     */
+    public function setHash($hash)
+    {
+        $this->_hash = $hash;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHash()
+    {
+        return $this->_hash;
+    }
 
     /**
      * @param mixed $id
@@ -67,6 +84,7 @@ class User
     public function logout()
     {
         unset($_SESSION['auth']);
+        setcookie('auth', '', time()-3600);
     }
 
     public function isUserExist()
@@ -94,8 +112,17 @@ class User
 
     protected function _auth($rememberMe)
     {
+        $hash = GeneralHelper::hash($this->getUsername() . $this->getPassword());
         $_SESSION['auth']['user_id'] = $this->getId();
         $_SESSION['auth']['username'] = $this->getUsername();
+
+        if ($rememberMe) {
+            setcookie('auth', $hash, time() + (3600 * 24 * 14));
+        }
+
+        $this->setHash($hash);
+        $this->save();
+
         return true;
     }
 
@@ -105,6 +132,10 @@ class User
             $this->load($_SESSION['auth']['user_id']);
         }
 
+        if (isset($_COOKIE['auth'])) {
+            $this->load($_COOKIE['auth'], 'hash');
+        }
+
         if ($this->getId()) {
             return true;
         }
@@ -112,10 +143,10 @@ class User
         return false;
     }
 
-    public function load($id)
+    public function load($id, $field = 'id')
     {
         $db = new UserDb();
-        $db->load($this, $id);
+        $db->load($this, $id, $field);
     }
 
     public function save()

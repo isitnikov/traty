@@ -18,6 +18,9 @@ abstract class ResourceAbstract
 
     public function map($object, $data)
     {
+        if (!$data) {
+            return false;
+        }
         foreach ($data as $key => $value) {
             $setter = 'set' . ucfirst($key);
             $object->$setter($value);
@@ -33,20 +36,28 @@ abstract class ResourceAbstract
 
         $fields = '';
         $values = '';
+        $update = '';
         foreach ($data as $key => $value) {
             if (!$values) {
                 $fields .= $key;
                 $values .= ":${key}";
+                $update .= $key . '=:' . $key;
                 continue;
             }
             $values .= ", :${key}";
             $fields .= ", " . $key;
+            $update .= ", " . $key . '=:' . $key;
         }
         try {
-            $statement = $this->getConnection()->prepare("INSERT INTO ${table} (${fields}) VALUES(${values})");
-            $statement->execute($data);
+            if (!$object->getId()) {
+                $statement = $this->getConnection()->prepare("INSERT INTO ${table} (${fields}) VALUES(${values})");
+                $statement->execute($data);
+                $object->load($this->getConnection()->lastInsertId());
+            } else {
+                $statement = $this->getConnection()->prepare("UPDATE ${table} SET ${update} WHERE id = :id");
+                $statement->execute($data);
+            }
 
-            $object->load($this->getConnection()->lastInsertId());
             if (!$object->getId()) {
                 throw new Exception('Cant save object to DB');
             }
@@ -67,9 +78,9 @@ abstract class ResourceAbstract
         return $data;
     }
 
-    public function load($object, $id)
+    public function load($object, $id, $field = 'id')
     {
-        $query = "SELECT * FROM " . $this->_getTable($object) . " WHERE id = ?";
+        $query = "SELECT * FROM " . $this->_getTable($object) . " WHERE ${field} = ?";
         $query = $this->getConnection()->prepare($query);
         $query->execute(array($id));
 
