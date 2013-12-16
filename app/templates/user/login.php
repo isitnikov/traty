@@ -90,14 +90,14 @@
                                     <label for="inputEmail3" class="col-sm-4 control-label">
                                         Пользователь</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="username" required>
+                                        <input type="text" name="username" class="form-control input-lg" id="inputEmail3" placeholder="username" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-4 control-label">
                                         Пароль</label>
                                     <div class="col-sm-8">
-                                        <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="******" required>
+                                        <input type="password" name="password" class="form-control input-lg" id="inputPassword3" placeholder="******" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="form-group last">
                                     <div class="col-sm-offset-4 col-sm-8">
-                                        <button type="submit" class="btn btn-success btn-sm">
+                                        <button type="submit" class="btn btn-success btn-lg btn-block">
                                             Войти</button>
                                     </div>
                                 </div>
@@ -128,19 +128,19 @@
                                     <label for="inputEmail3" class="col-sm-4 control-label">
                                         Пользователь</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="username" required>
+                                        <input type="text" name="username" class="form-control input-lg" id="inputEmail3" placeholder="username" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-4 control-label">
                                         Пароль</label>
                                     <div class="col-sm-8">
-                                        <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="******" required>
+                                        <input type="password" name="password" class="form-control input-lg" id="inputPassword3" placeholder="******" required>
                                     </div>
                                 </div>
                                 <div class="form-group last">
                                     <div class="col-sm-offset-4 col-sm-8">
-                                        <button type="submit" class="btn btn-success btn-sm">
+                                        <button type="submit" class="btn btn-success btn-lg btn-block">
                                             Регистрация</button>
                                     </div>
                                 </div>
