@@ -33,7 +33,7 @@
 <body>
 <style>
     body {
-        background: url(http://khongthe.com/wallpapers/animals/money-tree-87700.jpg) no-repeat center center fixed;
+        background: url(http://farm4.staticflickr.com/3803/11381218425_b27403785d_b.jpg) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -53,26 +53,34 @@
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-lock"></span> Вход на сайт</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form">
+
+                    <?php if (App::getRequest('message')): ?>
+                    <div class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>Ошибка: </strong> <?= urldecode(App::getRequest('message')) ?>
+                    </div>
+                    <?php endif ?>
+
+                    <form class="form-horizontal" role="form" method="post" action="<?= App::getBaseUrl() . '?controller=user&action=auth'?>">
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">
-                                Эл. почта</label>
+                                Имя пользователя</label>
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="example@mail.ru" required>
+                                <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="username" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 control-label">
                                 Пароль</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="******" required>
+                                <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="******" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-9">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox"/>
+                                        <input type="checkbox" name="rememberme"/>
                                         Запомнить меня
                                     </label>
                                 </div>

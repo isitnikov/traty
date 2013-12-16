@@ -10,6 +10,8 @@ function autoloader($class)
 class App
 {
     static protected $_config;
+    static protected $_request;
+    static protected $_user;
 
     /**
      * @param mixed $config
@@ -36,6 +38,7 @@ class App
 
     static public function run()
     {
+        session_start();
         $controllerName = isset($_GET['controller'])? $_GET['controller'] : 'operation';
         $controllerName = ucfirst($controllerName) . 'Controller';
         $actionName     = isset($_GET['action'])? $_GET['action'] : 'view';
@@ -60,5 +63,26 @@ class App
     {
         $config = self::getConfig();
         return $config['base_url'];
+    }
+
+    static public function getRequest($key = false)
+    {
+        $request = array_merge($_GET, $_POST);
+        if ($key === false) {
+            return $request;
+        }
+        if (isset($request[$key])) {
+            return $request[$key];
+        }
+        return false;
+    }
+
+    static public function getUser()
+    {
+        if (!self::$_user) {
+            self::$_user = new User();
+        }
+
+        return self::$_user;
     }
 }

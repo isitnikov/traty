@@ -82,4 +82,28 @@ class GeneralHelper
 
         return $month[$n - 1];
     }
+
+    static public function getUrl($controller, $action, $params = array())
+    {
+        $url = App::getBaseUrl() . '?controller=' . $controller . '&action=' . $action;
+        foreach ($params as $key => $value) {
+            $url .= '&' . $key . '=' . urlencode($value);
+        }
+
+        return $url;
+    }
+
+    static public function redirect($path = false)
+    {
+        if (!$path) {
+            $path = App::getBaseUrl();
+        }
+        header('Location: ' . $path);
+        exit;
+    }
+
+    static public function hash($str)
+    {
+        return sha1($str . "BC3aN33WQ4");
+    }
 }
