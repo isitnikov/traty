@@ -4,9 +4,9 @@ require 'header.php';
 <div class="container">
 
     <ul class="nav nav-pills">
-        <li class="<?= $navDateClass ?>"><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=date' ?>">Дни</a></li>
-        <li class="<?= $navWeekClass ?>"><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=week' ?>">Недели</a></li>
-        <li class="<?= $navMonthClass ?>"><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=month' ?>">Месяца</a></li>
+        <li><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=date' ?>">Дни</a></li>
+        <li><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=week' ?>">Недели</a></li>
+        <li><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=month' ?>">Месяца</a></li>
     </ul>
 
     <table class="table">
