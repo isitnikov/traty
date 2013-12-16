@@ -27,7 +27,7 @@ require 'header.php';
         <?php endforeach ?>
         <tfoot>
         <tr>
-            <td class="text-right" colspan="2">Итого: <?= array_sum($amountAll) ?> <?= GeneralHelper::getCurrencySign() ?></td>
+            <td class="text-right" colspan="2"><strong>Итого: <?= array_sum($amountAll) ?> <?= GeneralHelper::getCurrencySign() ?></strong></td>
         </tr>
         </tfoot>
     </table>

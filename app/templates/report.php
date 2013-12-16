@@ -18,7 +18,7 @@ $operations = $db->getAmountsGroupedBy($reportType);
             <table class="table">
                 <caption class="text-left">Отчет по дням</caption>
                 <tr>
-                    <th>День</th>
+                    <th>Дата</th>
                     <th class="text-right">Сумма</th>
                 </tr>
                 <?php foreach ($operations as $operation): ?>

@@ -48,6 +48,7 @@ class App
 
         require $controllerPath;
         $controller = new $controllerName;
+        $controller->init();
 
         if (!method_exists($controller, $actionName)) {
             $actionName = 'notFoundAction';
