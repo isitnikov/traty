@@ -14,14 +14,14 @@ class UserDb extends ResourceAbstract
         return $user;
     }
 
-    public function load($user, $id)
+    public function loadUserByUsername($user)
     {
-        $query = "SELECT * FROM users WHERE id = ?";
+        $query = "SELECT * FROM users WHERE username = ? LIMIT 1";
         $query = $this->getConnection()->prepare($query);
-        $query->execute(array($id));
-        $row = $query->fetch();
+        $query->execute(array($user->getUsername()));
+        $rows = $query->fetch();
 
-        $this->map($user, $row);
+        $this->map($user, $rows);
 
         return $user;
     }

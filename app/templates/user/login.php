@@ -53,8 +53,16 @@
                 <div class="panel-heading" style="padding-bottom: 0px">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" style="border-bottom: 0px">
-                        <li class="active"><a href="#home" data-toggle="tab">Войти на сайт</a></li>
-                        <li><a href="#profile" data-toggle="tab">Регистрация</a></li>
+                        <?php
+                            $loginTab = 'active';
+                            $regTab = '';
+                            if (App::getRequest('registration-tab')) {
+                                $loginTab = '';
+                                $regTab = 'active';
+                            }
+                        ?>
+                        <li class="<?= $loginTab ?>"><a href="#login" data-toggle="tab">Войти на сайт</a></li>
+                        <li class="<?= $regTab ?>"><a href="#registration" data-toggle="tab">Регистрация</a></li>
                     </ul>
                 </div>
                 <div class="panel-body">
@@ -74,7 +82,7 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane active" id="home">
+                        <div class="tab-pane active" id="login">
 
 
                             <form class="form-horizontal" role="form" method="post" action="<?= GeneralHelper::getUrl('user', 'auth') ?>">
@@ -93,7 +101,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="col-sm-offset-4 col-sm-8">
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="rememberme"/>
@@ -103,7 +111,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group last">
-                                    <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="col-sm-offset-4 col-sm-8">
                                         <button type="submit" class="btn btn-success btn-sm">
                                             Войти</button>
                                     </div>
@@ -112,7 +120,7 @@
 
 
                         </div>
-                        <div class="tab-pane" id="profile">
+                        <div class="tab-pane" id="registration">
 
 
                             <form class="form-horizontal" role="form" method="post" action="<?= GeneralHelper::getUrl('user', 'registration') ?>">
@@ -130,18 +138,8 @@
                                         <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="******" required>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-3 col-sm-9">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="rememberme"/>
-                                                Запомнить меня
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-group last">
-                                    <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="col-sm-offset-4 col-sm-8">
                                         <button type="submit" class="btn btn-success btn-sm">
                                             Регистрация</button>
                                     </div>

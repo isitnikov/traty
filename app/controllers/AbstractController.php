@@ -4,7 +4,7 @@ abstract class AbstractController
 {
     public function init()
     {
-        if (App::getRequest('controller') != 'user' && App::getRequest('action') != 'login' && !$this->_isLogedIn()) {
+        if (App::getRequest('controller') != 'user' && !in_array(App::getRequest('action'), array('login', 'registration')) && !$this->_isLogedIn()) {
             GeneralHelper::redirect(GeneralHelper::getUrl('user', 'login'));
         }
         return $this;

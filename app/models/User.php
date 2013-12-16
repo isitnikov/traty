@@ -57,7 +57,7 @@ class User
 
     public function auth($rememberMe = false)
     {
-        if ($this->_isUserExist()) {
+        if ($this->isUserExist()) {
             return $this->_auth($rememberMe);
         }
 
@@ -69,7 +69,7 @@ class User
         unset($_SESSION['auth']);
     }
 
-    protected function _isUserExist()
+    public function isUserExist()
     {
         $db = new UserDb();
         $db->isUserExist($this);
@@ -79,6 +79,12 @@ class User
         } else {
             return false;
         }
+    }
+
+    public function loadUserByUsername()
+    {
+        $db = new UserDb();
+        return $db->loadUserByUsername($this);
     }
 
     protected function _auth($rememberMe)
@@ -105,5 +111,11 @@ class User
     {
         $db = new UserDb();
         $db->load($this, $id);
+    }
+
+    public function save()
+    {
+        $db = new UserDb();
+        $db->save($this);
     }
 }
