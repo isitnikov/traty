@@ -48,7 +48,8 @@
 </style>
 <div class="container">
     <div class="row">
-        <div class="col-md-5 col-md-offset-7">
+        <div class="col-md-7"><h1 style="color: white; font-weight: bold; font-size: 40px">SPEND.SU</h1></div>
+        <div class="col-md-5">
             <div class="panel panel-default">
                 <div class="panel-heading" style="padding-bottom: 0px">
                     <!-- Nav tabs -->
