@@ -104,7 +104,7 @@
                                     <div class="col-sm-offset-4 col-sm-8">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="rememberme" value="1"/>
+                                                <input type="checkbox" name="rememberme" value="1" checked/>
                                                 Запомнить меня
                                             </label>
                                         </div>
