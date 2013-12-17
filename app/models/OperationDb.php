@@ -5,7 +5,7 @@ class OperationDb extends ResourceAbstract
     protected $_connection;
 
     /**
-     * @return PDO
+     * @return Zend_Db_Adapter_Abstract
      */
     public function getConnection()
     {

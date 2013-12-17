@@ -3,16 +3,20 @@
 class OperationCollection extends OperationDb
 {
 
-    protected function _addCurrentUser()
+    protected function _prepareSelect($select)
     {
-        return $this->addWhere('user', App::getUser()->getId());
+        $select->where('user = ?', App::getUser()->getId());
+        return $select;
     }
 
     public function getTodayAmount()
     {
-        $query = "SELECT SUM(amount) as today_amount FROM operation WHERE DATE(date) = CURDATE() AND " . $this->_addCurrentUser();
+        $select = $this->getConnection()->select();
+        $select->from('operation', array('amount' => new Zend_Db_Expr('SUM(amount)')));
+        $select->where('DATE(date) = CURDATE()');
+        $this->_prepareSelect($select);
 
-        $todayAmount = $this->getConnection()->query($query)->fetchColumn();
+        $todayAmount = $this->getConnection()->query($select)->fetchColumn();
         if (!$todayAmount) {
             $todayAmount = 0;
         }
@@ -23,9 +27,15 @@ class OperationCollection extends OperationDb
 
     public function getTodayOperations()
     {
+        $select = $this->getConnection()->select();
+        $select->from('operation');
+        $select->where(new Zend_Db_Expr('DATE(date) = CURDATE()'));
+        $select->order('id DESC');
+
+        $this->_prepareSelect($select);
+
         $operations = array();
-        $query = "SELECT * FROM operation WHERE DATE(date) = CURDATE() AND " . $this->_addCurrentUser() . " ORDER BY id DESC";
-        $rows = $this->getConnection()->query($query)->fetchAll();
+        $rows = $this->getConnection()->query($select)->fetchAll();
         foreach ($rows as $row) {
             $id = $row['id'];
             $operation = new Operation();
@@ -38,8 +48,19 @@ class OperationCollection extends OperationDb
 
     public function getAmountsGroupedBy($type = 'date')
     {
-        $query = "SELECT name, SUM(amount) as amount, date, WEEK(date, 3) as week, MONTH(date) as month FROM operation WHERE " . $this->_addCurrentUser() . "GROUP BY " . $type . " ORDER BY date DESC;";
-        $rows = $this->getConnection()->query($query)->fetchAll();
+        $select = $this->getConnection()->select();
+        $select->from('operation', array(
+            'amount' => 'SUM(amount)',
+            'name',
+            'date',
+            'week' => 'WEEK(date, 3)',
+            'month' => 'MONTH(date)'
+        ));
+        $select->group($type);
+        $select->order('date DESC');
+        $this->_prepareSelect($select);
+
+        $rows = $this->getConnection()->query($select)->fetchAll();
 
         return $rows;
     }
@@ -49,12 +70,30 @@ class OperationCollection extends OperationDb
         $where = '';
         $having = '';
         if ($type == 'week' || $type == 'month') {
-            $having = 'HAVING ' . $type . ' = ' . GeneralHelper::getDateValue($date, $type);
+            $having = "${type} = ?";
         } elseif ($type == 'date') {
-            $where = $type . ' = "' . $date . '" AND ';
+            $where = "${type} = ?";
         }
-        $query = "SELECT name, SUM(amount) as amount, date, WEEK(date, 3) as week, MONTH(date) as month FROM operation WHERE " . $where . $this->_addCurrentUser() . " GROUP BY " . $type . ",name " . $having . " ORDER BY amount DESC;";
-        $rows = $this->getConnection()->query($query)->fetchAll();
+
+        $select = $this->getConnection()->select();
+        $select->from('operation', array(
+            'name',
+            'amount' => 'SUM(amount)',
+            'date',
+            'week' => 'WEEK(date, 3)',
+            'month' => 'MONTH(date)'
+        ));
+        if ($where) {
+            $select->where($where, $date);
+        }
+        if ($having) {
+            $select->having($having, GeneralHelper::getDateValue($date, $type));
+        }
+        $select->group(array($type, 'name'));
+        $select->order('amount DESC');
+        $this->_prepareSelect($select);
+
+        $rows = $this->getConnection()->query($select)->fetchAll();
 
         return $rows;
     }
