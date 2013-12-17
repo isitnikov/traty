@@ -6,6 +6,23 @@ class User
     protected $_username;
     protected $_password;
     protected $_hash;
+    protected $_created;
+
+    /**
+     * @param mixed $created
+     */
+    public function setCreated($created)
+    {
+        $this->_created = $created;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->_created;
+    }
 
     /**
      * @param mixed $hash
