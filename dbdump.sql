@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `family` (
   `hash` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `hash` (`hash`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,10 +38,11 @@ CREATE TABLE IF NOT EXISTS `family` (
 CREATE TABLE IF NOT EXISTS `family_users` (
   `family_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
+  `confirmed` tinyint(4) NOT NULL DEFAULT '0',
   UNIQUE KEY `family_id` (`family_id`,`user_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `family_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `family_users_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `family` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `family_users_ibfk_1` FOREIGN KEY (`family_id`) REFERENCES `family` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `family_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -92,4 +93,4 @@ CREATE TABLE IF NOT EXISTS `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-17 17:09:05
+-- Dump completed on 2013-12-17 19:38:26

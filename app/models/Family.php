@@ -37,15 +37,39 @@ class Family
         return $this->_id;
     }
 
-    public function members()
+    public function members($onlyConfirmed = 1)
     {
         $connection = new Family_Db();
-        return $connection->loadMembers($this);
+        return $connection->loadMembers($this, $onlyConfirmed);
     }
 
     public function load($id)
     {
         $db = new Family_Db();
         $db->load($this, $id);
+    }
+
+    public function save()
+    {
+        $db = new Family_Db();
+        $db->save($this);
+    }
+
+    public function assign($user, $confirmed = 0)
+    {
+        $db = new Family_Db();
+        $db->assignUser($this, $user, $confirmed);
+    }
+
+    public function unAssign($user)
+    {
+        $db = new Family_Db();
+        $db->unAssignUser($this, $user);
+    }
+
+    public function checkUnconfirmedInvites($user)
+    {
+        $db = new Family_Db();
+        return $db->checkUnconfirmedInvites($user);
     }
 }

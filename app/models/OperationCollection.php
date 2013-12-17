@@ -13,6 +13,11 @@ class OperationCollection extends OperationDb
             foreach ($members as $member) {
                 $users[] = $member->getId();
             }
+
+            if (empty($users)) {
+                $users = App::getUser()->getId();
+            }
+
             $select->where('user IN (?)', $users);
             return $select;
         }
