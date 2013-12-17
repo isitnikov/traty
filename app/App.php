@@ -1,9 +1,21 @@
 <?php
 
 spl_autoload_register('autoloader');
-function autoloader($class)
+function autoloader($className)
 {
-    require $class . '.php';
+    $className = ltrim($className, '\\');
+    $fileName  = '';
+    $namespace = '';
+    if ($lastNsPos = strrpos($className, '\\')) {
+        $namespace = substr($className, 0, $lastNsPos);
+        $className = substr($className, $lastNsPos + 1);
+        $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+    }
+    $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+    require $fileName;
+
+    //require $className . '.php';
 }
 
 
@@ -12,6 +24,7 @@ class App
     static protected $_config;
     static protected $_request;
     static protected $_user;
+    static protected $_connection;
 
     /**
      * @param mixed $config
@@ -28,12 +41,27 @@ class App
     {
         return self::$_config;
     }
+
+    /**
+     * @return Zend_Db_Adapter_Abstract
+     */
     static public function getConnection()
     {
-        $connection = new PDO('mysql:host=' . self::getConfig()['db']['host'] .
-            ';dbname=' . self::getConfig()['db']['db'], self::getConfig()['db']['user'], self::getCOnfig()['db']['pass'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-        $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        return $connection;
+        if (self::$_connection) {
+            return self::$_connection;
+        }
+        $config = self::getConfig();
+
+        $connection = Zend_Db::factory('Pdo_Mysql' ,array(
+            'host' => $config['db']['host'],
+            'username' => $config['db']['user'],
+            'password' => $config['db']['pass'],
+            'dbname' => $config['db']['db'],
+            'charset' => 'utf8',
+        ));
+        $connection->setFetchMode(Zend_Db::FETCH_ASSOC);
+        self::$_connection = $connection;
+        return self::$_connection;
     }
 
     static public function run()
