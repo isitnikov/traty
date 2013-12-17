@@ -5,7 +5,19 @@ class OperationCollection extends OperationDb
 
     protected function _prepareSelect($select)
     {
-        $select->where('user = ?', App::getUser()->getId());
+        $user = App::getUser();
+        $family = $user->family();
+        if ($family->getId()) {
+            $members = $family->members();
+            $users = array();
+            foreach ($members as $member) {
+                $users[] = $member->getId();
+            }
+            $select->where('user IN (?)', $users);
+            return $select;
+        }
+
+        $select->where('user = ?', $user->getId());
         return $select;
     }
 

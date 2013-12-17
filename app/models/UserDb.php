@@ -25,4 +25,5 @@ class UserDb extends ResourceAbstract
 
         return $user;
     }
+
 }

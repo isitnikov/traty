@@ -171,4 +171,10 @@ class User
         $db = new UserDb();
         $db->save($this);
     }
+
+    public function family()
+    {
+        $db = new Family_Db();
+        return $db->loadFamilyByUser($this);
+    }
 }
