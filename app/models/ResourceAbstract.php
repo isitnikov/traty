@@ -107,4 +107,10 @@ abstract class ResourceAbstract
         $table = strtolower(get_class($object)) . 's';
         return $table;
     }
+
+    public function addWhere($key, $value)
+    {
+        $where = "${key} = " . $this->getConnection()->quote($value);
+        return $where;
+    }
 }

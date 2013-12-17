@@ -20,6 +20,8 @@ class OperationController extends AbstractController
             $operation = new Operation();
             $operation->setName($_POST['name']);
             $operation->setAmount($_POST['amount']);
+            $operation->setUser(App::getUser()->getId());
+
 
             $date = $_POST['date'];
             $dateArray = explode('/', $date);

@@ -1,6 +1,6 @@
 <?php
 
-class OperationDb
+class OperationDb extends ResourceAbstract
 {
     protected $_connection;
 
@@ -16,30 +16,10 @@ class OperationDb
         return $this->_connection;
     }
 
-    public function save($operation)
+    protected function _getTable($object)
     {
-        $data = array(
-            $operation->getName(),
-            $operation->getAmount(),
-            $operation->getDate()
-        );
-        try {
-            $statement = $this->getConnection()->prepare("INSERT INTO operation VALUES(NULL, ?,?,?)");
-            $statement->execute($data);
-        } catch (Exception $e) {
-            print $e->getMessage();
-        }
-
-    }
-
-    public function load($operation, $id)
-    {
-        $query = "SELECT * FROM operation WHERE id = ${id}";
-        $row = $this->getConnection()->query($query)->fetch();
-
-        $this->map($operation, $row);
-
-        return $operation;
+        $table = strtolower(get_class($object));
+        return $table;
     }
 
     public function delete($operation)

@@ -3,7 +3,27 @@
 class Operation
 {
 
+    protected $_name;
+    protected $_amount;
+    protected $_date;
     protected $_id;
+    protected $_user;
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->_user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->_user;
+    }
 
     /**
      * @param mixed $id
@@ -20,9 +40,6 @@ class Operation
     {
         return $this->_id;
     }
-    protected $_name;
-    protected $_amount;
-    protected $_date;
 
     /**
      * @param mixed $date
