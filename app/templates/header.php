@@ -54,6 +54,7 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="<?php echo BASE_URL ?>">Главная</a></li>
             <li><a href="<?php echo BASE_URL . '?controller=report&action=view' ?>">Отчеты</a></li>
+            <li><a href="<?php echo BASE_URL . '?controller=family&action=view' ?>">Пригласить</a></li>
             <li><a href="<?php echo BASE_URL . '?controller=user&action=logout' ?>">Выйти</a></li>
         </ul>
     </div>
