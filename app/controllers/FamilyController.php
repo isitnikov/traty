@@ -38,6 +38,7 @@ class FamilyController extends AbstractController
         $family->assign($fromUser, $confirmed);
         $family->assign($invitedUser, !$confirmed);
 
+        App::addSuccessAlert();
         GeneralHelper::redirect();
     }
 
