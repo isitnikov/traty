@@ -129,9 +129,10 @@ class User
 
     protected function _auth($rememberMe)
     {
-        $hash = GeneralHelper::hash($this->getUsername() . $this->getPassword() . 'saltum');
+        $hash = GeneralHelper::hash($this->getUsername() . $this->getPassword() . 'salt');
         $_SESSION['auth']['user_id'] = $this->getId();
         $_SESSION['auth']['username'] = $this->getUsername();
+        $_SESSION['auth']['hash'] = $$hash;
 
         if ($rememberMe) {
             setcookie('auth', $hash, time() + (3600 * 24 * 14));
@@ -146,12 +147,13 @@ class User
     public function isLogedIn()
     {
         if (isset($_SESSION['auth']['user_id'])) {
-            $this->load($_SESSION['auth']['user_id']);
+            $hash = $_SESSION['auth']['hash'];
         }
 
         if (isset($_COOKIE['auth'])) {
-            $this->load($_COOKIE['auth'], 'hash');
+            $hash = $_COOKIE['auth'];
         }
+        $this->load($hash, 'hash');
 
         if ($this->getId()) {
             return true;
