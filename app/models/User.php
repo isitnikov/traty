@@ -132,7 +132,7 @@ class User
         $hash = GeneralHelper::hash($this->getUsername() . $this->getPassword() . 'salt');
         $_SESSION['auth']['user_id'] = $this->getId();
         $_SESSION['auth']['username'] = $this->getUsername();
-        $_SESSION['auth']['hash'] = $$hash;
+        $_SESSION['auth']['hash'] = $hash;
 
         if ($rememberMe) {
             setcookie('auth', $hash, time() + (3600 * 24 * 14));
@@ -146,7 +146,7 @@ class User
 
     public function isLogedIn()
     {
-        if (isset($_SESSION['auth']['user_id'])) {
+        if (isset($_SESSION['auth']['hash'])) {
             $hash = $_SESSION['auth']['hash'];
         }
 
