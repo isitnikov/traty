@@ -96,7 +96,7 @@ class GeneralHelper
     static public function redirect($path = false)
     {
         if (!$path) {
-            $path = App::getBaseUrl();
+            $path = App::getBaseUrl() . '?controller=' . App::getRequest('controller');
         }
         header('Location: ' . $path);
         exit;

@@ -4,8 +4,6 @@
     <title>Money</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -56,9 +54,21 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="<?php echo BASE_URL ?>">Главная</a></li>
             <li><a href="<?php echo BASE_URL . '?controller=report&action=view' ?>">Отчеты</a></li>
-            <li><a href="<?php echo BASE_URL . '?controller=family&action=view' ?>">Пригласить</a></li>
+            <li><a href="<?php echo BASE_URL . '?controller=family&action=view' ?>">Моя семья</a></li>
             <li><a href="<?php echo BASE_URL . '?controller=user&action=logout' ?>">Выйти</a></li>
         </ul>
     </div>
     <!-- /.navbar-collapse -->
 </header>
+<div class="container">
+    <?php $alerts = App::popAlerts(); ?>
+    <?php foreach ($alerts as $key => $alert): ?>
+    <?php
+        $class = 'alert-success';
+        if ($key == 'error') {
+            $class = 'alert-danger';
+        }
+     ?>
+        <div class="alert <?= $class ?>"><?= $alert ?></div>
+    <?php endforeach ?>
+</div>

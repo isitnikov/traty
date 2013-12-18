@@ -113,4 +113,33 @@ class App
 
         return self::$_user;
     }
+
+    static public function addSuccessAlert($message = '')
+    {
+        if (!$message) {
+            $message = 'Операция выполнена успешно';
+        }
+
+        $_SESSION['alerts']['success'] = $message;
+    }
+
+    static public function addErrorAlert($message = '')
+    {
+        if (!$message) {
+            $message = 'Операция произошла с ошибкой';
+        }
+        $_SESSION['alerts']['error'] = $message;
+    }
+
+    static public function popAlerts()
+    {
+        $alerts = array();
+        if (isset($_SESSION['alerts'])) {
+            $alerts = $_SESSION['alerts'];
+        }
+
+        unset($_SESSION['alerts']);
+
+        return $alerts;
+    }
 }

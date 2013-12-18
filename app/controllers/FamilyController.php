@@ -5,6 +5,11 @@ class FamilyController extends AbstractController
     public function viewAction()
     {
         $user = App::getUser();
+        $userFamily = $user->family();
+        $members = array();
+        if ($userFamily->getId()) {
+            $members = $userFamily->members(1);
+        }
         $family = new Family();
         $hasInvite = $family->checkUnconfirmedInvites($user);
 
@@ -46,18 +51,49 @@ class FamilyController extends AbstractController
             if ($row) {
                 $family->load($row['family_id']);
                 $family->unAssign(App::getUser());
-                echo "Not accepted";
-                return;
+                App::addErrorAlert('Вы успешно отказались от приглашения');
+                GeneralHelper::redirect();
             }
         } else {
             if ($row) {
                 $family->load($row['family_id']);
                 $family->assign(App::getUser(), 1);
-                echo "Accepted";
-                return;
+                App::addSuccessAlert('Вы присоединились к общему аккаунту');
+                GeneralHelper::redirect();
             }
         }
 
-        echo "Invite not found";
+        App::addErrorAlert('Не существует инвайта для этого пользователя');
+        GeneralHelper::redirect();
+    }
+
+    public function removeAction()
+    {
+        $userId = App::getRequest('user_id');
+        $user = new User();
+        $user->load($userId);
+
+        $family = App::getUser()->family();
+        if (!$family->getId()) {
+            App::addErrorAlert();
+            GeneralHelper::redirect();
+        }
+
+        $members = $family->members(0);
+        if (empty($members)) {
+            App::addErrorAlert();
+            GeneralHelper::redirect();
+        }
+
+        $memberIds = array();
+        foreach ($members as $member) {
+            $memberIds[] = $member->getId();
+        }
+        if (in_array($userId, $memberIds)) {
+            $family->unAssign($user);
+            App::addSuccessAlert();
+            GeneralHelper::redirect();
+        }
+
     }
 }
