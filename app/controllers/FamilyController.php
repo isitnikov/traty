@@ -38,7 +38,7 @@ class FamilyController extends AbstractController
         $family->assign($fromUser, $confirmed);
         $family->assign($invitedUser, !$confirmed);
 
-        App::addSuccessAlert();
+        App::addSuccessAlert('Приглашение отправлено пользователю ' . GeneralHelper::escape($username));
         GeneralHelper::redirect();
     }
 

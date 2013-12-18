@@ -106,4 +106,9 @@ class GeneralHelper
     {
         return sha1($str . "BC3aN33WQ4");
     }
+
+    static public function escape($str)
+    {
+        return htmlspecialchars($str);
+    }
 }
