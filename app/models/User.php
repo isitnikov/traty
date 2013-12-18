@@ -129,7 +129,7 @@ class User
 
     protected function _auth($rememberMe)
     {
-        $hash = GeneralHelper::hash($this->getUsername() . $this->getPassword() . 'salt');
+        $hash = GeneralHelper::hash($this->getUsername() . $this->getPassword() . '777');
         $_SESSION['auth']['user_id'] = $this->getId();
         $_SESSION['auth']['username'] = $this->getUsername();
         $_SESSION['auth']['hash'] = $hash;
