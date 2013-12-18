@@ -29,7 +29,7 @@ require APP_TEMPLATES_PATH . 'header.php';
         <h2>Моя семья</h2>
         <div class="row">
             <?php foreach ($members as $member): ?>
-            <div class="col-md-2">
+            <div class="col-xs-6">
                 <h4><?= $member->getUsername() ?></h4>
                 <a href="<?= GeneralHelper::getUrl('family', 'remove', array('user_id' => $member->getId()))?>" class="btn btn-danger" onclick="return confirm('Вы уверены что хотите удалить члена семьи?')">
                     <span class="glyphicon glyphicon-remove"></span> Удалить
