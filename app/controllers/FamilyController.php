@@ -28,11 +28,22 @@ class FamilyController extends AbstractController
         $invitedUser->setUsername($username);
         $invitedUser->loadUserByUsername();
 
+        $family = $invitedUser->family();
+        if ($family->getId()) {
+            $members = $family->members(1);
+            if (in_array($invitedUser->getId(), GeneralHelper::getIdsFromArrayOfObjects($members))) {
+                App::addErrorAlert('Пользователю не может быть отправлено приглашение, он уже состоит в группе');
+                GeneralHelper::redirect();
+            }
+        }
+
         $family = $fromUser->family();
         if (!$family->getId()) {
             $family->setHash(GeneralHelper::hash(time()));
             $family->save();
         }
+
+
 
         $confirmed = 1;
         $family->assign($fromUser, $confirmed);

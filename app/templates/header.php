@@ -52,10 +52,26 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo BASE_URL ?>">Главная</a></li>
-            <li><a href="<?php echo BASE_URL . '?controller=report&action=view' ?>">Отчеты</a></li>
-            <li><a href="<?php echo BASE_URL . '?controller=family&action=view' ?>">Моя семья</a></li>
-            <li><a href="<?php echo BASE_URL . '?controller=user&action=logout' ?>">Выйти</a></li>
+            <?php
+                $links = array(
+                    array('url' => App::getBaseUrl(), 'label' => 'Главная'),
+                    array('url' => GeneralHelper::getUrl('report', 'view'), 'label' => 'Отчеты'),
+                    array('url' => GeneralHelper::getUrl('family', 'view'), 'label' => 'Моя семья'),
+                    array('url' => GeneralHelper::getUrl('user', 'logout'), 'label' => 'Выйти'),
+                );
+            ?>
+
+            <?php foreach ($links as $key => $link): ?>
+                <?php
+                    $active = '';
+                    if ($link['url'] == GeneralHelper::getUrl(App::getRequest('controller'), App::getRequest('action'))
+                    || ($key == 0 && App::getRequest('controller') == false)) {
+                        $active = 'active';
+                    }
+
+                ?>
+                <li class="<?= $active ?>"><a href="<?= $link['url'] ?>"><?= $link['label'] ?></a></li>
+            <?php endforeach ?>
         </ul>
     </div>
     <!-- /.navbar-collapse -->

@@ -111,4 +111,14 @@ class GeneralHelper
     {
         return htmlspecialchars($str);
     }
+
+    static public function getIdsFromArrayOfObjects($arrOfObjects)
+    {
+        $ids = array();
+        foreach ($arrOfObjects as $object) {
+            $ids[] = $object->getId();
+        }
+
+        return $ids;
+    }
 }
