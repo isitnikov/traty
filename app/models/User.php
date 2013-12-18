@@ -146,6 +146,7 @@ class User
 
     public function isLogedIn()
     {
+        $hash = '';
         if (isset($_SESSION['auth']['hash'])) {
             $hash = $_SESSION['auth']['hash'];
         }

@@ -93,7 +93,7 @@ class App
         return $config['base_url'];
     }
 
-    static public function getRequest($key = false)
+    static public function getRequest($key = false, $default = false)
     {
         $request = array_merge($_GET, $_POST);
         if ($key === false) {
@@ -102,7 +102,7 @@ class App
         if (isset($request[$key])) {
             return $request[$key];
         }
-        return false;
+        return $default;
     }
 
     static public function getUser()

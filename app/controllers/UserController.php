@@ -55,4 +55,72 @@ class UserController extends AbstractController
 
         GeneralHelper::redirect(GeneralHelper::getUrl('user', 'registration', array('message' => 'Не удалось зарегистрировать пользователя')));
     }
+
+    public function generatedemozzzAction()
+    {
+        $user = App::getUser();
+        if ($user->getUsername() != strtolower('demo')) {
+            return self::notFoundAction();
+
+        }
+
+        for ($i=1; $i<=12; $i++) {
+            $this->_generateDemoDataMonth($i);
+        }
+        $month = App::getRequest('month', 12);
+
+
+        App::addSuccessAlert();
+        GeneralHelper::redirect();
+    }
+
+    protected function _generateDemoDataMonth($month)
+    {
+
+        $income = App::getRequest('income', 10000);
+        $outcome = App::getRequest('outcome', 7600);
+        $year  = 2013;
+        $maxDay = date('t', strtotime("01-${month}-${year}"));
+
+        $categories = array(
+            "Транспорт",
+            "Продукты",
+            "Одежда, косметика",
+            "Отдых",
+            "Медицина",
+            "Авто",
+            "Жилье",
+            "Еда вне дома",
+            "Обучение",
+            "Работа",
+            "Спорт",
+            "Разное",
+            "Домашние животные",
+            "Долги, кредиты",
+            "Накопления",
+        );
+
+        for ($i = 1; $i<=$maxDay; $i++) {
+            for ($j=0; $j<rand(0, 8); $j++) {
+                if ($income <= 0) {
+                    //continue;
+                }
+                $amount = rand(0,300);
+                $income = $income - $amount;
+                if ($amount <= 0 ) {
+                    //continue;
+                }
+                $operation = new Operation();
+                $operation->setName($categories[rand(0, count($categories) -1 )]);
+                $operation->setAmount($amount);
+                $operation->setUser(App::getUser()->getId());
+
+
+                $date = sprintf("%s-%s-%s 00:00:00", $year, $month, $i);
+                $operation->setDate($date);
+
+                $operation->save();
+            }
+        }
+    }
 }
