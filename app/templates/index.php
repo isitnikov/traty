@@ -84,7 +84,6 @@ require 'header.php';
 
                             <?php echo $operation->getName() ?></td>
                         <td class="text-right"><?php echo $operation->getAmount() ?> <span class="currency"></span> грн.</td>
-                        <td>
                     </tr>
                 <?php endforeach ?>
             </table>
