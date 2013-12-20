@@ -18,7 +18,7 @@ require 'header.php';
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="control-label" for="category">Категория</label>
+                        <label class="control-label sr-only" for="category">Категория</label>
 
                         <select id="category" name="name" class="form-control input-lg">
                             <option value="Транспорт">Транспорт</option>
@@ -45,9 +45,9 @@ require 'header.php';
                     <div class="col-xs-6">
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="control-label" for="textinput">Сумма</label>
+                            <label class="control-label sr-only" for="textinput">Сумма</label>
 
-                            <input id="field-amount" name="amount" type="text" placeholder="00.00"
+                            <input id="field-amount" name="amount" type="text" placeholder="Сумма"
                                    pattern="[0-9]+[.,]?[0-9]*"
                                    class="form-control input-lg">
                         </div>
@@ -55,7 +55,7 @@ require 'header.php';
                     <div class="col-xs-6">
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="control-label" for="textinput">Дата</label>
+                            <label class="control-label sr-only" for="textinput">Дата</label>
 
                             <?php $dateValue = date('d/m/Y') ?>
                             <input id="field-date" name="date" type="text"
