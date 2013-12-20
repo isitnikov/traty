@@ -4,7 +4,12 @@ require 'header.php';
 <div class="container">
     <div class="row">
         <div class="col-md-6">
+
+
+
+
             <form role="form" method="post"
+
                   action="<?php echo BASE_URL . '?controller=operation&action=save' ?>">
                 <fieldset>
 
@@ -31,6 +36,8 @@ require 'header.php';
                             <option value="Домашние животные">Питомцы</option>
                             <option value="Долги, кредиты">Долги, кредиты</option>
                             <option value="Накопления">Накопления</option>
+                            <option value="Накопления">Связь</option>
+                            <option value="Накопления">Привычки</option>
                         </select>
                     </div>
 
