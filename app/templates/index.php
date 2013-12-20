@@ -35,7 +35,7 @@ require 'header.php';
                     </div>
 
                     <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-xs-6">
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="control-label" for="textinput">Сумма</label>
@@ -45,7 +45,7 @@ require 'header.php';
                                    class="form-control input-lg">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-xs-6">
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="control-label" for="textinput">Дата</label>
