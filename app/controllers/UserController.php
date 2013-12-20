@@ -102,6 +102,9 @@ class UserController extends AbstractController
 
         for ($i = 1; $i<=$maxDay; $i++) {
             for ($j=0; $j<rand(0, 8); $j++) {
+                if ($i > date('j') && $month == date('n')) {
+                    break;
+                }
                 if ($income <= 0) {
                     //continue;
                 }
