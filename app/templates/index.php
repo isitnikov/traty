@@ -74,16 +74,17 @@ require 'header.php';
                 <caption class="text-left">Операции за сегодня</caption>
                 <tr>
                     <th>Категория</th>
-                    <th>Сумма</th>
-                    <th>Действия</th>
+                    <th class="text-right">Сумма</th>
                 </tr>
                 <?php foreach ($todayOperations as $operation): ?>
                     <tr>
-                        <td><?php echo $operation->getName() ?></td>
-                        <td><?php echo $operation->getAmount() ?> <span class="currency"></span> грн.</td>
                         <td>
                             <a href="<?php echo BASE_URL . '?controller=operation&action=delete&operation_id=' . $operation->getId() ?>"
-                               onclick="return confirm('Удалить операцию?')">Удалить</a></td>
+                               onclick="return confirm('Удалить операцию?')" class="glyphicon glyphicon-trash"></a>
+
+                            <?php echo $operation->getName() ?></td>
+                        <td class="text-right"><?php echo $operation->getAmount() ?> <span class="currency"></span> грн.</td>
+                        <td>
                     </tr>
                 <?php endforeach ?>
             </table>
