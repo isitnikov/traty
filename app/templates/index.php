@@ -36,8 +36,8 @@ require 'header.php';
                             <option value="Домашние животные">Питомцы</option>
                             <option value="Долги, кредиты">Долги, кредиты</option>
                             <option value="Накопления">Накопления</option>
-                            <option value="Накопления">Связь</option>
-                            <option value="Накопления">Привычки</option>
+                            <option value="Связь">Связь</option>
+                            <option value="Привычки">Привычки</option>
                         </select>
                     </div>
 
