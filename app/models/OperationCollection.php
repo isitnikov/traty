@@ -25,7 +25,7 @@ class OperationCollection extends OperationDb
         $select->where('user = ?', $user->getId());
 
 
-        $select->joinLeft('category', 'operation.category = category.id', array('name', 'type'));
+        $select->join('category', 'operation.category = category.id', array('name', 'type'));
         return $select;
     }
 
