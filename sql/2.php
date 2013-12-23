@@ -5,8 +5,6 @@ require '../app/App.php';
 $sql = "ALTER TABLE  `operation` ADD  `category` INT( 10 ) NOT NULL , ADD INDEX (  `category` )";
 
 App::getConnection()->query($sql);
-$sql = "ALTER TABLE `operation` DROP `name`";
-App::getConnection()->query($sql);
 
 $categories = array(
     "Транспорт",
@@ -53,3 +51,6 @@ foreach ($categories as $category) {
     $where = App::getConnection()->quoteInto('name = ?', $category);
     App::getConnection()->update('operation', array('category' => $categoryId), $where);
 }
+
+$sql = "ALTER TABLE `operation` DROP `name`";
+App::getConnection()->query($sql);
