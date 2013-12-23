@@ -114,7 +114,7 @@ class UserController extends AbstractController
                     //continue;
                 }
                 $operation = new Operation();
-                $operation->setName($categories[rand(0, count($categories) -1 )]);
+                $operation->setCategory($categories[rand(0, count($categories) -1 )]);
                 $operation->setAmount($amount);
                 $operation->setUser(App::getUser()->getId());
 

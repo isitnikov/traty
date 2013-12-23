@@ -23,6 +23,9 @@ class OperationCollection extends OperationDb
         }
 
         $select->where('user = ?', $user->getId());
+
+
+        $select->joinLeft('category', 'operation.category = category.id', array('name', 'type'));
         return $select;
     }
 
@@ -68,7 +71,6 @@ class OperationCollection extends OperationDb
         $select = $this->getConnection()->select();
         $select->from('operation', array(
             'amount' => 'SUM(amount)',
-            'name',
             'date',
             'week' => 'WEEK(date, 3)',
             'month' => 'MONTH(date)'
@@ -94,7 +96,6 @@ class OperationCollection extends OperationDb
 
         $select = $this->getConnection()->select();
         $select->from('operation', array(
-            'name',
             'amount' => 'SUM(amount)',
             'date',
             'week' => 'WEEK(date, 3)',
@@ -106,7 +107,7 @@ class OperationCollection extends OperationDb
         if ($having) {
             $select->having($having, GeneralHelper::getDateValue($date, $type));
         }
-        $select->group(array($type, 'name'));
+        $select->group(array($type, 'category'));
         $select->order('amount DESC');
         $this->_prepareSelect($select);
 

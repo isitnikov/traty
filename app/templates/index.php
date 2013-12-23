@@ -23,25 +23,10 @@ require 'header.php';
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="control-label sr-only" for="category">Категория</label>
-
-                                <select id="category" name="name" class="form-control input-lg">
-                                    <option value="Транспорт">Транспорт</option>
-                                    <option value="Продукты">Продукты</option>
-                                    <option value="Одежда, косметика">Одежда, косметика</option>
-                                    <option value="Отдых">Отдых</option>
-                                    <option value="Медицина">Медицина</option>
-                                    <option value="Авто">Авто</option>
-                                    <option value="Жилье">Жилье</option>
-                                    <option value="Еда вне дома">Еда вне дома</option>
-                                    <option value="Обучение">Обучение</option>
-                                    <option value="Работа">Работа</option>
-                                    <option value="Спорт">Спорт</option>
-                                    <option value="Разное">Разное</option>
-                                    <option value="Домашние животные">Питомцы</option>
-                                    <option value="Долги, кредиты">Долги, кредиты</option>
-                                    <option value="Накопления">Накопления</option>
-                                    <option value="Связь">Связь</option>
-                                    <option value="Привычки">Привычки</option>
+                                <select id="category" name="category" class="form-control input-lg">
+                                    <?php foreach ($spendCategories as $value => $label): ?>
+                                        <option value="<?= $value ?>"><?= $label ?></option>
+                                    <?php endforeach ?>
                                 </select>
                             </div>
 
@@ -93,11 +78,10 @@ require 'header.php';
                             <div class="form-group">
                                 <label class="control-label sr-only" for="category">Категория</label>
 
-                                <select id="category" name="name" class="form-control input-lg">
-                                    <option value="Зарплата">Зарплата</option>
-                                    <option value="Подработки">Подработки</option>
-                                    <option value="Проценты вкладов">Проценты вкладов</option>
-                                    <option value="Аренда">Аренда</option>
+                                <select id="category" name="category" class="form-control input-lg">
+                                    <?php foreach ($incomeCategories as $value => $label): ?>
+                                        <option value="<?= $value ?>"><?= $label ?></option>
+                                    <?php endforeach ?>
                                 </select>
                             </div>
 
@@ -156,7 +140,7 @@ require 'header.php';
                             <a href="<?php echo BASE_URL . '?controller=operation&action=delete&operation_id=' . $operation->getId() ?>"
                                onclick="return confirm('Удалить операцию?')" class="glyphicon glyphicon-trash"></a>
 
-                            <?php echo $operation->getName() ?></td>
+                            <?php echo $operation->categoryObject()->getName() ?></td>
                         <td class="text-right"><?php echo $operation->getAmount() ?> <span class="currency"></span> грн.</td>
                     </tr>
                 <?php endforeach ?>

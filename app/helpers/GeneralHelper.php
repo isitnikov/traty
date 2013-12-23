@@ -121,4 +121,15 @@ class GeneralHelper
 
         return $ids;
     }
+
+    static public function getOptions($array, $label)
+    {
+        $result = array();
+        foreach ($array as $row) {
+            $field = 'get' . ucfirst($label);
+            $result[$row->getId()] = $row->$field();
+        }
+
+        return $result;
+    }
 }

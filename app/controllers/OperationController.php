@@ -4,6 +4,10 @@ class OperationController extends AbstractController
 {
     public function viewAction()
     {
+        $collection = new CategoryCollection();
+        $spendCategories = GeneralHelper::getOptions($collection->loadAllCategories(Category::TYPE_SPEND), 'name');
+        $incomeCategories = GeneralHelper::getOptions($collection->loadAllCategories(Category::TYPE_INCOME), 'name');
+
         $operationCollection = new OperationCollection();
 
         $todayOperations = $operationCollection->getTodayOperations();
@@ -18,7 +22,7 @@ class OperationController extends AbstractController
     {
         if (!empty($_POST)) {
             $operation = new Operation();
-            $operation->setName($_POST['name']);
+            $operation->setCategory($_POST['category']);
             $operation->setAmount($_POST['amount']);
             $operation->setUser(App::getUser()->getId());
 

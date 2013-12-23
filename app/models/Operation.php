@@ -2,12 +2,28 @@
 
 class Operation
 {
-
-    protected $_name;
     protected $_amount;
     protected $_date;
     protected $_id;
     protected $_user;
+    protected $_category;
+    protected $_categoryObject;
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category)
+    {
+        $this->_category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->_category;
+    }
 
     /**
      * @param mixed $user
@@ -77,22 +93,6 @@ class Operation
         return $this->_amount;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->_name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
     public function save()
     {
         $db = new OperationDb();
@@ -109,5 +109,15 @@ class Operation
     {
         $db = new OperationDb();
         $db->delete($this);
+    }
+
+    public function categoryObject()
+    {
+        if (!$this->_categoryObject) {
+            $category = new Category();
+            $category->load($this->_category);
+            $this->_categoryObject = $category;
+        }
+        return $this->_categoryObject;
     }
 }

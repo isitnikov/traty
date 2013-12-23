@@ -33,7 +33,9 @@ class OperationDb extends ResourceAbstract
     {
         foreach ($data as $key => $value) {
             $setter = 'set' . ucfirst($key);
-            $object->$setter($value);
+            if (method_exists($object, $setter)) {
+                $object->$setter($value);
+            }
         }
 
         return $object;
