@@ -85,6 +85,12 @@
             $class = 'alert-danger';
         }
      ?>
-        <div class="alert <?= $class ?>"><?= $alert ?></div>
+        <div class="alert <?= $class ?> fade in">
+            <?= $alert ?>
+            <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+            <script>
+                window.setTimeout(function() { $('div.alert').alert('close'); }, 2000)
+            </script>
+        </div>
     <?php endforeach ?>
 </div>

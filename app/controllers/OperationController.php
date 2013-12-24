@@ -21,13 +21,22 @@ class OperationController extends AbstractController
     public function saveAction()
     {
         if (!empty($_POST)) {
+            $amount = App::getRequest('amount');
+            $categoryId = App::getRequest('category');
+            $date = App::getRequest('date');
+
+            $pattern = '@[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}@i';
+            if ($amount <= 0 || !preg_match($pattern, $date)) {
+                App::addErrorAlert('Сумма должна быть больше 0, а дата в формате дд/мм/год');
+                GeneralHelper::redirect();
+            }
+
             $operation = new Operation();
-            $operation->setCategory($_POST['category']);
-            $operation->setAmount($_POST['amount']);
+            $operation->setCategory($categoryId);
+            $operation->setAmount($amount);
             $operation->setUser(App::getUser()->getId());
 
 
-            $date = $_POST['date'];
             $dateArray = explode('/', $date);
             $day = trim($dateArray[0]);
             $month = trim($dateArray[1]);
@@ -38,7 +47,8 @@ class OperationController extends AbstractController
             $operation->save();
         }
 
-        header('Location: ' . BASE_URL);
+        App::addSuccessAlert('Операция добавлена');
+        GeneralHelper::redirect(GeneralHelper::getUrl('operation', 'view'));
     }
 
     public function deleteAction()
