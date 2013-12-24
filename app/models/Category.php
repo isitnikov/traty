@@ -62,4 +62,10 @@ class Category
         $db = new CategoryDb();
         $db->load($this, $id);
     }
+
+    public function save()
+    {
+        $db = new CategoryDb();
+        $db->save($this);
+    }
 }

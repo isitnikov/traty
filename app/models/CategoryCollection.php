@@ -2,6 +2,11 @@
 
 class CategoryCollection extends CategoryDb
 {
+    protected function _prepareSelect($select)
+    {
+        return $select;
+    }
+
     public function loadAllCategories($type = false)
     {
         $select = $this->getConnection()->select();
@@ -9,6 +14,8 @@ class CategoryCollection extends CategoryDb
         if ($type) {
             $select->where('type = ?', $type);
         }
+
+        $this->_prepareSelect($select);
         $rows = $this->getConnection()->query($select)->fetchAll();
 
         $result = array();

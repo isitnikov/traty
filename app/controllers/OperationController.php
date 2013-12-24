@@ -63,7 +63,9 @@ class OperationController extends AbstractController
         $operation = new Operation();
         $operation->load($id);
         $operation->delete();
-        header('Location: ' . BASE_URL);
+
+        App::addSuccessAlert();
+        GeneralHelper::redirect();
     }
 
 }
