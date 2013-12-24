@@ -19,6 +19,7 @@ class OperationCollection extends OperationDb
             }
 
             $select->where('user IN (?)', $users);
+            $select->join('category', 'operation.category = category.id', array('name', 'type'));
             return $select;
         }
 
