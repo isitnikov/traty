@@ -20,7 +20,16 @@ class UserController extends AbstractController
         $password   = App::getRequest('password');
         $rememberMe = App::getRequest('rememberme');
 
-        $user = App::getUser();
+        if (!$username) {
+            GeneralHelper::redirect(GeneralHelper::getUrl('user', 'login', array('message' => 'Заполните имя пользователя')));
+            return $this;
+        }
+        if (!$password) {
+            GeneralHelper::redirect(GeneralHelper::getUrl('user', 'login', array('message' => 'Введите пароль')));
+            return $this;
+        }
+
+        $user = new User();
         $user->setUsername($username);
         $user->setPassword(GeneralHelper::hash(trim($password)));
         $result = $user->auth($rememberMe);
