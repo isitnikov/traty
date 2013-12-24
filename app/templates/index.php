@@ -14,7 +14,7 @@ require 'header.php';
                     <div class="form-group">
                         <label class="control-label sr-only" for="category">Категория</label>
                         <select id="category" name="category" class="form-control input-lg" >
-                            <option value="" disabled selected>Категории расходов/доходов</option>
+                            <option value="" disabled>Категории расходов/доходов</option>
                             <optgroup label="Расходы">
                                 <?php foreach ($spendCategories as $value => $label): ?>
                                     <option value="<?= $value ?>"><?= $label ?></option>
