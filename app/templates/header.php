@@ -89,7 +89,7 @@
             <?= $alert ?>
             <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
             <script>
-                window.setTimeout(function() { $('div.alert').alert('close'); }, 2000)
+                window.setTimeout(function() { $('div.alert-success').alert('close'); }, 2000)
             </script>
         </div>
     <?php endforeach ?>
