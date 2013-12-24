@@ -40,11 +40,12 @@ class OperationCollection extends OperationDb
         return $select->join('category', 'operation.category = category.id', array('name', 'type'));
     }
 
-    public function getTodayAmount()
+    public function getTodayAmount($type = Category::TYPE_SPEND)
     {
         $select = $this->getConnection()->select();
         $select->from('operation', array('amount' => new Zend_Db_Expr('SUM(amount)')));
         $select->where('DATE(date) = CURDATE()');
+        $select->where('type = ?', $type);
         $this->_prepareSelect($select);
 
         $todayAmount = $this->getConnection()->query($select)->fetchColumn();
