@@ -5,6 +5,14 @@ class OperationCollection extends OperationDb
 
     protected function _prepareSelect($select)
     {
+        $this->_addUser($select);
+        $this->_joinCategory($select);
+
+        return $select;
+    }
+
+    protected function _addUser($select)
+    {
         $user = App::getUser();
         $family = $user->family();
         if ($family->getId()) {
@@ -19,15 +27,17 @@ class OperationCollection extends OperationDb
             }
 
             $select->where('user IN (?)', $users);
-            $select->join('category', 'operation.category = category.id', array('name', 'type'));
             return $select;
         }
 
         $select->where('user = ?', $user->getId());
 
-
-        $select->join('category', 'operation.category = category.id', array('name', 'type'));
         return $select;
+    }
+
+    protected function _joinCategory($select)
+    {
+        return $select->join('category', 'operation.category = category.id', array('name', 'type'));
     }
 
     public function getTodayAmount()
