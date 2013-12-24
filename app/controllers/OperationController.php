@@ -26,8 +26,14 @@ class OperationController extends AbstractController
             $date = App::getRequest('date');
 
             $pattern = '@[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}@i';
-            if ($amount <= 0 || !preg_match($pattern, $date)) {
-                App::addErrorAlert('Сумма должна быть больше 0, а дата в формате дд/мм/год');
+            if (!$categoryId) {
+                App::addErrorAlert('Выберите категорию расходов или доходов');
+                GeneralHelper::redirect();
+            } elseif (!preg_match($pattern, $date)) {
+                App::addErrorAlert('Дата должна быть в формате дд/мм/гггг');
+                GeneralHelper::redirect();
+            } elseif ($amount <= 0) {
+                App::addErrorAlert('Сумма должна быть больше 0');
                 GeneralHelper::redirect();
             }
 

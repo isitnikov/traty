@@ -13,7 +13,8 @@ require 'header.php';
                     <!-- Text input-->
                     <div class="form-group">
                         <label class="control-label sr-only" for="category">Категория</label>
-                        <select id="category" name="category" class="form-control input-lg">
+                        <select id="category" name="category" class="form-control input-lg" >
+                            <option value="">Категории расходов/доходов</option>
                             <optgroup label="Расходы">
                                 <?php foreach ($spendCategories as $value => $label): ?>
                                     <option value="<?= $value ?>"><?= $label ?></option>
