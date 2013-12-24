@@ -57,12 +57,13 @@ class OperationCollection extends OperationDb
 
     }
 
-    public function getTodayOperations()
+    public function getTodayOperations($type = Category::TYPE_SPEND)
     {
         $select = $this->getConnection()->select();
         $select->from('operation');
         $select->where(new Zend_Db_Expr('DATE(date) = CURDATE()'));
         $select->order('id DESC');
+        $select->where('type = ?', $type);
 
         $this->_prepareSelect($select);
 

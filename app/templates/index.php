@@ -65,6 +65,10 @@ require 'header.php';
 
         </div>
 
+        <?php
+        $amountSumIncome = array();
+        $amountSumSpend  = array();
+        ?>
         <div class="col-md-6">
             <table class="table">
                 <caption class="text-left">Операции за сегодня</caption>
@@ -72,17 +76,40 @@ require 'header.php';
                     <th>Категория</th>
                     <th class="text-right">Сумма</th>
                 </tr>
-                <?php foreach ($todayOperations as $operation): ?>
+                <?php foreach ($todayIncomeOperations as $operation): ?>
+                    <?php $amountSumIncome[] = $operation->getAmount(); ?>
+                    <tr class="success">
+                        <td>
+                            <a href="<?php echo BASE_URL . '?controller=operation&action=delete&operation_id=' . $operation->getId() ?>"
+                               onclick="return confirm('Удалить операцию?')" class="glyphicon glyphicon-trash"></a>
+
+                            <?php echo $operation->categoryObject()->getName() ?></td>
+                        <td class="text-right">+ <?php echo $operation->getAmount() ?> <span class="currency"></span> грн.
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+                <?php foreach ($todaySpendOperations as $operation): ?>
+                    <?php $amountSumSpend[] = $operation->getAmount() ?>
                     <tr>
                         <td>
                             <a href="<?php echo BASE_URL . '?controller=operation&action=delete&operation_id=' . $operation->getId() ?>"
                                onclick="return confirm('Удалить операцию?')" class="glyphicon glyphicon-trash"></a>
 
                             <?php echo $operation->categoryObject()->getName() ?></td>
-                        <td class="text-right"><?php echo $operation->getAmount() ?> <span class="currency"></span> грн.
+                        <td class="text-right">- <?php echo $operation->getAmount() ?> <span class="currency"></span> грн.
                         </td>
                     </tr>
                 <?php endforeach ?>
+                <tr class="">
+                    <td colspan="2">
+                        <?php if ($amountSumIncome): ?>
+                        <p>Доход за день: + <?= array_sum($amountSumIncome)?> <?= GeneralHelper::getCurrencySign() ?></p>
+                        <?php endif ?>
+                        <?php if ($amountSumSpend): ?>
+                        <p>Расход за день: - <?= array_sum($amountSumSpend) ?> <?= GeneralHelper::getCurrencySign() ?></p>
+                        <?php endif ?>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

@@ -10,7 +10,8 @@ class OperationController extends AbstractController
 
         $operationCollection = new OperationCollection();
 
-        $todayOperations = $operationCollection->getTodayOperations();
+        $todaySpendOperations = $operationCollection->getTodayOperations();
+        $todayIncomeOperations = $operationCollection->getTodayOperations(Category::TYPE_INCOME);
         $todayAmount = true;
 
         require APP_TEMPLATES_PATH  . 'index.php';
