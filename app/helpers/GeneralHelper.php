@@ -7,6 +7,34 @@ class GeneralHelper
         return 'грн.';
     }
 
+    static public function renderAmount($amount, $type)
+    {
+        $amount = abs($amount);
+        $amount = sprintf('%.2f', $amount);
+        $class = 'text-success';
+        $sign  = "&plus;";
+
+        if ($type == Category::TYPE_SPEND) {
+            $class = 'text-danger';
+            $sign  = '&minus;';
+        }
+
+        $fraction = "00";
+        if (strstr($amount, '.')) {
+            list($amount, $fraction) = explode('.', $amount);
+        }
+        $decimalPart = sprintf(".<span class='small text-muted'>%s</span>", $fraction);
+        if ($fraction == '00' || $fraction == 0) {
+            $fraction = '';
+            $decimalPart = '';
+        }
+
+        $html = sprintf("<span class='%s'>%s %s%s <span class='text-muted small'> %s </span></span>",
+            $class, $sign, $amount, $decimalPart, self::getCurrencySign());
+
+        return $html;
+    }
+
     static public function getTodayAmount()
     {
         $operationCollection = new OperationCollection();

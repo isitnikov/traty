@@ -88,7 +88,7 @@ class OperationCollection extends OperationDb
             'week' => 'WEEK(date, 3)',
             'month' => 'MONTH(date)'
         ));
-        $select->group($type);
+        $select->group(array($type, 'type'));
         $select->order('date DESC');
         $this->_prepareSelect($select);
 
