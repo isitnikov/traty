@@ -80,12 +80,12 @@ class GeneralHelper
         $date = DateTime::createFromFormat('Y-m-d', $date);
         $day = $date->format('d');
         $month = $date->format('m');
-        $year = $date->format('Y');
+        $year = $date->format('y');
 
         if ($type == 'date') {
             return sprintf("%s %s %s", $day, self::getMonthName($month), $year);
         } elseif ($type == 'week') {
-            return sprintf("%s неделя", $date->format('W'));
+            return sprintf("%s нед.", $date->format('W'));
         } else {
             return sprintf("%s %s", self::getMonthName($month), $year);
         }
@@ -94,18 +94,18 @@ class GeneralHelper
     static public function getMonthName($n)
     {
         $month = array(
-            'Январь',
-            'Февраль',
+            'Янв',
+            'Фев',
             'Март',
-            'Апрель',
+            'Апр',
             'Май',
-            'Июнь',
-            'Июль',
-            'Август',
-            'Сентябрь',
-            'Октябрь',
-            'Ноябрь',
-            'Декабрь',
+            'Июн',
+            'Июл',
+            'Авг',
+            'Сен',
+            'Окт',
+            'Нояб',
+            'Дек',
         );
 
         return $month[$n - 1];
