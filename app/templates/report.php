@@ -29,7 +29,7 @@ $operations = $result;
                     <th class="text-right">Доход / Расход</th>
                 </tr>
                 <?php foreach ($operations as $date => $operationArr): ?>
-                    <tr class="small">
+                    <tr>
                         <?php $fullDate = $operationArr[0]['date']; ?>
                         <td>
                             <a href="<?= GeneralHelper::getUrl('report', 'detail', array('report_type' => $reportType, 'date' => $fullDate)) ?>"><?= GeneralHelper::getDateLabel($fullDate, $reportType) ?></a>
