@@ -44,7 +44,7 @@ require APP_TEMPLATES_PATH . 'header.php';
                             <span class="label <?= $labelClass ?>"><?= $label ?></span>
                             <?= $category->getName() ?>
                         </td>
-                        <td class="text-right">Включена</td>
+                        <td class="text-right"><a href="<?= GeneralHelper::getUrl('category', 'status', array('id' => $category->getId()))?>">Выключить</a></td>
                     </tr>
                 <?php endforeach ?>
             </table>

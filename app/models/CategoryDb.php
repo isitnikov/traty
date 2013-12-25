@@ -2,6 +2,7 @@
 
 class CategoryDb extends ResourceAbstract
 {
+
     protected function _getTable($object)
     {
         return strtolower(get_class($object));
@@ -25,11 +26,14 @@ class CategoryDb extends ResourceAbstract
     {
 
         if ($this->isAssignedCategoryToUser($category, $user)) {
-            throw new Exception('Категория уже добавлена');
+            $where = $this->getConnection()->quoteInto('user_id = ?', $user->getId());
+            $where2 = $this->getConnection()->quoteInto('category_id = ?', $category->getId());
+            return $this->getConnection()->update('category_user', array('status' => Category::STATUS_ENABLED), array($where, $where2));
         }
         $result = $this->getConnection()->insert('category_user', array(
             'category_id' => $category->getId(),
-            'user_id'     => $user->getId()
+            'user_id'     => $user->getId(),
+            'status'      => Category::STATUS_ENABLED
         ));
 
         return $result;
@@ -46,4 +50,17 @@ class CategoryDb extends ResourceAbstract
 
         return $row;
     }
+
+    public function changeStatus($category, $status)
+    {
+        if (!$this->isAssignedCategoryToUser($category, App::getUser())) {
+            $this->assignToUser($category, App::getUser());
+        }
+        $categoryWhere = $this->getConnection()->quoteInto('category_id = ?', $category->getId());
+        $userWhere     = $this->getConnection()->quoteInto('user_id = ?', App::getUser()->getId());
+        return $this->getConnection()->update('category_user', array('status' => $status), array(
+            $userWhere, $categoryWhere
+        ));
+    }
+
 }

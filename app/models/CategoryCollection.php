@@ -10,6 +10,7 @@ class CategoryCollection extends CategoryDb
     {
         $joinCond = 'category_user.category_id = ' . $this->_getTable(new Category()) . '.id';
         $select->joinLeft('category_user', $joinCond, array());
+
         $select->where('category_user.user_id = ?', App::getUser()->getId());
 
         return $select;
@@ -17,13 +18,16 @@ class CategoryCollection extends CategoryDb
 
     public function loadAllCategories($type = false)
     {
-        $select = $this->getConnection()->select();
+        $select = $this->getConnection()->select()->reset();
         $select->from($this->_getTable(new Category()));
         if ($type) {
             $select->where('type = ?', $type);
         }
+        $select->where('system = ?', 1);
+        $select->orWhere('status = ?', Category::STATUS_ENABLED);
 
         $this->_prepareSelect($select);
+
         $rows = $this->getConnection()->query($select)->fetchAll();
 
         $result = array();

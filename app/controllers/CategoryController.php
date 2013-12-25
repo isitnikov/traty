@@ -34,4 +34,21 @@ class CategoryController extends AbstractController
 
         GeneralHelper::redirect(GeneralHelper::getUrl('category', 'view'));
     }
+
+    public function statusAction()
+    {
+        $categoryId = App::getRequest('id', 0);
+        $status = 0;
+        $category = new Category();
+        $category->load($categoryId);
+
+        if (!$category->getId()) {
+            App::addErrorAlert('Нет такой категории');
+            GeneralHelper::redirect(GeneralHelper::getUrl('category', 'view'));
+            return;
+        }
+
+        $category->changeStatus($status);
+        GeneralHelper::redirect(GeneralHelper::getUrl('category', 'view'));
+    }
 }
