@@ -27,7 +27,7 @@ require 'header.php';
         <?php endforeach ?>
         <tfoot>
         <tr>
-            <td class="text-right" colspan="2"><strong>Итого: <?= GeneralHelper::renderAmount(array_sum($amountAll)) ?></strong></td>
+            <td class="text-right" colspan="2"><strong>Итого: <?= GeneralHelper::renderAmount(array_sum($amountAll), Category::TYPE_SPEND) ?></strong></td>
         </tr>
         </tfoot>
     </table>
