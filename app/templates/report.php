@@ -27,7 +27,6 @@ $operations = $result;
                 <tr>
                     <th>Дата</th>
                     <th class="text-right">Доход / Расход</th>
-                    <th class="text-right">Итого</th>
                 </tr>
                 <?php foreach ($operations as $date => $operationArr): ?>
                     <tr class="small">
@@ -42,17 +41,6 @@ $operations = $result;
                             <?= GeneralHelper::renderAmount($operation['amount'], $operation['type'])?><br/>
                             <?php endforeach ?>
                         </td>
-
-                        <?php
-                            $income = isset($itog[Category::TYPE_INCOME]) ? $itog[Category::TYPE_INCOME] : array();
-                            $spend  = isset($itog[Category::TYPE_SPEND]) ? $itog[Category::TYPE_SPEND] : array();
-                            $itog   = array_sum($income) - array_sum($spend);
-                            $type = Category::TYPE_INCOME;
-                            if ($itog < 0) {
-                                $type = Category::TYPE_SPEND;
-                            }
-                        ?>
-                        <td class="text-right"><?= GeneralHelper::renderAmount($itog, $type)?></td>
                     </tr>
                 <?php endforeach ?>
             </table>
