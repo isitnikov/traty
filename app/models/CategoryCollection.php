@@ -26,6 +26,9 @@ class CategoryCollection extends CategoryDb
 
         $this->_prepareSelect($select);
         $select->orWhere('system = ?', 1);
+        if ($type) {
+            $select->where('type = ?', $type);
+        }
 
         $rows = $this->getConnection()->query($select)->fetchAll();
 
