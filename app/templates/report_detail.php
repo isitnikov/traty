@@ -9,28 +9,73 @@ require 'header.php';
         <li><a href="<?= GeneralHelper::getUrl('report', 'view', array('report_type' => 'month')) ?>">Месяца</a></li>
     </ul>
 
-    <table class="table">
-        <caption class="text-left">Отчет за <?= GeneralHelper::getDateLabel($date, $reportType) ?></caption>
-        <tr>
-            <th>Категория</th>
-            <th class="text-right">Сумма</th>
-        </tr>
-        <?php foreach($db->getOperationsGroupedBy($reportType, $date) as $category): ?>
-        <tr class="category-row">
-            <?php
-            $amount = $category['amount'];
-            $amountAll[] = $amount;
-            ?>
-            <td class="category_name"><?= $category['name'] ?></td>
-            <td class="text-right"><span class="amount"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND) ?></span></td>
-        </tr>
-        <?php endforeach ?>
-        <tfoot>
-        <tr>
-            <td class="text-right" colspan="2"><strong>Итого: <?= GeneralHelper::renderAmount(array_sum($amountAll), Category::TYPE_SPEND) ?></strong></td>
-        </tr>
-        </tfoot>
-    </table>
+    <h3 class="text-info">Отчет <small>за <?= GeneralHelper::getDateLabel($date, $reportType) ?></small></h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table">
+                <tr>
+                    <th>Доходы</th>
+                    <th class="text-right">Сумма</th>
+                </tr>
+                <?php $amountAll = array() ?>
+                <?php foreach($db->getOperationsGroupedBy($date, $reportType, Category::TYPE_INCOME) as $category): ?>
+                    <tr class="category-row">
+                        <?php
+                        $amount = $category['amount'];
+                        $amountAll[] = $amount;
+                        ?>
+                        <td class="category_name"><?= $category['name'] ?></td>
+                        <td class="text-right"><span class="amount"><?= GeneralHelper::renderAmount($amount, Category::TYPE_INCOME) ?></span></td>
+                    </tr>
+                <?php endforeach ?>
+                <tfoot>
+                <tr>
+                    <td class="text-right" colspan="2"><strong>Итого: <?= GeneralHelper::renderAmount(array_sum($amountAll), Category::TYPE_INCOME) ?></strong></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <table class="table" id="spend">
+                <tr>
+                    <th>Расходы</th>
+                    <th class="text-right">Сумма</th>
+                </tr>
+                <?php $amountAll = array() ?>
+                <?php foreach($db->getOperationsGroupedBy($date, $reportType, Category::TYPE_SPEND) as $category): ?>
+                    <tr class="category-row">
+                        <?php
+                        $amount = $category['amount'];
+                        $amountAll[] = $amount;
+                        ?>
+                        <td class="category_name"><?= $category['name'] ?></td>
+                        <td class="text-right"><span class="amount"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND) ?></span></td>
+                    </tr>
+                <?php endforeach ?>
+                <tfoot>
+                <tr>
+                    <td class="text-right" colspan="2"><strong>Итого: <?= GeneralHelper::renderAmount(array_sum($amountAll), Category::TYPE_SPEND) ?></strong></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <div id="chart" style="width: 300px; height: 200px"></div>
     <script>
@@ -138,7 +183,7 @@ require 'header.php';
 
 
             var chartData = [];
-            var name = $('td.category_name').each(function(key, value){
+            var name = $('#spend td.category_name').each(function(key, value){
                 chartData.push(new Array($(this).text(), parseInt($(this).next().find('span.whole').text())))
             });
             var price = $('td span.amount').html();

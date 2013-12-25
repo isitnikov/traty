@@ -97,14 +97,14 @@ class OperationCollection extends OperationDb
         return $rows;
     }
 
-    public function getOperationsGroupedBy($type = 'date', $date)
+    public function getOperationsGroupedBy($date, $dateType = 'date', $type = Category::TYPE_SPEND)
     {
         $where = '';
         $having = '';
-        if ($type == 'week' || $type == 'month') {
-            $having = "${type} = ?";
-        } elseif ($type == 'date') {
-            $where = "${type} = ?";
+        if ($dateType == 'week' || $dateType == 'month') {
+            $having = "${dateType} = ?";
+        } elseif ($dateType == 'date') {
+            $where = "${dateType} = ?";
         }
 
         $select = $this->getConnection()->select();
@@ -118,10 +118,11 @@ class OperationCollection extends OperationDb
             $select->where($where, $date);
         }
         if ($having) {
-            $select->having($having, GeneralHelper::getDateValue($date, $type));
+            $select->having($having, GeneralHelper::getDateValue($date, $dateType));
         }
-        $select->group(array($type, 'category'));
+        $select->group(array($dateType, 'category'));
         $select->order('amount DESC');
+        $select->where('type = ?', $type);
         $this->_prepareSelect($select);
 
         $rows = $this->getConnection()->query($select)->fetchAll();
