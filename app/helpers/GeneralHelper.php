@@ -23,11 +23,11 @@ class GeneralHelper
         if (strstr($amount, '.')) {
             list($amount, $fraction) = explode('.', $amount);
         }
-        $decimalPart = sprintf(".<span class='small text-muted'>%s</span>", $fraction);
-        if ($fraction == '00' || $fraction == 0) {
+        $decimalPart = sprintf(".<span class='text-muted'>%s</span>", $fraction);
+        /**if ($fraction == '00' || $fraction == 0) {
             $fraction = '';
             $decimalPart = '';
-        }
+        }**/
 
         $html = sprintf("<span class='%s'>%s %s%s <span class='text-muted small'> %s </span></span>",
             $class, $sign, $amount, $decimalPart, self::getCurrencySign());
