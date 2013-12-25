@@ -25,15 +25,12 @@ class CategoryDb extends ResourceAbstract
     public function assignToUser($category, $user)
     {
 
-        if ($this->isAssignedCategoryToUser($category, $user)) {
-            $where = $this->getConnection()->quoteInto('user_id = ?', $user->getId());
-            $where2 = $this->getConnection()->quoteInto('category_id = ?', $category->getId());
-            return $this->getConnection()->update('category_user', array('status' => Category::STATUS_ENABLED), array($where, $where2));
+        if ($this->isAssignedCategoryToUser($category, $user) && $category->getSystem()) {
+            throw new Exception('Уже существует такая категория');
         }
         $result = $this->getConnection()->insert('category_user', array(
             'category_id' => $category->getId(),
             'user_id'     => $user->getId(),
-            'status'      => Category::STATUS_ENABLED
         ));
 
         return $result;
@@ -51,16 +48,10 @@ class CategoryDb extends ResourceAbstract
         return $row;
     }
 
-    public function changeStatus($category, $status)
+    public function unassignFromUser($category, $user)
     {
-        if (!$this->isAssignedCategoryToUser($category, App::getUser())) {
-            $this->assignToUser($category, App::getUser());
-        }
-        $categoryWhere = $this->getConnection()->quoteInto('category_id = ?', $category->getId());
-        $userWhere     = $this->getConnection()->quoteInto('user_id = ?', App::getUser()->getId());
-        return $this->getConnection()->update('category_user', array('status' => $status), array(
-            $userWhere, $categoryWhere
-        ));
+        $whereCategory = $this->getConnection()->quoteInto('category_id = ?', $category->getId());
+        $whereUser     = $this->getConnection()->quoteInto('user_id = ?', $user->getId());
+        return App::getConnection()->delete('category_user', array($whereUser, $whereCategory));
     }
-
 }

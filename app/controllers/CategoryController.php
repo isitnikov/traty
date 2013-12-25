@@ -38,7 +38,6 @@ class CategoryController extends AbstractController
     public function statusAction()
     {
         $categoryId = App::getRequest('id', 0);
-        $status = 0;
         $category = new Category();
         $category->load($categoryId);
 
@@ -48,7 +47,7 @@ class CategoryController extends AbstractController
             return;
         }
 
-        $category->changeStatus($status);
+        $category->unassignFromUser(App::getUser());
         GeneralHelper::redirect(GeneralHelper::getUrl('category', 'view'));
     }
 }

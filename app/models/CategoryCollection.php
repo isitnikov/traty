@@ -23,10 +23,9 @@ class CategoryCollection extends CategoryDb
         if ($type) {
             $select->where('type = ?', $type);
         }
-        $select->where('system = ?', 1);
-        $select->orWhere('status = ?', Category::STATUS_ENABLED);
 
         $this->_prepareSelect($select);
+        $select->orWhere('system = ?', 1);
 
         $rows = $this->getConnection()->query($select)->fetchAll();
 
