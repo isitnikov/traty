@@ -84,8 +84,7 @@ require 'header.php';
                                onclick="return confirm('Удалить операцию?')" class="glyphicon glyphicon-trash"></a>
 
                             <?php echo $operation->categoryObject()->getName() ?></td>
-                        <td class="text-right">+ <?php echo $operation->getAmount() ?> <span class="currency"></span> грн.
-                        </td>
+                        <td class="text-right"><?= GeneralHelper::renderAmount($operation->getAmount(), Category::TYPE_INCOME) ?></td>
                     </tr>
                 <?php endforeach ?>
                 <?php foreach ($todaySpendOperations as $operation): ?>
@@ -96,17 +95,17 @@ require 'header.php';
                                onclick="return confirm('Удалить операцию?')" class="glyphicon glyphicon-trash"></a>
 
                             <?php echo $operation->categoryObject()->getName() ?></td>
-                        <td class="text-right">- <?php echo $operation->getAmount() ?> <span class="currency"></span> грн.
+                        <td class="text-right"><?= GeneralHelper::renderAmount($operation->getAmount(), Category::TYPE_SPEND) ?></td>
                         </td>
                     </tr>
                 <?php endforeach ?>
                 <tr class="">
                     <td colspan="2">
                         <?php if ($amountSumIncome): ?>
-                        <p>Доход за день: + <?= array_sum($amountSumIncome)?> <?= GeneralHelper::getCurrencySign() ?></p>
+                        <p class="text-success">Доход за день: <?= GeneralHelper::renderAmount(array_sum($amountSumIncome), Category::TYPE_INCOME) ?></p>
                         <?php endif ?>
                         <?php if ($amountSumSpend): ?>
-                        <p>Расход за день: - <?= array_sum($amountSumSpend) ?> <?= GeneralHelper::getCurrencySign() ?></p>
+                        <p class="text-danger">Расход за день: <?= GeneralHelper::renderAmount(array_sum($amountSumSpend), Category::TYPE_SPEND) ?></p>
                         <?php endif ?>
                     </td>
                 </tr>

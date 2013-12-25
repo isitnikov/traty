@@ -4,9 +4,9 @@ require 'header.php';
 <div class="container">
 
     <ul class="nav nav-pills">
-        <li><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=date' ?>">Дни</a></li>
-        <li><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=week' ?>">Недели</a></li>
-        <li><a href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=month' ?>">Месяца</a></li>
+        <li><a href="<?= GeneralHelper::getUrl('report', 'view', array('report_type' => 'date')) ?>">Дни</a></li>
+        <li><a href="<?= GeneralHelper::getUrl('report', 'view', array('report_type' => 'week')) ?>">Недели</a></li>
+        <li><a href="<?= GeneralHelper::getUrl('report', 'view', array('report_type' => 'month')) ?>">Месяца</a></li>
     </ul>
 
     <table class="table">
@@ -22,12 +22,12 @@ require 'header.php';
             $amountAll[] = $amount;
             ?>
             <td class="category_name"><?= $category['name'] ?></td>
-            <td class="text-right"><span class="amount"><?= $amount ?></span> грн.</td>
+            <td class="text-right"><span class="amount"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND) ?></span></td>
         </tr>
         <?php endforeach ?>
         <tfoot>
         <tr>
-            <td class="text-right" colspan="2"><strong>Итого: <?= array_sum($amountAll) ?> <?= GeneralHelper::getCurrencySign() ?></strong></td>
+            <td class="text-right" colspan="2"><strong>Итого: <?= array_sum($amountAll) ?></strong></td>
         </tr>
         </tfoot>
     </table>
