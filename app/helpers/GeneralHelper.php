@@ -7,8 +7,14 @@ class GeneralHelper
         return 'грн.';
     }
 
-    static public function renderAmount($amount, $type)
+    static public function renderAmount($amount, $type = false)
     {
+        if (!$type) {
+            $type = Category::TYPE_INCOME;
+            if ($amount < 0) {
+                $type = Category::TYPE_SPEND;
+            }
+        }
         $amount = abs($amount);
         $amount = sprintf('%.2f', $amount);
         $class = 'text-success';
@@ -19,15 +25,15 @@ class GeneralHelper
             $sign  = '&minus;';
         }
 
+        if ($amount == 0) {
+            $sign = '';
+        }
+
         $fraction = "00";
         if (strstr($amount, '.')) {
             list($amount, $fraction) = explode('.', $amount);
         }
         $decimalPart = sprintf("<span class='text-muted'>.%s</span>", $fraction);
-        /**if ($fraction == '00' || $fraction == 0) {
-            $fraction = '';
-            $decimalPart = '';
-        }**/
 
         $html = sprintf("<span class='%s'>%s <span class='whole'>%s</span>%s <span class='text-muted small'> %s </span></span>",
             $class, $sign, $amount, $decimalPart, self::getCurrencySign());

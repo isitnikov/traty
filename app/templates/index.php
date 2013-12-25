@@ -102,10 +102,10 @@ require 'header.php';
                 <tr class="">
                     <td colspan="2">
                         <?php if ($amountSumIncome): ?>
-                        <p class="text-success">Доход за день: <?= GeneralHelper::renderAmount(array_sum($amountSumIncome), Category::TYPE_INCOME) ?></p>
+                        <p class="text-success"><strong>Доход за день: <?= GeneralHelper::renderAmount(array_sum($amountSumIncome), Category::TYPE_INCOME) ?></strong></p>
                         <?php endif ?>
                         <?php if ($amountSumSpend): ?>
-                        <p class="text-danger">Расход за день: <?= GeneralHelper::renderAmount(array_sum($amountSumSpend), Category::TYPE_SPEND) ?></p>
+                        <p class="text-danger"><strong>Расход за день: <?= GeneralHelper::renderAmount(array_sum($amountSumSpend), Category::TYPE_SPEND) ?></strong></p>
                         <?php endif ?>
                     </td>
                 </tr>
