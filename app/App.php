@@ -87,6 +87,7 @@ class App
 
     static public function run()
     {
+        $time_start = microtime(true);
         session_start();
         $controllerName = isset($_GET['controller'])? $_GET['controller'] : 'operation';
         $controllerName = ucfirst($controllerName) . 'Controller';
@@ -105,7 +106,11 @@ class App
         if (!method_exists($controller, $actionName)) {
             $actionName = 'notFoundAction';
         }
-        return $controller->$actionName();
+        $controller->$actionName();
+        $time_end = microtime(true);
+        $time = $time_end - $time_start;
+
+        return round($time,2);
     }
 
     static public function getBaseUrl()
