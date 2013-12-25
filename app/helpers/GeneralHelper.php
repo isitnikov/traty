@@ -29,7 +29,7 @@ class GeneralHelper
             $decimalPart = '';
         }**/
 
-        $html = sprintf("<span class='%s'>%s %s%s <span class='text-muted small'> %s </span></span>",
+        $html = sprintf("<span class='%s'>%s <span class='whole'>%s</span>%s <span class='text-muted small'> %s </span></span>",
             $class, $sign, $amount, $decimalPart, self::getCurrencySign());
 
         return $html;

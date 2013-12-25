@@ -139,7 +139,7 @@ require 'header.php';
 
             var chartData = [];
             var name = $('td.category_name').each(function(key, value){
-                chartData.push(new Array($(this).text(), parseInt($(this).next().children().text())))
+                chartData.push(new Array($(this).text(), parseInt($(this).next().find('span.whole').text())))
             });
             var price = $('td span.amount').html();
 
