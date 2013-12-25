@@ -11,16 +11,27 @@ class CategoryController extends AbstractController
 
     public function saveAction()
     {
-        var_dump(App::getRequest());
         $name = App::getRequest('name');
         $type = App::getRequest('type');
 
         $category = new Category();
         $category->setName($name);
         $category->setType($type);
-        $category->save();
 
-        App::addSuccessAlert();
+        try {
+            $category->loadByNameAndType();
+
+            if (!$category->getId()) {
+                $category->save();
+            }
+
+            $category->assignToUser(App::getUser());
+
+            App::addSuccessAlert();
+        } catch (Exception $e) {
+            App::addErrorAlert($e->getMessage());
+        }
+
         GeneralHelper::redirect(GeneralHelper::getUrl('category', 'view'));
     }
 }

@@ -2,8 +2,16 @@
 
 class CategoryCollection extends CategoryDb
 {
+    /**
+     * @param Zend_Db_Select $select
+     * @return mixed
+     */
     protected function _prepareSelect($select)
     {
+        $joinCond = 'category_user.category_id = ' . $this->_getTable(new Category()) . '.id';
+        $select->joinLeft('category_user', $joinCond, array());
+        $select->where('category_user.user_id = ?', App::getUser()->getId());
+
         return $select;
     }
 

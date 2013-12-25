@@ -63,6 +63,18 @@ class Category
         $db->load($this, $id);
     }
 
+    public function loadByNameAndType()
+    {
+        $db = new CategoryDb();
+        $db->loadByNameAndType($this);
+    }
+
+    public function assignToUser($user)
+    {
+        $db = new CategoryDb();
+        $db->assignToUser($this, $user);
+    }
+
     public function save()
     {
         $db = new CategoryDb();
