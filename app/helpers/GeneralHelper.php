@@ -23,7 +23,7 @@ class GeneralHelper
         if (strstr($amount, '.')) {
             list($amount, $fraction) = explode('.', $amount);
         }
-        $decimalPart = sprintf(".<span class='text-muted'>%s</span>", $fraction);
+        $decimalPart = sprintf("<span class='text-muted'>.%s</span>", $fraction);
         /**if ($fraction == '00' || $fraction == 0) {
             $fraction = '';
             $decimalPart = '';
