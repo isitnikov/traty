@@ -29,6 +29,8 @@ class CategoryCollection extends CategoryDb
         if ($type) {
             $select->where('type = ?', $type);
         }
+        $select->order('type DESC');
+        $select->order('system DESC');
 
         $rows = $this->getConnection()->query($select)->fetchAll();
 

@@ -45,9 +45,11 @@ require APP_TEMPLATES_PATH . 'header.php';
                             <?= $category->getName() ?>
                         </td>
                         <td class="text-right">
-                            <?php if (!$category->getSystem()): ?>
+                            <?php if (!$category->getSystem()) { ?>
                             <a href="<?= GeneralHelper::getUrl('category', 'status', array('id' => $category->getId()))?>">Выключить</a>
-                            <?php endif ?>
+                            <?php } else { ?>
+                            Системная
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php endforeach ?>
