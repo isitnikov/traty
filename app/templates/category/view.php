@@ -8,7 +8,7 @@ require APP_TEMPLATES_PATH . 'header.php';
             <form class="form" role="form" action="<?php echo GeneralHelper::getUrl('category', 'save') ?>" style="margin-bottom: 30px" method="post">
                 <div class="form-group">
                     <label class="sr-only" for="name">Категория</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Имя категории">
+                    <input type="text" name="name" class="form-control input-lg" id="name" placeholder="Имя категории">
                 </div>
                 <div class="radio">
                     <label>
