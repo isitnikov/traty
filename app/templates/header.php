@@ -56,8 +56,6 @@
                 $links = array(
                     array('url' => App::getBaseUrl(), 'label' => 'Главная'),
                     array('url' => GeneralHelper::getUrl('report', 'view'), 'label' => 'Отчеты'),
-                    array('url' => GeneralHelper::getUrl('family', 'view'), 'label' => 'Моя семья'),
-                    array('url' => GeneralHelper::getUrl('user', 'logout'), 'label' => 'Выйти'),
                 );
             ?>
 
@@ -72,6 +70,33 @@
                 ?>
                 <li class="<?= $active ?>"><a href="<?= $link['url'] ?>"><?= $link['label'] ?></a></li>
             <?php endforeach ?>
+            <?php
+            $links = array(
+                array('url' => GeneralHelper::getUrl('category', 'view'), 'label' => 'Категории'),
+                array('url' => GeneralHelper::getUrl('family', 'view'), 'label' => 'Мой профайл'),
+                array(),
+                array('url' => GeneralHelper::getUrl('user', 'logout'), 'label' => 'Выйти')
+            );
+            ?>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Настройки<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <?php foreach ($links as $key => $link): ?>
+                        <?php
+                        $active = '';
+                        if (!empty($link) && $link['url'] == GeneralHelper::getUrl(App::getRequest('controller'), App::getRequest('action'))) {
+                            $active = 'active';
+                        }
+
+                        ?>
+                        <?php if (!empty($link)) { ?>
+                        <li class="<?= $active ?>"><a href="<?= $link['url'] ?>"><?= $link['label'] ?></a></li>
+                        <?php } else { ?>
+                            <li class="divider"></li>
+                        <?php } ?>
+                    <?php endforeach ?>
+                </ul>
+            </li>
         </ul>
     </div>
     <!-- /.navbar-collapse -->
