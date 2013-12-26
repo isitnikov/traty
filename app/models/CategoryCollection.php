@@ -31,6 +31,7 @@ class CategoryCollection extends CategoryDb
         }
         $select->order('type DESC');
         $select->order('system DESC');
+        $select->order('id ASC');
 
         $rows = $this->getConnection()->query($select)->fetchAll();
 
