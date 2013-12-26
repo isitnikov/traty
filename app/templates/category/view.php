@@ -48,7 +48,7 @@ require APP_TEMPLATES_PATH . 'header.php';
                             <?php if (!$category->getSystem()) { ?>
                             <a href="<?= GeneralHelper::getUrl('category', 'status', array('id' => $category->getId()))?>">Выключить</a>
                             <?php } else { ?>
-                            Системная
+                            <span class="text-muted">Системная</span>
                             <?php } ?>
                         </td>
                     </tr>
