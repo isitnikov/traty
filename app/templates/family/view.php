@@ -26,17 +26,22 @@ require APP_TEMPLATES_PATH . 'header.php';
     <?php endif ?>
 
     <?php if (!empty($members)): ?>
-        <h2>Моя семья</h2>
-        <div class="row">
+        <table class="table">
+            <tr>
+                <th>Пользователь</th>
+                <th>Дествия</th>
+            </tr>
             <?php foreach ($members as $member): ?>
-            <div class="col-xs-6">
-                <h4><?= $member->getUsername() ?></h4>
-                <a href="<?= GeneralHelper::getUrl('family', 'remove', array('user_id' => $member->getId()))?>" class="btn btn-danger" onclick="return confirm('Вы уверены что хотите удалить члена семьи?')">
-                    <span class="glyphicon glyphicon-remove"></span> Удалить
-                </a>
-            </div>
+                <tr>
+                    <td><?= $member->getUsername() ?></td>
+                    <td>
+                        <a href="<?= GeneralHelper::getUrl('family', 'remove', array('user_id' => $member->getId()))?>" class="" onclick="return confirm('Вы уверены что хотите удалить члена семьи?')">
+                            <span class="glyphicon glyphicon-remove"></span> Удалить
+                        </a>
+                    </td>
+                </tr>
             <?php endforeach ?>
-        </div>
+        </table>
         <div class="row">&nbsp;</div>
 
     <?php endif ?>
