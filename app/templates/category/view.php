@@ -2,6 +2,7 @@
 require APP_TEMPLATES_PATH . 'header.php';
 ?>
 <div class="container">
+    <div class="row"><div class="col-xs-12"><h4>Категории</h4></div></div>
     <div class="row">
         <div class="col-md-6">
             <form class="form" role="form" action="<?php echo GeneralHelper::getUrl('category', 'save') ?>" style="margin-bottom: 30px" method="post">
