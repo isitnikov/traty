@@ -48,10 +48,19 @@ class CategoryDb extends ResourceAbstract
         return $row;
     }
 
+    /**
+     * @param Category $category
+     * @param User $user
+     * @return int
+     * @throws Exception
+     */
     public function unassignFromUser($category, $user)
     {
+        if (!$this->isAssignedCategoryToUser($category, $user)) {
+            throw new Exception("Нельзя удалить категорию");
+        }
         $whereCategory = $this->getConnection()->quoteInto('category_id = ?', $category->getId());
-        $whereUser     = $this->getConnection()->quoteInto('user_id = ?', $user->getId());
+        $whereUser     = $this->getConnection()->quoteInto('user_id IN (?)', $user->getId());
         return App::getConnection()->delete('category_user', array($whereUser, $whereCategory));
     }
 }

@@ -180,4 +180,31 @@ class User
         $db = new Family_Db();
         return $db->loadFamilyByUser($this);
     }
+
+    public function familyMemeber()
+    {
+        $members = array();
+        $family = $this->family();
+        if ($family->getId()) {
+            $members = $family->members(1);
+        }
+
+        return $members;
+    }
+
+    public function familyMemberIds()
+    {
+        $resultIds = array();
+
+        $members = $this->familyMemeber();
+        foreach ($members as $member) {
+            $resultIds[] = $member->getId();
+        }
+
+        if (empty($resultIds)) {
+            $resultIds = array($this->getId());
+        }
+
+        return $resultIds;
+    }
 }

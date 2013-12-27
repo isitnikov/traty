@@ -47,7 +47,11 @@ class CategoryController extends AbstractController
             return;
         }
 
-        $category->unassignFromUser(App::getUser());
+        try {
+            $category->unassignFromUser(App::getUser());
+        } catch (Exception $e) {
+            App::addErrorAlert($e->getMessage());
+        }
         GeneralHelper::redirect(GeneralHelper::getUrl('category', 'view'));
     }
 }

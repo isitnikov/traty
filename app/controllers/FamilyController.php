@@ -28,6 +28,11 @@ class FamilyController extends AbstractController
         $invitedUser->setUsername($username);
         $invitedUser->loadUserByUsername();
 
+        if (!$invitedUser->getId()) {
+            App::addErrorAlert('Такого пользователя нет в системе');
+            GeneralHelper::redirect();
+        }
+
         $family = $invitedUser->family();
         if ($family->getId()) {
             $members = $family->members(1);

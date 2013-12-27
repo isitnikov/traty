@@ -13,24 +13,7 @@ class OperationCollection extends OperationDb
 
     protected function _addUser($select)
     {
-        $user = App::getUser();
-        $family = $user->family();
-        if ($family->getId()) {
-            $members = $family->members();
-            $users = array();
-            foreach ($members as $member) {
-                $users[] = $member->getId();
-            }
-
-            if (empty($users)) {
-                $users = App::getUser()->getId();
-            }
-
-            $select->where('user IN (?)', $users);
-            return $select;
-        }
-
-        $select->where('user = ?', $user->getId());
+        $select->where('user IN (?)', App::getUser()->familyMemberIds());
 
         return $select;
     }
