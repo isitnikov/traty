@@ -3,18 +3,10 @@ require APP_TEMPLATES_PATH . 'header.php';
 
 $months = array();
 $currentDate = time();
-$months[] = GeneralHelper::getDateLabel(strtotime("-2 month", $currentDate), 'month');
-$months[] = GeneralHelper::getDateLabel(strtotime("-1 month", $currentDate), 'month');
-$months[] = GeneralHelper::getDateLabel($currentDate, 'month');
-$months[] = GeneralHelper::getDateLabel(strtotime("+1 month", $currentDate), 'month');
-$months[] = GeneralHelper::getDateLabel(strtotime("+2 month", $currentDate), 'month');
-$months[] = GeneralHelper::getDateLabel(strtotime("+3 month", $currentDate), 'month');
-$months[] = GeneralHelper::getDateLabel(strtotime("+4 month", $currentDate), 'month');
-$months[] = GeneralHelper::getDateLabel(strtotime("+5 month", $currentDate), 'month');
-$months[] = GeneralHelper::getDateLabel(strtotime("+6 month", $currentDate), 'month');
-$months[] = GeneralHelper::getDateLabel(strtotime("+7 month", $currentDate), 'month');
-
-
+for ($i = -2; $i<=7; $i++) {
+    $date = strtotime("${i} month", $currentDate);
+    $months[date('m', $date)] = GeneralHelper::getDateLabel($date, 'month');
+}
 
 ?>
 <div class="container">
@@ -27,29 +19,29 @@ $months[] = GeneralHelper::getDateLabel(strtotime("+7 month", $currentDate), 'mo
                 <small>на месяц</small>
             </h3>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" style="overflow: scroll!important">
                     <tr class="active">
                         <th><span class="text-danger">Расходы</span></th>
-                        <?php foreach ($months as $month): ?>
+                        <?php foreach ($months as $tsDate => $month): ?>
                         <th class="text-right"><small><?= $month ?></small></th>
                         <?php endforeach ?>
                     </tr>
                     <tr>
                         <th><small>Бюджет</small></th>
-                        <?php foreach ($months as $month): ?>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
+                        <?php foreach ($months as $tsDate => $month): $amount = rand(400, 10000); $sumBudget[$month] = $amount;  ?>
+                        <td class="text-right"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
                         <?php endforeach ?>
                     </tr>
                     <tr>
                         <th style="border-top: 0"><small>Фактически</small></th>
-                        <?php foreach ($months as $month): ?>
-                        <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
+                        <?php foreach ($months as $tsDate => $month): $db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month'); $amount = isset($amounts[$tsDate])? $amounts[$tsDate]['amount'] : 0; $sumFact[$month] = $amount;?>
+                        <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
                         <?php endforeach ?>
                     </tr>
                     <tr>
                         <th>Итого: </th>
-                        <?php foreach ($months as $month): ?>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
+                        <?php foreach ($months as $tsDate => $month): ?>
+                        <td class="text-right"><?= GeneralHelper::renderAmount($sumBudget[$month] - $sumFact[$month])?></td>
                         <?php endforeach ?>
                     </tr>
                 </table>

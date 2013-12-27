@@ -76,8 +76,12 @@ class OperationCollection extends OperationDb
         $this->_prepareSelect($select);
 
         $rows = $this->getConnection()->query($select)->fetchAll();
+        $result = array();
+        foreach ($rows as $row) {
+            $result[$row[$type]] = $row;
+        }
 
-        return $rows;
+        return $result;
     }
 
     public function getOperationsGroupedBy($date, $dateType = 'date', $type = Category::TYPE_SPEND)

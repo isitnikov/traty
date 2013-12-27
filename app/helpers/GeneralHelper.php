@@ -35,7 +35,7 @@ class GeneralHelper
         }
         $decimalPart = sprintf("<span class='text-muted'>.%s</span>", $fraction);
 
-        $html = sprintf("<span class='%s'>%s <span class='whole'>%s</span>%s <span class='text-muted small'> %s </span></span>",
+        $html = sprintf("<span class='%s'>&nbsp;%s&nbsp;<span class='whole'>%s</span>%s&nbsp;<span class='text-muted small'> %s </span></span>",
             $class, $sign, $amount, $decimalPart, self::getCurrencySign());
 
         return $html;
