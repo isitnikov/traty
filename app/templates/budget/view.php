@@ -22,25 +22,25 @@ for ($i = -2; $i<=7; $i++) {
                 <table class="table" style="overflow: scroll!important">
                     <tr class="active">
                         <th><span class="text-danger">Расходы</span></th>
-                        <?php foreach ($months as $tsDate => $month): ?>
+                        <?php foreach ($months as $monthNum => $month): ?>
                         <th class="text-right"><small><?= $month ?></small></th>
                         <?php endforeach ?>
                     </tr>
                     <tr>
                         <th><small>Бюджет</small></th>
-                        <?php foreach ($months as $tsDate => $month): $amount = rand(400, 10000); $sumBudget[$month] = $amount;  ?>
+                        <?php foreach ($months as $monthNum => $month): $amount = rand(400, 10000); $sumBudget[$month] = $amount;  ?>
                         <td class="text-right"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
                         <?php endforeach ?>
                     </tr>
                     <tr>
                         <th style="border-top: 0"><small>Фактически</small></th>
-                        <?php foreach ($months as $tsDate => $month): $db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month'); $amount = isset($amounts[$tsDate])? $amounts[$tsDate]['amount'] : 0; $sumFact[$month] = $amount;?>
+                        <?php foreach ($months as $monthNum => $month): $db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month'); $amount = isset($amounts[$monthNum][Category::TYPE_SPEND])? $amounts[$monthNum][Category::TYPE_SPEND]['amount'] : 0; $sumFact[$month] = $amount;?>
                         <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
                         <?php endforeach ?>
                     </tr>
                     <tr>
                         <th>Итого: </th>
-                        <?php foreach ($months as $tsDate => $month): ?>
+                        <?php foreach ($months as $monthNum => $month): ?>
                         <td class="text-right"><?= GeneralHelper::renderAmount($sumBudget[$month] - $sumFact[$month])?></td>
                         <?php endforeach ?>
                     </tr>
