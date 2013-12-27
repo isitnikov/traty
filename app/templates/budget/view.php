@@ -27,7 +27,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
             <h3 class="text-primary">План бюджета
                 <small>на месяц</small>
             </h3>
-                <table class="table" style="overflow: scroll!important">
+                <table class="table table-condensed" style="overflow: scroll!important">
                     <tr class="active">
                         <th width="160px"><span class="text-success">Доходы</span></th>
                         <?php foreach ($months as $monthNum => $month): ?>
@@ -35,7 +35,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php endforeach ?>
                     </tr>
                     <tr>
-                        <th width="160px"><small>Планировал заработать</small></th>
+                        <th width="160px"><small>Планировал&nbsp;заработать</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = $incomeBudget;
@@ -59,9 +59,9 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
 
 
 
-                <table class="table" style="overflow: scroll!important">
+                <table class="table table-condensed" style="overflow: scroll!important">
                     <tr>
-                        <th width="160px"><small>Планировал потратить</small></th>
+                        <th width="160px"><small>Планировал&nbsp;потратить</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = $spendBudget;
@@ -84,9 +84,9 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                 </table>
 
 
-                <table class="table" style="overflow: scroll!important">
+                <table class="table table-condensed" style="overflow: scroll!important">
                     <tr>
-                        <th width="160px"><small>Запланировал итог</small></th>
+                        <th width="160px"><small>Запланировал&nbsp;итог</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $allBudgetSum[] = $incomeBudget - $spendBudget;
