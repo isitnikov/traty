@@ -2,13 +2,16 @@
 require APP_TEMPLATES_PATH . 'header.php';
 ?>
 <div class="container">
-    <h3 class="text-primary">Бюджет <small>на месяц</small></h3>
+    <h3 class="text-primary">Бюджет
+        <small>на месяц</small>
+    </h3>
 
     <?php
     $categories = array('Продукты', 'Транспорт', 'Одежда', 'Авто', 'Отдых', 'Еда вне дома', 'Развлечения');
     ?>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-sm-6">
+            <div class="table-responsive">
             <table class="table">
                 <tr>
                     <th>Категория</th>
@@ -16,13 +19,16 @@ require APP_TEMPLATES_PATH . 'header.php';
                     <th>Декабрь 2013</th>
                 </tr>
                 <?php foreach ($categories as $category): ?>
-                <tr>
-                    <td><?= $category ?></td>
-                    <td><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND) ?></td>
-                    <td><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND) ?></td>
-                </tr>
+                    <tr>
+                        <td><?= $category ?></td>
+                        <td><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND) ?></td>
+                        <td><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND) ?></td>
+                    </tr>
                 <?php endforeach ?>
             </table>
+                </div>
+        </div>
+        <div class="col-sm-6">
             <table class="table">
                 <tr>
                     <th>Категория</th>
@@ -30,14 +36,16 @@ require APP_TEMPLATES_PATH . 'header.php';
                 </tr>
 
                 <?php foreach ($categories as $category): ?>
-                <tr>
-                    <td width="70%"><?= $category ?></td>
-                    <td class="text-right"><input type="text" name="amount" placeholder="00.00" class="form-control" /> </td>
-                </tr>
+                    <tr>
+                        <td width="70%"><?= $category ?></td>
+                        <td class="text-right"><input type="text" name="amount" placeholder="00.00"
+                                                      class="form-control"/></td>
+                    </tr>
                 <?php endforeach ?>
             </table>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
