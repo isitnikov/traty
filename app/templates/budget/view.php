@@ -1,10 +1,19 @@
 <?php
 require APP_TEMPLATES_PATH . 'header.php';
 
+$db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month');
+
+$incomeBudget = 20000;
+$spendBudget  = 16700;
+
 $months = array();
 $currentDate = time();
+$userCreated = GeneralHelper::getDateTime(App::getUser()->getCreated())->format('U');
 for ($i = -2; $i<=7; $i++) {
     $date = strtotime("${i} month", $currentDate);
+    if ($userCreated > $date) {
+        continue;
+    }
     $months[date('m', $date)] = GeneralHelper::getDateLabel($date, 'month');
 }
 
@@ -14,39 +23,111 @@ for ($i = -2; $i<=7; $i++) {
     $categories = array('Продукты', 'Транспорт', 'Одежда', 'Авто', 'Отдых', 'Еда вне дома', 'Развлечения');
     ?>
     <div class="row">
-        <div class="col-xs-12">
-            <h3 class="text-primary">Бюджет
+        <div class="col-xs-12" style="overflow: auto">
+            <h3 class="text-primary">План бюджета
                 <small>на месяц</small>
             </h3>
-            <div class="table-responsive">
                 <table class="table" style="overflow: scroll!important">
                     <tr class="active">
-                        <th><span class="text-danger">Расходы</span></th>
+                        <th style="width: 110px"><span class="text-success">Доходы</span></th>
                         <?php foreach ($months as $monthNum => $month): ?>
                         <th class="text-right"><small><?= $month ?></small></th>
                         <?php endforeach ?>
                     </tr>
                     <tr>
-                        <th><small>Бюджет</small></th>
-                        <?php foreach ($months as $monthNum => $month): $amount = rand(400, 10000); $sumBudget[$month] = $amount;  ?>
-                        <td class="text-right"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
-                        <?php endforeach ?>
+                        <th><small>Запланировано</small></th>
+                        <?php
+                        foreach ($months as $monthNum => $month) {
+                            $amount = $incomeBudget;
+                            $sumIncomeBudget[$month] = $amount;
+                            ?>
+                            <td class="text-right"><?= GeneralHelper::renderAmount($amount, Category::TYPE_INCOME)?></td>
+                        <?php } ?>
                     </tr>
                     <tr>
-                        <th style="border-top: 0"><small>Фактически</small></th>
-                        <?php foreach ($months as $monthNum => $month): $db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month'); $amount = isset($amounts[$monthNum][Category::TYPE_SPEND])? $amounts[$monthNum][Category::TYPE_SPEND]['amount'] : 0; $sumFact[$month] = $amount;?>
-                        <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
-                        <?php endforeach ?>
-                    </tr>
-                    <tr>
-                        <th>Итого: </th>
-                        <?php foreach ($months as $monthNum => $month): ?>
-                        <td class="text-right"><?= GeneralHelper::renderAmount($sumBudget[$month] - $sumFact[$month])?></td>
-                        <?php endforeach ?>
+                        <th style="border-top: 0"><small>Заработано</small></th>
+                        <?php
+                        foreach ($months as $monthNum => $month) {
+                            $amount = isset($amounts[$monthNum]) && isset($amounts[$monthNum][Category::TYPE_INCOME])
+                                ? $amounts[$monthNum][Category::TYPE_INCOME]['amount'] : 0;
+                            $sumIncomeFact[$month] = $amount;
+                        ?>
+                        <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount($amount, Category::TYPE_INCOME)?></td>
+                        <?php } ?>
                     </tr>
                 </table>
-            </div>
+
+
+
+                <table class="table" style="overflow: scroll!important">
+                    <tr class="active">
+                        <th width="110px"><span class="text-danger">Расходы</span></th>
+                        <?php foreach ($months as $monthNum => $month): ?>
+                            <th class="text-right"><small><?= $month ?></small></th>
+                        <?php endforeach ?>
+                    </tr>
+                    <tr>
+                        <th><small>Запланировано</small></th>
+                        <?php
+                        foreach ($months as $monthNum => $month) {
+                            $amount = $spendBudget;
+                            $sumSpendBudget[$month] = $amount;
+                            ?>
+                            <td class="text-right"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <th style="border-top: 0"><small>Потрачено</small></th>
+                        <?php
+                        foreach ($months as $monthNum => $month) {
+                            $amount = isset($amounts[$monthNum]) && isset($amounts[$monthNum][Category::TYPE_SPEND])
+                                ? $amounts[$monthNum][Category::TYPE_SPEND]['amount'] : 0;
+                            $sumSpendFact[$month] = $amount;
+                            ?>
+                            <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
+                        <?php } ?>
+                    </tr>
+                </table>
+
+
+                <table class="table" style="overflow: scroll!important">
+                    <tr class="active">
+                        <th width="110px"><span class="text-danger">Остаток</span></th>
+                        <?php foreach ($months as $monthNum => $month): ?>
+                            <th class="text-right"><small><?= $month ?></small></th>
+                        <?php endforeach ?>
+                    </tr>
+                    <tr>
+                        <th><small>Запланировано</small></th>
+                        <?php
+                        foreach ($months as $monthNum => $month) {
+                            $allBudgetSum[] = $incomeBudget - $spendBudget;
+                        ?>
+                            <td class="text-right"><?= GeneralHelper::renderAmount(array_sum($allBudgetSum))?></td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <th style="border-top: 0"><small>Итого</small></th>
+                        <?php
+                        foreach ($months as $monthNum => $month) {
+                            $maxMonth = false;
+                            if (array_keys($amounts)) {
+                                $monthKeys = array_keys($amounts);
+                                $maxMonth = end($monthKeys);
+                            }
+
+                            $allFactSum[] = $sumIncomeBudget[$month] - $sumIncomeFact[$month];
+                            if ($maxMonth && $maxMonth > $monthNum) {
+                                $allFactSum = array();
+                            }
+                            ?>
+                            <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount(array_sum($allFactSum))?></td>
+                        <?php } ?>
+                    </tr>
+                </table>
+
         </div>
+        <?php return; ?>
         <div class="col-xs-12">
             <h3 class="text-primary">Задать бюджет
                 <small>на месяц</small>
