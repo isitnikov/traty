@@ -57,10 +57,19 @@ class GeneralHelper
 
     static public function getDateTime($date)
     {
+        if (self::isValidTimeStamp($date)) {
+            $date = DateTime::createFromFormat('U', $date);
+            return $date;
+        }
         $date = substr($date, 0, 10);
         $date = DateTime::createFromFormat('Y-m-d', $date);
 
         return $date;
+    }
+
+    static public function isValidTimeStamp($timestamp)
+    {
+        return is_int($timestamp);
     }
 
     static public function getDateValue($date, $type)
@@ -82,8 +91,7 @@ class GeneralHelper
 
     static public function getDateLabel($date, $type)
     {
-        $date = substr($date, 0, 10);
-        $date = DateTime::createFromFormat('Y-m-d', $date);
+        $date = self::getDateTime($date);
         $day = $date->format('d');
         $month = $date->format('m');
         $year = $date->format('Y');

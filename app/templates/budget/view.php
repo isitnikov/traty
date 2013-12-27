@@ -1,12 +1,28 @@
 <?php
 require APP_TEMPLATES_PATH . 'header.php';
+
+$months = array();
+$currentDate = time();
+$months[] = GeneralHelper::getDateLabel(strtotime("-2 month", $currentDate), 'month');
+$months[] = GeneralHelper::getDateLabel(strtotime("-1 month", $currentDate), 'month');
+$months[] = GeneralHelper::getDateLabel($currentDate, 'month');
+$months[] = GeneralHelper::getDateLabel(strtotime("+1 month", $currentDate), 'month');
+$months[] = GeneralHelper::getDateLabel(strtotime("+2 month", $currentDate), 'month');
+$months[] = GeneralHelper::getDateLabel(strtotime("+3 month", $currentDate), 'month');
+$months[] = GeneralHelper::getDateLabel(strtotime("+4 month", $currentDate), 'month');
+$months[] = GeneralHelper::getDateLabel(strtotime("+5 month", $currentDate), 'month');
+$months[] = GeneralHelper::getDateLabel(strtotime("+6 month", $currentDate), 'month');
+$months[] = GeneralHelper::getDateLabel(strtotime("+7 month", $currentDate), 'month');
+
+
+
 ?>
 <div class="container">
     <?php
     $categories = array('Продукты', 'Транспорт', 'Одежда', 'Авто', 'Отдых', 'Еда вне дома', 'Развлечения');
     ?>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-xs-12">
             <h3 class="text-primary">Бюджет
                 <small>на месяц</small>
             </h3>
@@ -14,88 +30,32 @@ require APP_TEMPLATES_PATH . 'header.php';
                 <table class="table">
                     <tr class="active">
                         <th><span class="text-danger">Расходы</span></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
+                        <?php foreach ($months as $month): ?>
+                        <th class="text-right"><small><?= $month ?></small></th>
+                        <?php endforeach ?>
                     </tr>
                     <tr>
                         <th><small>Бюджет</small></th>
+                        <?php foreach ($months as $month): ?>
                         <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
+                        <?php endforeach ?>
                     </tr>
                     <tr>
-                        <th><small>Фактически</small></th>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <tr class="active">
-                        <th><span class="text-success">Доходы</span></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
+                        <th style="border-top: 0"><small>Фактически</small></th>
+                        <?php foreach ($months as $month): ?>
+                        <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
+                        <?php endforeach ?>
                     </tr>
                     <tr>
-                        <th><small>Бюджет</small></th>
+                        <th>Итого: </th>
+                        <?php foreach ($months as $month): ?>
                         <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                    </tr>
-                    <tr>
-                        <th><small>Фактически</small></th>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <tr class="active">
-                        <th><span class="text-danger">Баланс</span></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                        <th class="text-right"><small>Ноябрь 2013</small></th>
-                    </tr>
-                    <tr>
-                        <th><small>Бюджет</small></th>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                    </tr>
-                    <tr>
-                        <th><small>Фактически</small></th>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND)?></td>
+                        <?php endforeach ?>
                     </tr>
                 </table>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-xs-12">
             <h3 class="text-primary">Задать бюджет
                 <small>на месяц</small>
             </h3>
