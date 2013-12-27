@@ -17,7 +17,7 @@ require APP_TEMPLATES_PATH . 'header.php';
                 </tr>
                 <?php foreach ($categories as $category): ?>
                 <tr>
-                    <td>Продукты</td>
+                    <td><?= $category ?></td>
                     <td><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND) ?></td>
                     <td><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND) ?></td>
                 </tr>
@@ -31,7 +31,7 @@ require APP_TEMPLATES_PATH . 'header.php';
 
                 <?php foreach ($categories as $category): ?>
                 <tr>
-                    <td><?= $category ?></td>
+                    <td width="70%"><?= $category ?></td>
                     <td class="text-right"><input type="text" name="amount" placeholder="00.00" class="form-control" /> </td>
                 </tr>
                 <?php endforeach ?>
