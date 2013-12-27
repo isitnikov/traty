@@ -7,7 +7,7 @@ require APP_TEMPLATES_PATH . 'header.php';
     <div class="row">
         <div class="col-xs-12">
             <div class="table-responsive">
-            <table class="table">
+            <table class="table table-condensed">
                 <tr>
                     <th>Категория</th>
                     <th>Бюджет</th>
@@ -16,7 +16,19 @@ require APP_TEMPLATES_PATH . 'header.php';
                 </tr>
                 <tr>
                     <td>Продукты</td>
-                    <td><input type="text" name="amount" placeholder="Сумма бюджета" class="form-control" /> </td>
+                    <td><input type="text" name="amount" placeholder="00.00" class="form-control" /> </td>
+                    <td><?= GeneralHelper::renderAmount(rand(1000, 3000), Category::TYPE_SPEND)?></td>
+                    <td><?= GeneralHelper::renderAmount(rand(1000, 3000), Category::TYPE_SPEND)?></td>
+                </tr>
+                <tr>
+                    <td>Продукты</td>
+                    <td><input type="text" name="amount" placeholder="00.00" class="form-control" /> </td>
+                    <td><?= GeneralHelper::renderAmount(rand(1000, 3000), Category::TYPE_SPEND)?></td>
+                    <td><?= GeneralHelper::renderAmount(rand(1000, 3000), Category::TYPE_SPEND)?></td>
+                </tr>
+                <tr>
+                    <td>Продукты</td>
+                    <td><input type="text" name="amount" placeholder="00.00" class="form-control" /> </td>
                     <td><?= GeneralHelper::renderAmount(rand(1000, 3000), Category::TYPE_SPEND)?></td>
                     <td><?= GeneralHelper::renderAmount(rand(1000, 3000), Category::TYPE_SPEND)?></td>
                 </tr>
