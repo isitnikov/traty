@@ -23,14 +23,14 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
     $categories = array('Продукты', 'Транспорт', 'Одежда', 'Авто', 'Отдых', 'Еда вне дома', 'Развлечения');
     ?>
     <div class="row">
-        <div class="col-xs-12" style="overflow: auto">
+        <div class="col-xs-12">
             <h3 class="text-primary">План бюджета
                 <small>на месяц</small>
             </h3>
             <div class="table-responsive">
                 <table class="table table-condensed">
                     <tr class="active">
-                        <th width="160px"><span class="text-success">Доходы</span></th>
+                        <th width="160px"><span class="text-success">&nbsp;</span></th>
                         <?php foreach ($months as $monthNum => $month): ?>
                         <th class="text-right"><small><?= $month ?></small></th>
                         <?php endforeach ?>
