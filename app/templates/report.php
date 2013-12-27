@@ -4,11 +4,6 @@ $navDateClass = $reportType == 'date' || !$reportType ? 'active' : '';
 $navWeekClass = $reportType == 'week' ? 'active' : '';
 $navMonthClass = $reportType == 'month' ? 'active' : '';
 $operations = $db->getAmountsGroupedBy($reportType);
-$result = array();
-foreach ($operations as $row) {
-    $result[$row[$reportType]][] = $row;
-}
-$operations = $result;
 ?>
 <div class="container">
 
@@ -28,15 +23,18 @@ $operations = $result;
                     <th>Дата</th>
                     <th class="text-right">Доход / Расход</th>
                 </tr>
-                <?php foreach ($operations as $date => $operationArr): ?>
+                <?php foreach ($operations as $date => $operationsByTypes): ?>
                     <tr>
-                        <?php $fullDate = $operationArr[0]['date']; ?>
+                        <?php $fullDate = isset($operationsByTypes[Category::TYPE_INCOME])
+                            ? $operationsByTypes[Category::TYPE_INCOME]['date'] : $operationsByTypes[Category::TYPE_SPEND]['date']; ?>
                         <td>
-                            <a href="<?= GeneralHelper::getUrl('report', 'detail', array('report_type' => $reportType, 'date' => $fullDate)) ?>"><?= GeneralHelper::getDateLabel($fullDate, $reportType) ?></a>
+                            <a href="<?= GeneralHelper::getUrl('report', 'detail', array('report_type' => $reportType, 'date' => $fullDate)) ?>">
+                                <?= GeneralHelper::getDateLabel($fullDate, $reportType) ?>
+                            </a>
                         </td>
                         <td class="text-right">
                             <?php $itog = array() ?>
-                            <?php foreach ($operationArr as $operation): ?>
+                            <?php foreach ($operationsByTypes as $type => $operation): ?>
                             <?php $itog[$operation['type']][] = $operation['amount'] ?>
                             <?= GeneralHelper::renderAmount($operation['amount'], $operation['type'])?><br/>
                             <?php endforeach ?>

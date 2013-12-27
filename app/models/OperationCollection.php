@@ -72,12 +72,18 @@ class OperationCollection extends OperationDb
             'month' => 'MONTH(date)'
         ));
         $select->group(array($type, 'type'));
-        $select->order('date DESC');
+        $select->order($type . ' DESC');
+        $select->order('type DESC');
         $this->_prepareSelect($select);
 
         $rows = $this->getConnection()->query($select)->fetchAll();
 
-        return $rows;
+        $result = array();
+        foreach ($rows as $row) {
+            $result[$row[$type]][$row['type']] = $row;
+        }
+
+        return $result;
     }
 
     public function getOperationsGroupedBy($date, $dateType = 'date', $type = Category::TYPE_SPEND)
