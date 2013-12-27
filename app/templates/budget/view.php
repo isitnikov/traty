@@ -29,13 +29,13 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
             </h3>
                 <table class="table" style="overflow: scroll!important">
                     <tr class="active">
-                        <th style="width: 110px"><span class="text-success">Доходы</span></th>
+                        <th width="160px"><span class="text-success">Доходы</span></th>
                         <?php foreach ($months as $monthNum => $month): ?>
                         <th class="text-right"><small><?= $month ?></small></th>
                         <?php endforeach ?>
                     </tr>
                     <tr>
-                        <th><small>Планировал заработать</small></th>
+                        <th width="160px"><small>Планировал заработать</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = $incomeBudget;
@@ -45,7 +45,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php } ?>
                     </tr>
                     <tr>
-                        <th style="border-top: 0"><small>Заработал</small></th>
+                        <th width="160px" style="border-top: 0"><small>Заработал</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = isset($amounts[$monthNum]) && isset($amounts[$monthNum][Category::TYPE_INCOME])
@@ -60,14 +60,8 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
 
 
                 <table class="table" style="overflow: scroll!important">
-                    <tr class="active">
-                        <th width="110px"><span class="text-danger">Расходы</span></th>
-                        <?php foreach ($months as $monthNum => $month): ?>
-                            <th class="text-right"><small><?= $month ?></small></th>
-                        <?php endforeach ?>
-                    </tr>
                     <tr>
-                        <th><small>Планировал потратить</small></th>
+                        <th width="160px"><small>Планировал потратить</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = $spendBudget;
@@ -77,7 +71,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php } ?>
                     </tr>
                     <tr>
-                        <th style="border-top: 0"><small>Потратил</small></th>
+                        <th width="160px" style="border-top: 0"><small>Потратил</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = isset($amounts[$monthNum]) && isset($amounts[$monthNum][Category::TYPE_SPEND])
@@ -91,14 +85,8 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
 
 
                 <table class="table" style="overflow: scroll!important">
-                    <tr class="active">
-                        <th width="110px"><span class="text-danger">Остаток</span></th>
-                        <?php foreach ($months as $monthNum => $month): ?>
-                            <th class="text-right"><small><?= $month ?></small></th>
-                        <?php endforeach ?>
-                    </tr>
                     <tr>
-                        <th><small>Планировал остаток</small></th>
+                        <th width="160px"><small>Запланировал итог</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $allBudgetSum[] = $incomeBudget - $spendBudget;
@@ -107,7 +95,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php } ?>
                     </tr>
                     <tr>
-                        <th style="border-top: 0"><small>Итог</small></th>
+                        <th width="160px" style="border-top: 0"><small>Итог</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $maxMonth = false;
