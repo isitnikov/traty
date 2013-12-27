@@ -35,7 +35,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php endforeach ?>
                     </tr>
                     <tr>
-                        <th><small>Запланировано</small></th>
+                        <th><small>Планировал(а) заработать</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = $incomeBudget;
@@ -67,7 +67,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php endforeach ?>
                     </tr>
                     <tr>
-                        <th><small>Запланировано</small></th>
+                        <th><small>Планировал(а) потратить</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = $spendBudget;
@@ -77,7 +77,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php } ?>
                     </tr>
                     <tr>
-                        <th style="border-top: 0"><small>Потрачено</small></th>
+                        <th style="border-top: 0"><small>Потратил(а)</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $amount = isset($amounts[$monthNum]) && isset($amounts[$monthNum][Category::TYPE_SPEND])
@@ -98,7 +98,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php endforeach ?>
                     </tr>
                     <tr>
-                        <th><small>Запланировано</small></th>
+                        <th><small>Планировал(а) сохранить</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $allBudgetSum[] = $incomeBudget - $spendBudget;
@@ -107,7 +107,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php } ?>
                     </tr>
                     <tr>
-                        <th style="border-top: 0"><small>Итого</small></th>
+                        <th style="border-top: 0"><small>Итог</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $maxMonth = false;
