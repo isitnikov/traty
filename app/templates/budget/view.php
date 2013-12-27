@@ -27,7 +27,8 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
             <h3 class="text-primary">План бюджета
                 <small>на месяц</small>
             </h3>
-                <table class="table table-condensed" style="overflow: scroll!important">
+            <div class="table-responsive">
+                <table class="table table-condensed">
                     <tr class="active">
                         <th width="160px"><span class="text-success">Доходы</span></th>
                         <?php foreach ($months as $monthNum => $month): ?>
@@ -104,6 +105,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php } ?>
                     </tr>
                 </table>
+                </div>
 
 
 
