@@ -18,10 +18,6 @@ class GeneralHelper
         $amount = abs($amount);
         $amount = sprintf('%.2f', $amount);
 
-        if ($amount == "00.00") {
-            return '<span class="text-muted">—</span>';
-        }
-
         $class = 'text-success';
         $sign  = "&plus;";
 

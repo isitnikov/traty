@@ -3,9 +3,6 @@ require APP_TEMPLATES_PATH . 'header.php';
 
 $db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month');
 
-$incomeBudget = 20000;
-$spendBudget  = 16700;
-
 $months = array();
 $currentDate = time();
 $userCreated = GeneralHelper::getDateTime(App::getUser()->getCreated())->format('U');
@@ -14,8 +11,11 @@ for ($i = -2; $i<=7; $i++) {
     if ($userCreated > $date) {
         continue;
     }
-    $months[date('m', $date)] = GeneralHelper::getDateLabel($date, 'month');
+    $months[date('n', $date)] = GeneralHelper::getDateLabel($date, 'month');
 }
+$incomeBudget = $amounts[date('n')][Category::TYPE_INCOME]['amount'];
+$spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
+
 
 ?>
 <div class="container">
