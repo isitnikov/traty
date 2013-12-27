@@ -55,11 +55,6 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount($amount, Category::TYPE_INCOME)?></td>
                         <?php } ?>
                     </tr>
-                </table>
-
-
-
-                <table class="table table-condensed" style="overflow: scroll!important">
                     <tr>
                         <th width="160px"><small>Планировал&nbsp;потратить</small></th>
                         <?php
@@ -81,16 +76,12 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                             <td class="text-right" style="border-top: 0"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND)?></td>
                         <?php } ?>
                     </tr>
-                </table>
-
-
-                <table class="table table-condensed" style="overflow: scroll!important">
                     <tr>
                         <th width="160px"><small>Запланировал&nbsp;итог</small></th>
                         <?php
                         foreach ($months as $monthNum => $month) {
                             $allBudgetSum[] = $incomeBudget - $spendBudget;
-                        ?>
+                            ?>
                             <td class="text-right"><?= GeneralHelper::renderAmount(array_sum($allBudgetSum))?></td>
                         <?php } ?>
                     </tr>
@@ -113,6 +104,9 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                         <?php } ?>
                     </tr>
                 </table>
+
+
+
 
         </div>
         <?php return; ?>
