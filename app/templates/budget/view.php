@@ -6,7 +6,7 @@ $db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month');
 $months = array();
 $currentDate = time();
 $userCreated = GeneralHelper::getDateTime(App::getUser()->getCreated())->format('U');
-for ($i = -2; $i<=11; $i++) {
+for ($i = -2; $i<=7; $i++) {
     $date = strtotime("${i} month", $currentDate);
     if ($userCreated > $date) {
         continue;
@@ -23,7 +23,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
     $categories = array('Продукты', 'Транспорт', 'Одежда', 'Авто', 'Отдых', 'Еда вне дома', 'Развлечения');
     ?>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-lg-12">
             <h3 class="text-primary">План бюджета
                 <small>на месяц</small>
             </h3>
@@ -111,7 +111,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
 
 
         </div>
-        <?php return; ?>
+        <div class="col-xs-12">&nbsp;</div>
         <div class="col-xs-12">
             <h3 class="text-primary">Задать бюджет
                 <small>на месяц</small>
