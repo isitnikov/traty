@@ -6,7 +6,7 @@ $db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month');
 $months = array();
 $currentDate = time();
 $userCreated = GeneralHelper::getDateTime(App::getUser()->getCreated())->format('U');
-for ($i = -2; $i<=7; $i++) {
+for ($i = -2; $i<=11; $i++) {
     $date = strtotime("${i} month", $currentDate);
     if ($userCreated > $date) {
         continue;
