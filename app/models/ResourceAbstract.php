@@ -62,7 +62,8 @@ abstract class ResourceAbstract
                 throw new Exception('Cant save object to DB');
             }
         } catch (Exception $e) {
-            print $e->getMessage();
+            App::addErrorAlert();
+            error_log($e->getMessage());
         }
     }
 
@@ -91,6 +92,20 @@ abstract class ResourceAbstract
         return $object;
     }
 
+    public function loadByFields($object, $fields)
+    {
+        $select = $this->getConnection()->select();
+        $select->from($this->_getTable($object));
+        foreach ($fields as $key => $field) {
+            $select->where($key . ' = ?', $field);
+        }
+
+        $row = $this->getConnection()->query($select)->fetch();
+        $this->map($object, $row);
+
+        return $object;
+    }
+
     public function delete($operation)
     {
         $id = $operation->getId();
@@ -104,7 +119,7 @@ abstract class ResourceAbstract
      */
     protected function _getTable($object)
     {
-        $table = strtolower(get_class($object)) . 's';
+        $table = strtolower(get_class($object));
         return $table;
     }
 

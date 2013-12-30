@@ -26,4 +26,8 @@ class UserDb extends ResourceAbstract
         return $user;
     }
 
+    protected function _getTable($object)
+    {
+        return parent::_getTable($object) . 's';
+    }
 }

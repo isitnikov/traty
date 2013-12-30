@@ -1,7 +1,6 @@
 <?php
 require APP_TEMPLATES_PATH . 'header.php';
 
-$db = new OperationCollection(); $amounts = $db->getAmountsGroupedBy('month');
 
 $months = array();
 $currentDate = time();
@@ -13,15 +12,10 @@ for ($i = -2; $i<=7; $i++) {
     }
     $months[date('n', $date)] = GeneralHelper::getDateLabel($date, 'month');
 }
-$incomeBudget = $amounts[date('n')][Category::TYPE_INCOME]['amount'];
-$spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
 
 
 ?>
 <div class="container">
-    <?php
-    $categories = array('Продукты', 'Транспорт', 'Одежда', 'Авто', 'Отдых', 'Еда вне дома', 'Развлечения');
-    ?>
     <div class="row">
         <div class="col-lg-12">
             <h3 class="text-primary">План бюджета
@@ -96,7 +90,7 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
                                 $maxMonth = end($monthKeys);
                             }
 
-                            $allFactSum[] = $sumIncomeBudget[$month] - $sumIncomeFact[$month];
+                            $allFactSum[] = $sumIncomeFact[$month] - $sumSpendFact[$month];
                             if ($maxMonth && $maxMonth > $monthNum) {
                                 $allFactSum = array();
                             }
@@ -116,22 +110,27 @@ $spendBudget  = $amounts[date('n')][Category::TYPE_SPEND]['amount'];
             <h3 class="text-primary">Задать бюджет
                 <small>на месяц</small>
             </h3>
+            <form role="form" method="post" action="<?= GeneralHelper::getUrl('budget', 'save') ?>">
+
             <table class="table">
                 <tr>
                     <th>Категория</th>
-                    <th class="text-right">Расходы в среднем</th>
                     <th class="text-right">Бюджет</th>
                 </tr>
 
                 <?php foreach ($categories as $category): ?>
                     <tr>
-                        <td><?= $category ?></td>
-                        <td class="text-right"><?= GeneralHelper::renderAmount(rand(1000, 10000), Category::TYPE_SPEND) ?></td>
-                        <td class="text-right" width="30%"><input type="text" name="amount" placeholder="00.00"
-                                                                  class="form-control"/></td>
+                        <td><?= $category->getName() ?>
+                            <!--<nobr class="small text-muted"><small>В прошлом месяце <?= GeneralHelper::renderAmount(rand(100, 1000)) ?></small></nobr>-->
+                        </td>
+                        <td class="text-right" width="30%">
+                            <input type="text" name="budget[<?= $category->getId() ?>]" placeholder="00.00" class="form-control" value="<?php isset($b?>"/>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </table>
+                <input type="submit" class="btn btn-success pull-right" value="Сохранить" />
+            </form>
         </div>
     </div>
 </div>
