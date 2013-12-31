@@ -111,7 +111,7 @@ for ($i = -2; $i<=7; $i++) {
                 <small>на месяц</small>
             </h3>
             <form role="form" method="post" action="<?= GeneralHelper::getUrl('budget', 'save') ?>">
-
+            <input type="text" name="date" class="form-control" placeholder="2014-01-01" />
             <table class="table">
                 <tr>
                     <th>Категория</th>
@@ -124,7 +124,10 @@ for ($i = -2; $i<=7; $i++) {
                             <!--<nobr class="small text-muted"><small>В прошлом месяце <?= GeneralHelper::renderAmount(rand(100, 1000)) ?></small></nobr>-->
                         </td>
                         <td class="text-right" width="30%">
-                            <input type="text" name="budget[<?= $category->getId() ?>]" placeholder="00.00" class="form-control" value="<?php isset($b?>"/>
+                            <?php
+                            $_budgetValue =  isset($budgetArray[$category->getId()])? $budgetArray[$category->getId()]->getAmount() : 00.00;
+                            ?>
+                            <input type="text" name="budget[<?= $category->getId() ?>]" placeholder="00.00" class="form-control" value="<?= $_budgetValue ?>"/>
                         </td>
                     </tr>
                 <?php endforeach ?>

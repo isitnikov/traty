@@ -5,7 +5,7 @@ class Budget extends ModelAbstract
     protected $_id;
     protected $_user;
     protected $_category;
-    protected $_month;
+    protected $_date;
     protected $_amount;
 
     /**
@@ -59,17 +59,17 @@ class Budget extends ModelAbstract
     /**
      * @param mixed $month
      */
-    public function setMonth($month)
+    public function setDate($month)
     {
-        $this->_month = $month;
+        $this->_date = $month;
     }
 
     /**
      * @return mixed
      */
-    public function getMonth()
+    public function getDate()
     {
-        return $this->_month;
+        return $this->_date;
     }
 
     /**
