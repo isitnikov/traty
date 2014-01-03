@@ -33,7 +33,7 @@ $operations = $db->getAmountsGroupedBy($reportType);
                             </a>
                         </td>
                         <td class="text-right">
-                            <?php $itog = array() ?>
+                            <?php $itog = array(); krsort($operationsByTypes) ?>
                             <?php foreach ($operationsByTypes as $type => $operation): ?>
                             <?php $itog[$operation['type']][] = $operation['amount'] ?>
                             <?= GeneralHelper::renderAmount($operation['amount'], $operation['type'])?><br/>

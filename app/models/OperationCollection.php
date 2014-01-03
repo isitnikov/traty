@@ -73,8 +73,7 @@ class OperationCollection extends OperationDb
             'year'  => 'YEAR(date)'
         ));
         $select->group(array($type, 'type'));
-        $select->order('year DESC');
-        $select->order($type . ' DESC');
+        $select->order('date DESC');
         $select->order('type DESC');
         $this->_prepareSelect($select);
 
