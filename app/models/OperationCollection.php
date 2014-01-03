@@ -72,7 +72,7 @@ class OperationCollection extends OperationDb
             'month' => 'MONTH(date)'
         ));
         $select->group(array($type, 'type'));
-        $select->order($type . ' DESC');
+        $select->order('date DESC');
         $select->order('type DESC');
         $this->_prepareSelect($select);
 
