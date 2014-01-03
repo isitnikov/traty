@@ -69,10 +69,12 @@ class OperationCollection extends OperationDb
             'amount' => 'SUM(amount)',
             'date',
             'week' => 'WEEK(date, 3)',
-            'month' => 'MONTH(date)'
+            'month' => 'MONTH(date)',
+            'year'  => 'YEAR(date)'
         ));
         $select->group(array($type, 'type'));
-        $select->order('date DESC');
+        $select->order('year DESC');
+        $select->order($type . ' DESC');
         $select->order('type DESC');
         $this->_prepareSelect($select);
 
