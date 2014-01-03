@@ -21,7 +21,7 @@ for ($i = -2; $i<=7; $i++) {
             <h3 class="text-primary">План бюджета
                 <small>на месяц</small>
             </h3>
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow-x: scroll">
                 <table class="table table-condensed">
                     <tr class="active">
                         <th width="160px"><span class="text-success">&nbsp;</span></th>
