@@ -5,18 +5,16 @@ class OperationController extends AbstractController
     public function viewAction()
     {
         $collection = new CategoryCollection();
-        $spendCategories = GeneralHelper::getOptions($collection->loadAllCategories(Category::TYPE_SPEND), 'name');
-        $incomeCategories = GeneralHelper::getOptions($collection->loadAllCategories(Category::TYPE_INCOME), 'name');
-
         $operationCollection = new OperationCollection();
+        $view = $this->getView();
 
-        $todaySpendOperations = $operationCollection->getTodayOperations();
-        $todayIncomeOperations = $operationCollection->getTodayOperations(Category::TYPE_INCOME);
-        $todayAmount = true;
+        $view->spendCategories  = GeneralHelper::getOptions($collection->loadAllCategories(Category::TYPE_SPEND), 'name');
+        $view->incomeCategories = GeneralHelper::getOptions($collection->loadAllCategories(Category::TYPE_INCOME), 'name');
+        $view->todaySpendOperations  = $operationCollection->getTodayOperations();
+        $view->todayIncomeOperations = $operationCollection->getTodayOperations(Category::TYPE_INCOME);
+        $view->todayAmount = true;
 
-        require APP_TEMPLATES_PATH  . 'index.php';
-
-        return $this;
+        return $view->render('index.php');
     }
 
     public function saveAction()
@@ -68,5 +66,4 @@ class OperationController extends AbstractController
         App::addSuccessAlert();
         GeneralHelper::redirect();
     }
-
 }

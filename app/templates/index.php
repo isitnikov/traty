@@ -1,7 +1,3 @@
-<?php
-require 'header.php';
-?>
-<div class="container">
     <div class="row">
         <div class="col-md-6">
             <form role="form" method="post" action="<?php echo GeneralHelper::getUrl('operation', 'save') ?>"
@@ -15,12 +11,12 @@ require 'header.php';
                         <label class="control-label sr-only" for="category">Категория</label>
                         <select id="category" name="category" class="form-control input-lg" >
                             <optgroup label="Расходы">
-                                <?php foreach ($spendCategories as $value => $label): ?>
+                                <?php foreach ($this->spendCategories as $value => $label): ?>
                                     <option value="<?= $value ?>"><?= $label ?></option>
                                 <?php endforeach ?>
                             </optgroup>
                             <optgroup label="Доходы">
-                                <?php foreach ($incomeCategories as $value => $label): ?>
+                                <?php foreach ($this->incomeCategories as $value => $label): ?>
                                     <option value="<?= $value ?>"><?= $label ?></option>
                                 <?php endforeach ?>
                             </optgroup>
@@ -75,7 +71,7 @@ require 'header.php';
                     <th>Категория</th>
                     <th class="text-right">Сумма</th>
                 </tr>
-                <?php foreach ($todayIncomeOperations as $operation): ?>
+                <?php foreach ($this->todayIncomeOperations as $operation): ?>
                     <?php $amountSumIncome[] = $operation->getAmount(); ?>
                     <tr class="success">
                         <td>
@@ -86,7 +82,7 @@ require 'header.php';
                         <td class="text-right"><?= GeneralHelper::renderAmount($operation->getAmount(), Category::TYPE_INCOME) ?></td>
                     </tr>
                 <?php endforeach ?>
-                <?php foreach ($todaySpendOperations as $operation): ?>
+                <?php foreach ($this->todaySpendOperations as $operation): ?>
                     <?php $amountSumSpend[] = $operation->getAmount() ?>
                     <tr>
                         <td>
@@ -111,7 +107,4 @@ require 'header.php';
             </table>
         </div>
     </div>
-</div>
-</body>
-</html>
 

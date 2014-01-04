@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Kiev');
 
 define("APP_ROOT_PATH", realpath(__DIR__ . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR . 'app');
 define("APP_LIB_PATH", realpath(__DIR__ . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR);
@@ -46,6 +47,23 @@ class App
     static protected $_request;
     static protected $_user;
     static protected $_connection;
+    static protected $_layout;
+
+    /**
+     * @return Zend_Layout
+     */
+    public static function getLayout()
+    {
+        if (!self::$_layout) {
+            $layout = new Zend_Layout();
+            $layout->setLayoutPath(APP_TEMPLATES_PATH);
+            $layout->setViewSuffix('php');
+            $layout->setLayout('layout');
+
+            self::$_layout = $layout;
+        }
+        return self::$_layout;
+    }
 
     /**
      * @param mixed $config
@@ -77,8 +95,9 @@ class App
             'host' => $config['db']['host'],
             'username' => $config['db']['user'],
             'password' => $config['db']['pass'],
-            'dbname' => $config['db']['db'],
-            'charset' => 'utf8',
+            'dbname'   => $config['db']['db'],
+            'profiler' => $config['profiler'],
+            'charset'  => 'utf8',
         ));
         $connection->setFetchMode(Zend_Db::FETCH_ASSOC);
         self::$_connection = $connection;
@@ -106,11 +125,16 @@ class App
         if (!method_exists($controller, $actionName)) {
             $actionName = 'notFoundAction';
         }
-        $controller->$actionName();
-        $time_end = microtime(true);
-        $time = $time_end - $time_start;
+        $content = $controller->$actionName();
 
-        return round($time,2);
+        if (is_string($content)) {
+            self::getLayout()->content = $content;
+
+            $time_end = microtime(true);
+            $time = $time_end - $time_start;
+            self::getLayout()->executionTime = $time;
+            print self::getLayout()->render();
+        }
     }
 
     static public function getBaseUrl()
@@ -167,5 +191,11 @@ class App
         unset($_SESSION['alerts']);
 
         return $alerts;
+    }
+
+    static public function isProfilerEnabled()
+    {
+        $config = self::getConfig();
+        return (bool) $config['profiler'];
     }
 }

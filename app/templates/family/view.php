@@ -1,9 +1,4 @@
-<?php
-require APP_TEMPLATES_PATH . 'header.php';
-?>
-<div class="container">
-
-    <?php if ($hasInvite): ?>
+    <?php if ($this->hasInvite): ?>
         <form class="form-horizontal" action="<?= App::getBaseUrl() . '?controller=family&action=accept'; ?>"
               method="post">
             <fieldset>
@@ -25,13 +20,14 @@ require APP_TEMPLATES_PATH . 'header.php';
         </form>
     <?php endif ?>
 
-    <?php if (!empty($members)): ?>
+    <?php if (!empty($this->members)): ?>
+        <h2>Моя семья</h2>
         <table class="table">
             <tr>
                 <th>Пользователь</th>
                 <th>Дествия</th>
             </tr>
-            <?php foreach ($members as $member): ?>
+            <?php foreach ($this->members as $member): ?>
                 <tr>
                     <td><?= $member->getUsername() ?></td>
                     <td>
@@ -66,6 +62,3 @@ require APP_TEMPLATES_PATH . 'header.php';
 
             </fieldset>
         </form>
-</div>
-</body>
-</html>

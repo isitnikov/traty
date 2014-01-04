@@ -4,16 +4,17 @@ class FamilyController extends AbstractController
 {
     public function viewAction()
     {
-        $user = App::getUser();
-        $userFamily = $user->family();
-        $members = array();
-        if ($userFamily->getId()) {
-            $members = $userFamily->members(1);
-        }
-        $family = new Family();
+        $user    = App::getUser();
+        $members = $user->familyMemeber();
+
+        $family  = new Family();
         $hasInvite = $family->checkUnconfirmedInvites($user);
 
-        require APP_TEMPLATES_PATH . 'family' . DIRECTORY_SEPARATOR . 'view.php';
+        $view = $this->getView();
+        $view->hasInvite = $hasInvite;
+        $view->members = $members;
+
+        return $view->render('family/view.php');
     }
 
     public function inviteAction()

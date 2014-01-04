@@ -1,12 +1,9 @@
 <?php
-require 'header.php';
-$navDateClass = $reportType == 'date' || !$reportType ? 'active' : '';
-$navWeekClass = $reportType == 'week' ? 'active' : '';
-$navMonthClass = $reportType == 'month' ? 'active' : '';
-$operations = $db->getAmountsGroupedBy($reportType);
+$navDateClass = $this->reportType == 'date' || !$this->reportType ? 'active' : '';
+$navWeekClass = $this->reportType == 'week' ? 'active' : '';
+$navMonthClass = $this->reportType == 'month' ? 'active' : '';
+$operations = $this->operations;
 ?>
-<div class="container">
-
     <ul class="nav nav-pills">
         <li class="<?= $navDateClass ?>"><a
                 href="<?= App::getBaseUrl() . '?controller=report&action=view&report_type=date' ?>">Дни</a></li>
@@ -28,14 +25,12 @@ $operations = $db->getAmountsGroupedBy($reportType);
                         <?php $fullDate = isset($operationsByTypes[Category::TYPE_INCOME])
                             ? $operationsByTypes[Category::TYPE_INCOME]['date'] : $operationsByTypes[Category::TYPE_SPEND]['date']; ?>
                         <td>
-                            <a href="<?= GeneralHelper::getUrl('report', 'detail', array('report_type' => $reportType, 'date' => $fullDate)) ?>">
-                                <?= GeneralHelper::getDateLabel($fullDate, $reportType) ?>
+                            <a href="<?= GeneralHelper::getUrl('report', 'detail', array('report_type' => $this->reportType, 'date' => $fullDate)) ?>">
+                                <?= GeneralHelper::getDateLabel($fullDate, $this->reportType) ?>
                             </a>
                         </td>
                         <td class="text-right">
-                            <?php $itog = array(); krsort($operationsByTypes) ?>
                             <?php foreach ($operationsByTypes as $type => $operation): ?>
-                            <?php $itog[$operation['type']][] = $operation['amount'] ?>
                             <?= GeneralHelper::renderAmount($operation['amount'], $operation['type'])?><br/>
                             <?php endforeach ?>
                         </td>
@@ -44,6 +39,3 @@ $operations = $db->getAmountsGroupedBy($reportType);
             </table>
         </div>
     </div>
-</div>
-</body>
-</html>

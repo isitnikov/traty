@@ -5,8 +5,11 @@ class CategoryController extends AbstractController
     public function viewAction()
     {
         $categoryCollection = new CategoryCollection();
-        $allCategories = $categoryCollection->loadAllCategories();
-        include APP_TEMPLATES_PATH . 'category' . DIRECTORY_SEPARATOR . 'view.php';
+
+        $view = $this->getView();
+        $view->allCategories = $categoryCollection->loadAllCategories();
+
+        return $view->render('category/view.php');
     }
 
     public function saveAction()

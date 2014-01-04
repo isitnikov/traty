@@ -4,16 +4,30 @@ class ReportController extends AbstractController
 {
     public function viewAction()
     {
+
+        $view = $this->getView();
+        $collection = new OperationCollection();
         $reportType = isset($_GET['report_type'])? $_GET['report_type'] : 'date';
-        $db = new OperationCollection();
-        require APP_TEMPLATES_PATH . 'report.php';
+        $operations = $collection->getAmountsGroupedBy($reportType);
+
+        $view->operations = $operations;
+        $view->reportType = $reportType;
+
+
+        return $this->_view->render('report.php');
     }
 
     public function detailAction()
     {
+        $view = $this->getView();
         $reportType = isset($_GET['report_type'])? $_GET['report_type'] : 'date';
         $date = isset($_GET['date'])? $_GET['date'] : '';
         $db = new OperationCollection();
-        require APP_TEMPLATES_PATH . 'report_detail.php';
+
+        $view->reportType = $reportType;
+        $view->date       = $date;
+        $view->db         = $db;
+
+        return $view->render('report_detail.php');
     }
 }

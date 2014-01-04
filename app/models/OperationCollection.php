@@ -84,6 +84,10 @@ class OperationCollection extends OperationDb
             $result[$row[$type]][$row['type']] = $row;
         }
 
+        foreach ($result as &$operationByTypes) {
+            krsort($operationByTypes);
+        }
+
         return $result;
     }
 

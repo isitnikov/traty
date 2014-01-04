@@ -1,7 +1,3 @@
-<?php
-require APP_TEMPLATES_PATH . 'header.php';
-?>
-<div class="container">
     <div class="row"><div class="col-xs-12"><h4>Категории</h4></div></div>
     <div class="row">
         <div class="col-md-6">
@@ -31,7 +27,7 @@ require APP_TEMPLATES_PATH . 'header.php';
                     <th>Категория</th>
                     <th class="text-right">Статус</th>
                 </tr>
-                <?php foreach ($allCategories as $category): ?>
+                <?php foreach ($this->allCategories as $category): ?>
                     <tr>
                         <td>
                             <?php
@@ -57,6 +53,3 @@ require APP_TEMPLATES_PATH . 'header.php';
             </table>
         </div>
     </div>
-</div>
-</body>
-</html>
