@@ -15,7 +15,6 @@
             <table class="table">
                 <tr>
                     <th>Категория</th>
-                    <th>В прошлом месяце</th>
                     <th class="text-right">Бюджет</th>
                 </tr>
 
@@ -23,19 +22,16 @@
                     <tr>
                         <td>
                             <?= $category->getName() ?>
-                        </td>
-                        <td>
                             <?php
                             $prevMonthAmount = isset($this->categoryAmounts[$category->getId()]) ? $this->categoryAmounts[$category->getId()]['amount'] : 00.00;
-
                             ?>
-                            <?= GeneralHelper::renderAmount($prevMonthAmount, $category->getType()) ?>
+                            <div class="small"><nobr class="text-muted">за <?= $this->currentMonthLabel ?> <?= GeneralHelper::renderAmount($prevMonthAmount, $category->getType()) ?></nobr></div>
                         </td>
                         <td class="text-right" width="30%">
                             <?php
                             $_budgetValue = isset($this->budgetArray[$category->getId()]) ? $this->budgetArray[$category->getId()]->getAmount() : 00.00;
                             ?>
-                            <input type="text" name="budget[<?= $category->getId() ?>]" value="<?= $_budgetValue ?>" placeholder="00.00" class="form-control text-right" />
+                            <input type="text" name="budget[<?= $category->getId() ?>]" value="<?= $_budgetValue ?>" placeholder="00.00" class="form-control text-right input-lg" />
                         </td>
                     </tr>
                 <?php endforeach ?>
