@@ -106,7 +106,8 @@ class OperationCollection extends OperationDb
             'amount' => 'SUM(amount)',
             'date',
             'week' => 'WEEK(date, 3)',
-            'month' => 'MONTH(date)'
+            'month' => 'MONTH(date)',
+            'category',
         ));
         if ($where) {
             $select->where($where, $date);

@@ -2,6 +2,12 @@
 
 class Budget_Collection extends Budget_Db
 {
+    protected function _prepareSelect($select)
+    {
+        $select->where('user IN (?)', App::getUser()->familyMemberIds());
+        return $select;
+    }
+
     public function loadAllByFields($fields)
     {
         $select = $this->getConnection()->select();
@@ -10,6 +16,7 @@ class Budget_Collection extends Budget_Db
             $select->where($key . ' = ?', $field);
         }
 
+        $this->_prepareSelect($select);
         $rows = $this->getConnection()->query($select)->fetchAll();
         $result = array();
         foreach ($rows as $row) {
@@ -19,5 +26,21 @@ class Budget_Collection extends Budget_Db
         }
 
         return $result;
+    }
+
+    public function loadByDateAndGroupedByCat($month, $year)
+    {
+        $rows = $this->loadAllByFields(array(
+            'MONTH(date)'  => $month,
+            'YEAR(date)'   => $year
+        ));
+
+        $budgetGroupedCategory = array();
+        foreach ($rows as $budget) {
+            $budgetGroupedCategory[$budget->getCategory()] = $budget;
+        }
+        $rows = $budgetGroupedCategory;
+
+        return $rows;
     }
 }

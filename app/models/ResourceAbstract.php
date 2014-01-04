@@ -97,7 +97,11 @@ abstract class ResourceAbstract
         $select = $this->getConnection()->select();
         $select->from($this->_getTable($object));
         foreach ($fields as $key => $field) {
-            $select->where($key . ' = ?', $field);
+            if (is_array($field)) {
+                $select->where($key . ' IN (?)', $field);
+            } else {
+                $select->where($key . ' = ?', $field);
+            }
         }
 
         $row = $this->getConnection()->query($select)->fetch();

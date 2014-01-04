@@ -4,6 +4,39 @@ class BudgetController extends AbstractController
 {
     public function viewAction()
     {
+        $dateRequest = App::getRequest('date', GeneralHelper::getDateValue(time(), 'date'));
+        $categoryCollection = new CategoryCollection();
+        $categories = $categoryCollection->loadAllCategories(Category::TYPE_SPEND);
+        $operationCollection = new OperationCollection();
+        $categoryAmounts     = $operationCollection->getOperationsGroupedBy(GeneralHelper::getDateValue(strtotime("-1 month"), 'date'), 'month');
+        $categoryAmountsGrouped = array();
+        foreach ($categoryAmounts as $amount) {
+            $categoryAmountsGrouped[$amount['category']] = $amount;
+        }
+        $categoryAmounts = $categoryAmountsGrouped;
+
+        $yearMonth = array();
+        for ($i = 0; $i<=6; $i++) {
+            $nextMonth = strtotime("+${i} month");
+            $yearMonth[] = GeneralHelper::getDateValue($nextMonth, 'date');
+        }
+
+        $budgetCollection = new Budget_Collection();
+        $budgetArray = $budgetCollection->loadByDateAndGroupedByCat(GeneralHelper::getDateValue($dateRequest, 'month'), GeneralHelper::getDateValue($dateRequest, 'year'));
+
+        $view = $this->getView();
+        $view->categories   = $categories;
+        $view->budgetArray  = $budgetArray;
+        $view->months       = $yearMonth;
+        $view->categoryAmounts = $categoryAmounts;
+        $view->currentMonthLabel = App::getRequest('date', GeneralHelper::getDateValue(time(), 'date'));
+        $view->currentMonthLabel = GeneralHelper::getDateLabel($view->currentMonthLabel, 'month');
+
+        return $view->render('budget/view.php');
+    }
+
+    public function reportAction()
+    {
         $db = new OperationCollection();
         $amounts = $db->getAmountsGroupedBy('month');
 
@@ -36,14 +69,24 @@ class BudgetController extends AbstractController
         $budgetArray = $budgetGrouped;
 
 
-        require APP_TEMPLATES_PATH . 'budget' . DIRECTORY_SEPARATOR . 'view.php';
+
+        $view = $this->getView();
+        $view->incomeBudget = $incomeBudget;
+        $view->spendBudget  = $spendBudget;
+        $view->amounts      = $amounts;
+        $view->categories   = $categories;
+        $view->budgetArray  = $budgetArray;
+
+
+        return $view->render('budget/report.php');
     }
 
     public function saveAction()
     {
         $budgets = App::getRequest('budget', array());
         $user  = App::getUser();
-        $date = GeneralHelper::getDateValue(App::getRequest('date'), 'date');
+        $date = App::getRequest('date', GeneralHelper::getDateValue(time(), 'date'));
+        $date = GeneralHelper::getDateValue($date, 'date');
 
         foreach ($budgets as $categoryId => $amount) {
             if (!ValidateHelper::validateAmount($amount)) {
@@ -56,7 +99,7 @@ class BudgetController extends AbstractController
         foreach ($budgets as $categoryId => $amount) {
             $budget = new Budget();
             $budget->loadByFields(array(
-                'user' => $user->getId(),
+                'user' => $user->familyMemberIds(),
                 'category' => $categoryId,
                 'date'     => $date
             ));

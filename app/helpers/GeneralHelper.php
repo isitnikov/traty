@@ -84,7 +84,9 @@ class GeneralHelper
         } elseif ($type == 'week') {
             $value = $date->format('W');
         } elseif ($type == 'month') {
-            $value = $date->format('m');
+            $value = $date->format('n');
+        } elseif ($type == 'year') {
+            $value = $date->format('Y');
         }
 
         return $value;
