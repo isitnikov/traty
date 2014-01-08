@@ -11,7 +11,7 @@
                 <label for="exampleInputPassword1">Бюджет для <span class="text-success"><?= $this->categories[App::getRequest('category')]->getName() ?></span></label>
                 <input type="text" name="amount" class="form-control" id="exampleInputPassword1" placeholder="00.00" value="<?= App::getRequest('amount')?>">
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-success">Сохранить</button>
         </form>
     </div>
     <?php endif ?>
@@ -51,11 +51,12 @@
                             <?php
                             $_budgetValue = isset($this->budgetArray[$category->getId()]) ? $this->budgetArray[$category->getId()]->getAmount() : 00.00;
                             ?>
-                            <?php if ($_budgetValue && $_budgetValue != '00.00') { ?>
-                                <div class=""><nobr class="text-muted"><?= GeneralHelper::renderAmount($_budgetValue, $category->getType()) ?></nobr></div>
-                            <?php } else {?>
-                                <a href="<?= GeneralHelper::getUrl('budget', 'view', array('mode' => 'edit', 'category' => $category->getId(), 'amount' => $_budgetValue, 'date' => $this->date)) ?>"><span class="glyphicon glyphicon-edit"></span> <span class="small">изменить</span></a>
-                            <?php } ?>
+                            <nobr>
+                                <?= GeneralHelper::renderAmount($_budgetValue, $category->getType()) ?> 
+                                <a href="<?= GeneralHelper::getUrl('budget', 'view', array('mode' => 'edit', 'category' => $category->getId(), 'amount' => $_budgetValue, 'date' => $this->date)) ?>">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                            </nobr>
                         </td>
                     </tr>
                 <?php endforeach ?>
