@@ -52,7 +52,7 @@
                             $_budgetValue = isset($this->budgetArray[$category->getId()]) ? $this->budgetArray[$category->getId()]->getAmount() : 00.00;
                             ?>
                             <nobr>
-                                <?= GeneralHelper::renderAmount($_budgetValue, $category->getType()) ?> 
+                                <?= GeneralHelper::renderAmount($_budgetValue, $category->getType()) ?>
                                 <a href="<?= GeneralHelper::getUrl('budget', 'view', array('mode' => 'edit', 'category' => $category->getId(), 'amount' => $_budgetValue, 'date' => $this->date)) ?>">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>
