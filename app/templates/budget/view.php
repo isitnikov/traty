@@ -29,6 +29,7 @@
         </h3>
         <form role="form" method="post" action="<?= GeneralHelper::getUrl('budget', 'save') ?>">
             <input type="hidden" name="date" value="<?= App::getRequest('date', date('Y-m-d')) ?>" />
+            <div class="table-responsive">
             <table class="table table-condensed">
                 <tr>
                     <th>Категория</th>
@@ -61,6 +62,7 @@
                     </tr>
                 <?php endforeach ?>
             </table>
+            </div>
             <input type="submit" class="btn btn-success pull-right" value="Сохранить"/>
         </form>
     </div>
