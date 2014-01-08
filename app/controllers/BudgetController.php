@@ -6,7 +6,7 @@ class BudgetController extends AbstractController
     {
         $dateRequest = App::getRequest('date', GeneralHelper::getDateValue(time(), 'date'));
         $categoryCollection = new CategoryCollection();
-        $spendCategories = $categoryCollection->loadAllCategories(Category::TYPE_SPEND);
+        $categories = $categoryCollection->loadAllCategories(Category::TYPE_SPEND);
         $operationCollection = new OperationCollection();
         $categoryAmounts     = $operationCollection->getOperationsGroupedBy(GeneralHelper::getDateValue($dateRequest, 'date'), 'month');
         $categoryAmountsGrouped = array();
@@ -25,9 +25,10 @@ class BudgetController extends AbstractController
         $budgetArray = $budgetCollection->loadByDateAndGroupedByCat(GeneralHelper::getDateValue($dateRequest, 'month'), GeneralHelper::getDateValue($dateRequest, 'year'));
 
         $view = $this->getView();
-        $view->spendCategories   = $spendCategories;
+        $view->categories   = $categories;
         $view->budgetArray  = $budgetArray;
         $view->months       = $yearMonth;
+        $view->date         = $dateRequest;
         $view->categoryAmounts = $categoryAmounts;
         $view->currentMonthLabel = App::getRequest('date', GeneralHelper::getDateValue(time(), 'date'));
         $view->currentMonthLabel = GeneralHelper::getDateLabel($view->currentMonthLabel, 'month');
@@ -83,32 +84,23 @@ class BudgetController extends AbstractController
 
     public function saveAction()
     {
-        $budgets = App::getRequest('budget', array());
+        $category = App::getRequest('category', array());
         $user  = App::getUser();
         $date = App::getRequest('date', GeneralHelper::getDateValue(time(), 'date'));
         $date = GeneralHelper::getDateValue($date, 'date');
 
-        foreach ($budgets as $categoryId => $amount) {
-            if (!ValidateHelper::validateAmount($amount)) {
-                App::addErrorAlert('Неправильная сумма');
-                GeneralHelper::redirect();
-                return;
-            }
-        }
-
-        foreach ($budgets as $categoryId => $amount) {
-            $budget = new Budget();
-            $budget->loadByFields(array(
+        $budget = new Budget();
+        $budget->loadByFields(array(
                 'user' => $user->familyMemberIds(),
-                'category' => $categoryId,
+                'category' => $category,
                 'date'     => $date
-            ));
-            $budget->setUser($user->getId());
-            $budget->setCategory($categoryId);
-            $budget->setDate($date);
-            $budget->setAmount($amount);
-            $budget->save();
-        }
+        ));
+        $budget->setUser($user->getId());
+        $budget->setCategory($category);
+        $budget->setDate($date);
+        $budget->setAmount(App::getRequest('amount'));
+        $budget->save();
+
         App::addSuccessAlert();
         GeneralHelper::redirect();
     }

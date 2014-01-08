@@ -1,4 +1,21 @@
 <div class="row">
+
+    <?php if (App::getRequest('mode') == 'edit'): ?>
+    <div class="col-xs-12">
+        <form role="form" method="post" action="<?= GeneralHelper::getUrl('budget', 'save') ?>">
+            <input type="hidden" name="date" value="<?= App::getRequest('date', date('Y-m-d')) ?>" />
+            <div class="form-group">
+                <input type="hidden" name="category" class="form-control" id="exampleInputEmail1" value="<?= App::getRequest('category')?>">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Бюджет для <span class="text-success"><?= $this->categories[App::getRequest('category')]->getName() ?></span></label>
+                <input type="text" name="amount" class="form-control" id="exampleInputPassword1" placeholder="00.00" value="<?= App::getRequest('amount')?>">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <?php endif ?>
+
     <div class="col-xs-12">
         <h3 class="text-primary">Бюджет
             <small class="dropdown">
@@ -19,7 +36,7 @@
                     <th class="text-right">План</th>
                 </tr>
 
-                <?php foreach ($this->spendCategories as $category): ?>
+                <?php foreach ($this->categories as $category): ?>
                     <tr>
                         <td>
                             <?= $category->getName() ?>
@@ -37,7 +54,7 @@
                             <?php if ($_budgetValue && $_budgetValue != '00.00') { ?>
                                 <div class=""><nobr class="text-muted"><?= GeneralHelper::renderAmount($_budgetValue, $category->getType()) ?></nobr></div>
                             <?php } else {?>
-                            <input type="text" name="budget[<?= $category->getId() ?>]" value="<?= $_budgetValue ?>" placeholder="00.00" class="form-control text-right input-lg" />
+                                <a href="<?= GeneralHelper::getUrl('budget', 'view', array('mode' => 'edit', 'category' => $category->getId(), 'amount' => $_budgetValue, 'date' => $this->date)) ?>"><span class="glyphicon glyphicon-edit"></span> <span class="small">изменить</span></a>
                             <?php } ?>
                         </td>
                     </tr>
