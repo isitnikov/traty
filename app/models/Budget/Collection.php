@@ -28,8 +28,12 @@ class Budget_Collection extends Budget_Db
         return $result;
     }
 
-    public function loadByDateAndGroupedByCat($month, $year)
+    public function loadByDateAndGroupedByCat($month = false, $year = false)
     {
+        if (!$month && !$year) {
+            $month = new Zend_Db_Expr("MONTH(CURDATE())");
+            $year  = new Zend_Db_Expr("YEAR(CURDATE())");
+        }
         $rows = $this->loadAllByFields(array(
             'MONTH(date)'  => $month,
             'YEAR(date)'   => $year

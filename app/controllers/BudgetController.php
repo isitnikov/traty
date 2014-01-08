@@ -6,9 +6,9 @@ class BudgetController extends AbstractController
     {
         $dateRequest = App::getRequest('date', GeneralHelper::getDateValue(time(), 'date'));
         $categoryCollection = new CategoryCollection();
-        $categories = $categoryCollection->loadAllCategories(Category::TYPE_SPEND);
+        $spendCategories = $categoryCollection->loadAllCategories(Category::TYPE_SPEND);
         $operationCollection = new OperationCollection();
-        $categoryAmounts     = $operationCollection->getOperationsGroupedBy(GeneralHelper::getDateValue(strtotime("-1 month"), 'date'), 'month');
+        $categoryAmounts     = $operationCollection->getOperationsGroupedBy(GeneralHelper::getDateValue($dateRequest, 'date'), 'month');
         $categoryAmountsGrouped = array();
         foreach ($categoryAmounts as $amount) {
             $categoryAmountsGrouped[$amount['category']] = $amount;
@@ -16,7 +16,7 @@ class BudgetController extends AbstractController
         $categoryAmounts = $categoryAmountsGrouped;
 
         $yearMonth = array();
-        for ($i = 0; $i<=6; $i++) {
+        for ($i = -2; $i<=6; $i++) {
             $nextMonth = strtotime("+${i} month");
             $yearMonth[] = GeneralHelper::getDateValue($nextMonth, 'date');
         }
@@ -25,7 +25,7 @@ class BudgetController extends AbstractController
         $budgetArray = $budgetCollection->loadByDateAndGroupedByCat(GeneralHelper::getDateValue($dateRequest, 'month'), GeneralHelper::getDateValue($dateRequest, 'year'));
 
         $view = $this->getView();
-        $view->categories   = $categories;
+        $view->spendCategories   = $spendCategories;
         $view->budgetArray  = $budgetArray;
         $view->months       = $yearMonth;
         $view->categoryAmounts = $categoryAmounts;

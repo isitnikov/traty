@@ -10,9 +10,9 @@ class ReportController extends AbstractController
         $reportType = isset($_GET['report_type'])? $_GET['report_type'] : 'date';
         $operations = $collection->getAmountsGroupedBy($reportType);
 
+
         $view->operations = $operations;
         $view->reportType = $reportType;
-
 
         return $this->_view->render('report.php');
     }

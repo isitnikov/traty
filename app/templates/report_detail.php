@@ -44,7 +44,9 @@
                         $amountAll[] = $amount;
                         ?>
                         <td class="category_name"><?= $category['name'] ?></td>
-                        <td class="text-right"><span class="amount"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND) ?></span></td>
+                        <td class="text-right">
+                            <span class="amount"><?= GeneralHelper::renderAmount($amount, Category::TYPE_SPEND) ?></span>
+                        </td>
                     </tr>
                 <?php endforeach ?>
                 <tfoot>
