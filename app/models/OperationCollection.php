@@ -117,7 +117,9 @@ class OperationCollection extends OperationDb
         }
         $select->group(array($dateType, 'category'));
         $select->order('amount DESC');
-        $select->where('type = ?', $type);
+        if ($type != Category::TYPE_ALL) {
+            $select->where('type = ?', $type);
+        }
         $this->_prepareSelect($select);
 
         $rows = $this->getConnection()->query($select)->fetchAll();

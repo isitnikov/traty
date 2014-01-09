@@ -4,6 +4,7 @@ class Category
 {
     const TYPE_SPEND = 1;
     const TYPE_INCOME = 2;
+    const TYPE_ALL    = 3;
 
     protected $_id;
     protected $_name;

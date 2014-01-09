@@ -6,9 +6,9 @@ class BudgetController extends AbstractController
     {
         $dateRequest = App::getRequest('date', GeneralHelper::getDateValue(time(), 'date'));
         $categoryCollection = new CategoryCollection();
-        $categories = $categoryCollection->loadAllCategories(Category::TYPE_SPEND);
+        $categories = $categoryCollection->loadAllCategories();
         $operationCollection = new OperationCollection();
-        $categoryAmounts     = $operationCollection->getOperationsGroupedBy(GeneralHelper::getDateValue($dateRequest, 'date'), 'month');
+        $categoryAmounts     = $operationCollection->getOperationsGroupedBy(GeneralHelper::getDateValue($dateRequest, 'date'), 'month', Category::TYPE_ALL);
         $categoryAmountsGrouped = array();
         foreach ($categoryAmounts as $amount) {
             $categoryAmountsGrouped[$amount['category']] = $amount;
