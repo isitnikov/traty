@@ -7,7 +7,7 @@ class GeneralHelper
         return 'грн.';
     }
 
-    static public function renderAmount($amount, $type = false)
+    static public function renderAmount($amount, $type = false, $withoutCent = false)
     {
         if (!$type) {
             $type = Category::TYPE_INCOME;
@@ -35,6 +35,10 @@ class GeneralHelper
             list($amount, $fraction) = explode('.', $amount);
         }
         $decimalPart = sprintf("<span class='text-muted'>.%s</span>", $fraction);
+
+        if ($withoutCent) {
+            $decimalPart = '';
+        }
 
         $html = sprintf("<span class='%s'>&nbsp;%s&nbsp;<span class='whole'>%s</span>%s&nbsp;<span class='text-muted small'>&nbsp;%s </span></span>",
             $class, $sign, $amount, $decimalPart, self::getCurrencySign());

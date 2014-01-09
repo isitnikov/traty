@@ -46,14 +46,14 @@
                             <?php
                             $prevMonthAmount = isset($this->categoryAmounts[$category->getId()]) ? $this->categoryAmounts[$category->getId()]['amount'] : 00.00;
                             ?>
-                            <div class=""><nobr class="text-muted"><?= GeneralHelper::renderAmount($prevMonthAmount, $category->getType()) ?></nobr></div>
+                            <div class=""><nobr class="text-muted"><?= GeneralHelper::renderAmount($prevMonthAmount, $category->getType(), true) ?></nobr></div>
                         </td>
                         <td class="text-right" width="30%">
                             <?php
                             $_budgetValue = isset($this->budgetArray[$category->getId()]) ? $this->budgetArray[$category->getId()]->getAmount() : 00.00;
                             ?>
                             <nobr>
-                                <?= GeneralHelper::renderAmount($_budgetValue, $category->getType()) ?>
+                                <?= GeneralHelper::renderAmount($_budgetValue, $category->getType(), true) ?>
                                 <a href="<?= GeneralHelper::getUrl('budget', 'view', array('mode' => 'edit', 'category' => $category->getId(), 'amount' => $_budgetValue, 'date' => $this->date)) ?>">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>
