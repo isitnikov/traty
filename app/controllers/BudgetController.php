@@ -36,52 +36,6 @@ class BudgetController extends AbstractController
         return $view->render('budget/view.php');
     }
 
-    public function reportAction()
-    {
-        $db = new OperationCollection();
-        $amounts = $db->getAmountsGroupedBy('month');
-
-        $categoryCollection = new CategoryCollection();
-        $categories = $categoryCollection->loadAllCategories();
-
-        $budgetCollection = new Budget_Collection();
-        $budgetArray = $budgetCollection->loadAllByFields(array(
-            'user'   => App::getUser()->getId(),
-            'date'  =>  App::getRequest('date', GeneralHelper::getDateValue('2014-01-01', 'date')),
-        ));
-
-        $incomeBudget = 0;
-        $spendBudget  = 0;
-
-        $budgetGrouped = array();
-        foreach ($budgetArray as $budget) {
-            if (isset($categories[$budget->getCategory()])) {
-                $category = $categories[$budget->getCategory()];
-                $amount = $budget->getAmount();
-                $budgetGrouped[$category->getId()] = $budget;
-                if ($category->getType() == Category::TYPE_SPEND) {
-                    $spendBudget += $amount;
-                } else {
-                    $incomeBudget += $amount;
-                }
-            }
-        }
-
-        $budgetArray = $budgetGrouped;
-
-
-
-        $view = $this->getView();
-        $view->incomeBudget = $incomeBudget;
-        $view->spendBudget  = $spendBudget;
-        $view->amounts      = $amounts;
-        $view->categories   = $categories;
-        $view->budgetArray  = $budgetArray;
-
-
-        return $view->render('budget/report.php');
-    }
-
     public function saveAction()
     {
         $category = App::getRequest('category', array());
