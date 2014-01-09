@@ -36,7 +36,7 @@
         <div class="table-responsive">
             <table class="table table-condensed">
                 <tr>
-                    <th>Категории доходов</th>
+                    <th>Доходы</th>
                     <th class="text-right">Факт</th>
                     <th class="text-right">План</th>
                 </tr>
@@ -86,7 +86,7 @@
         <div class="table-responsive">
             <table class="table table-condensed">
                 <tr>
-                    <th>Категории расходов</th>
+                    <th>Расходы</th>
                     <th class="text-right">Факт</th>
                     <th class="text-right">План</th>
                 </tr>
