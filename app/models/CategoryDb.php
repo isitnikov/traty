@@ -57,7 +57,7 @@ class CategoryDb extends ResourceAbstract
     public function unassignFromUser($category, $user)
     {
         if (!$this->isAssignedCategoryToUser($category, $user)) {
-            throw new Exception("Нельзя удалить категорию");
+            throw new Exception("Не удалось отключить категорию. Категория принадлежит члену семьи");
         }
         $whereCategory = $this->getConnection()->quoteInto('category_id = ?', $category->getId());
         $whereUser     = $this->getConnection()->quoteInto('user_id IN (?)', $user->getId());

@@ -11,7 +11,7 @@ class CategoryCollection extends CategoryDb
         $joinCond = 'category_user.category_id = ' . $this->_getTable(new Category()) . '.id';
         $select->joinLeft('category_user', $joinCond, array());
 
-        $select->where('category_user.user_id IN (?)', App::getUser()->getId());
+        $select->where('category_user.user_id IN (?)', App::getUser()->familyMemberIds());
 
         return $select;
     }
