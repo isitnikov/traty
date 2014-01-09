@@ -57,6 +57,7 @@
                 $links = array(
                     array('url' => App::getBaseUrl(), 'label' => 'Главная'),
                     array('url' => GeneralHelper::getUrl('report', 'view'), 'label' => 'Отчеты'),
+                    array('url' => GeneralHelper::getUrl('budget', 'view'), 'label' => 'Бюджет'),
                 );
                 ?>
 
