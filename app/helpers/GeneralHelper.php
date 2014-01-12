@@ -91,6 +91,8 @@ class GeneralHelper
             $value = $date->format('n');
         } elseif ($type == 'year') {
             $value = $date->format('Y');
+        } elseif ($type == 'render') {
+            $value = $date->format('d/m/Y');
         }
 
         return $value;
