@@ -3,7 +3,7 @@
         <h3>Копилка</h3>
     </div>
     <div class="col-xs-6">
-        <h3 class="text-right"><small><a href="#">Добавить цель</a></small></h3>
+        <h3 class="text-right"><small><a href="<?= GeneralHelper::getUrl('moneybox', 'edit')?>">Добавить цель</a></small></h3>
     </div>
 </div>
 <div class="moneybox">

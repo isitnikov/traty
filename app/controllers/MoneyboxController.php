@@ -8,4 +8,11 @@ class MoneyboxController extends AbstractController
 
         return $view->render('moneybox/view.php');
     }
+
+    public function editAction()
+    {
+        $view = $this->getView();
+
+        return $view->render('moneybox/edit.php');
+    }
 }
