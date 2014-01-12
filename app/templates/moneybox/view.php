@@ -3,7 +3,7 @@
         <h3>Копилка</h3>
     </div>
     <div class="col-xs-6">
-        <h3><small><a href="#">Добавить цель</a></small></h3>
+        <h3 class="text-right"><small><a href="#">Добавить цель</a></small></h3>
     </div>
 </div>
 <div class="moneybox">
@@ -11,7 +11,7 @@
         <div class="col-xs-6">
             <h4 class="title">Квартира</h4>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-6 text-right">
             <h4 class="final-amount"><?= GeneralHelper::renderAmount(500000) ?></h4>
         </div>
     </div>
