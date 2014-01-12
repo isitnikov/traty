@@ -8,7 +8,7 @@ abstract class AbstractController
     protected $_view;
 
     /**
-     * @return mixed
+     * @return Zend_View
      */
     public function getView()
     {
