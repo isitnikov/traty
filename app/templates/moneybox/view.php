@@ -25,6 +25,7 @@
         ?>
         <li>Запланированная дата: <?= GeneralHelper::getDateValue($moneyBox->getDate(), 'render') ?></li>
         <li>Ежедневная сумма: <?= GeneralHelper::renderAmount($monthAmount) ?></li>
+        <li>Осталось: <?= GeneralHelper::renderAmount($moneyBox->getCost() - $moneyBox->getAccumulated()) ?></li>
         <li>Накопленно: <?= GeneralHelper::renderAmount($moneyBox->getAccumulated()) ?></li>
     </ul>
     <?php
