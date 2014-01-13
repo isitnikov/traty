@@ -81,6 +81,9 @@ class GeneralHelper
     {
         $date = self::getDateTime($date);
 
+        if (!$date) {
+            return false;
+        }
         $value = false;
 
         if ($type == 'date') {

@@ -7,6 +7,7 @@ class Moneybox_Collection extends Moneybox_Db
         $select = $this->getConnection()->select();
         $select->from($this->_getTable(new Moneybox()));
         $select->where('user IN (?)', App::getUser()->familyMemberIds());
+        $select->order('id DESC');
         $rows = $this->getConnection()->query($select)->fetchAll();
 
         $result = array();

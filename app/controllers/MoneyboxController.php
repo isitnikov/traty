@@ -14,11 +14,26 @@ class MoneyboxController extends AbstractController
     public function editAction()
     {
         $view = $this->getView();
+        $moneyboxCollection = new Moneybox_Collection();
+        $view->moneyboxCollection = $moneyboxCollection->loadAll();
+
         return $view->render('moneybox/edit.php');
+    }
+
+    public function formAction()
+    {
+        $moneyboxId = App::getRequest('id', 0);
+        $view = $this->getView();
+        $moneybox = new Moneybox();
+        $moneybox->load($moneyboxId);
+
+        $view->moneybox = $moneybox;
+        return $view->render('moneybox/form.php');
     }
 
     public function saveAction()
     {
+        $id   = App::getRequest('id', 0);
         $name = App::getRequest('name');
         $cost = App::getRequest('cost');
         $accumulated = App::getRequest('accumulated');
@@ -27,6 +42,8 @@ class MoneyboxController extends AbstractController
         $date = GeneralHelper::getDateValue($date, 'date');
 
         $moneybox = new Moneybox();
+
+        $moneybox->load($id);
         $moneybox->setName($name);
         $moneybox->setCost($cost);
         $moneybox->setAccumulated($accumulated);
@@ -36,6 +53,6 @@ class MoneyboxController extends AbstractController
         $moneybox->save();
 
         App::addSuccessAlert();
-        GeneralHelper::redirect();
+        GeneralHelper::redirect(GeneralHelper::getUrl('moneybox', 'edit'));
     }
 }
