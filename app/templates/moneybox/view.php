@@ -23,8 +23,8 @@
         $interval = $today->diff($date);
         $monthAmount = ($moneyBox->getCost() - $moneyBox->getAccumulated()) / $interval->format('%a');
         ?>
-        <li>Ежедневная сумма: <?= GeneralHelper::renderAmount($monthAmount) ?></li>
         <li>Запланированная дата: <?= GeneralHelper::getDateValue($moneyBox->getDate(), 'render') ?></li>
+        <li>Ежедневная сумма: <?= GeneralHelper::renderAmount($monthAmount) ?></li>
         <li>Накопленно: <?= GeneralHelper::renderAmount($moneyBox->getAccumulated()) ?></li>
     </ul>
     <?php
