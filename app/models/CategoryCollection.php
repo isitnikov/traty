@@ -8,10 +8,11 @@ class CategoryCollection extends CategoryDb
      */
     protected function _prepareSelect($select)
     {
-        $joinCond = 'category_user.category_id = ' . $this->_getTable(new Category()) . '.id';
+        $joinCond = 'category_user.category_id = main_table.id';
         $select->joinLeft('category_user', $joinCond, array());
 
         $select->where('category_user.user_id IN (?)', App::getUser()->familyMemberIds());
+
 
         return $select;
     }
@@ -19,7 +20,7 @@ class CategoryCollection extends CategoryDb
     public function loadAllCategories($type = false)
     {
         $select = $this->getConnection()->select()->reset();
-        $select->from($this->_getTable(new Category()));
+        $select->from(array('main_table' => $this->_getTable(new Category())));
         if ($type) {
             $select->where('type = ?', $type);
         }
@@ -30,8 +31,7 @@ class CategoryCollection extends CategoryDb
             $select->where('type = ?', $type);
         }
         $select->order('type DESC');
-        $select->order('system DESC');
-        $select->order('id ASC');
+        $this->_sortByPopularity($select);
 
         $rows = $this->getConnection()->query($select)->fetchAll();
 
@@ -43,5 +43,12 @@ class CategoryCollection extends CategoryDb
         }
 
         return $result;
+    }
+
+    protected function _sortByPopularity($select)
+    {
+        $select->joinLeft(array('operations' => $this->_getTable(new Operation())), 'main_table.id = operations.category', array());
+        $select->order(new Zend_Db_Expr('COUNT(operations.category)') . 'DESC');
+        $select->group('main_table.id');
     }
 }
