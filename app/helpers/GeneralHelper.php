@@ -186,4 +186,58 @@ class GeneralHelper
 
         return $result;
     }
+
+    static public function getCategoryClassLabelHtml($category)
+    {
+        switch ($category->getType()) {
+            case Category::TYPE_INCOME:
+                $labelClass = 'label-success';
+                $label = 'Доход';
+                break;
+            case Category::TYPE_SPEND:
+                $labelClass = 'label-primary';
+                $label = 'Расход';
+                break;
+            case Category::TYPE_ACTIVE:
+                $labelClass = 'label-danger';
+                $label = 'Активы';
+                break;
+            case Category::TYPE_PASSIVE:
+                $labelClass = 'label-warning';
+                $label = 'Пассивы';
+                break;
+            default:
+                $labelClass = '';
+                $label = '';
+                break;
+        }
+
+        $class = sprintf('<span class="label %s">%s</span>', $labelClass, $label);
+
+        return $class;
+    }
+
+    static public function getMainMenu()
+    {
+        $links = array(
+            array('url' => App::getBaseUrl(), 'label' => 'Главная', 'icon' => 'icon-home'),
+            array('url' => GeneralHelper::getUrl('report', 'view'), 'label' => 'Отчеты', 'icon' => 'icon-pages'),
+            array('url' => GeneralHelper::getUrl('budget', 'view'), 'label' => 'Бюджет', 'icon' => 'icon-star'),
+            array('url' => GeneralHelper::getUrl('category', 'view'), 'label' => 'Настройки', 'icon' => 'icon-gear'),
+            array('url' => GeneralHelper::getUrl('user', 'logout'), 'label' => 'Выйти', 'icon' => 'icon-person')
+        );
+
+        return $links;
+    }
+
+    static public function getClassForMenuItem($link)
+    {
+        $active = '';
+        if ($link['url'] == GeneralHelper::getUrl(App::getRequest('controller'), App::getRequest('action'))
+            || ($link['url'] == App::getBaseUrl() && App::getRequest('controller') == false)) {
+            $active = 'active';
+        }
+
+        return $active;
+    }
 }
