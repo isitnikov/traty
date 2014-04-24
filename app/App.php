@@ -59,10 +59,6 @@ class App
             $layout->setLayoutPath(APP_TEMPLATES_PATH);
             $layout->setViewSuffix('php');
             $layout->setLayout('layout');
-            if (strtolower(self::getUser()->getUsername()) == 'yaroslav') {
-                $layout->setLayout('layout-mobile');
-            }
-
             self::$_layout = $layout;
         }
         return self::$_layout;
