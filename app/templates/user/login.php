@@ -91,7 +91,7 @@
                                     <label for="inputEmail3" class="col-sm-4 control-label">
                                         Пользователь (demo)</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="username" class="form-control input-lg" id="inputEmail3" placeholder="username" required>
+                                        <input type="text" name="username" class="form-control input-lg" id="inputEmail3" placeholder="Логин" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
