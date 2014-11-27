@@ -89,14 +89,14 @@
                             <form class="form-horizontal" role="form" method="post" action="<?= GeneralHelper::getUrl('user', 'auth') ?>">
                                 <div class="form-group">
                                     <label for="inputEmail3" class="col-sm-4 control-label">
-                                        Пользователь(demo)</label>
+                                        Пользователь (demo)</label>
                                     <div class="col-sm-8">
                                         <input type="text" name="username" class="form-control input-lg" id="inputEmail3" placeholder="username" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-4 control-label">
-                                        Пароль(demo)</label>
+                                        Пароль (demo)</label>
                                     <div class="col-sm-8">
                                         <input type="password" name="password" class="form-control input-lg" id="inputPassword3" placeholder="******" required>
                                     </div>
