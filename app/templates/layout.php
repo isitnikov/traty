@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Money</title>
+    <title>Домашняя бухгалтерия Traty.net</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
             </button>
             <?php
-            $brandName = 'Spend.su';
+            $brandName = 'Traty.net';
             if (isset($todayAmount)) {
                 $brandName = "За сегодня: " . GeneralHelper::getTodayAmount() . " " . GeneralHelper::getCurrencySign();
             }
