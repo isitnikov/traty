@@ -56,6 +56,6 @@ class BudgetController extends AbstractController
         $budget->save();
 
         App::addSuccessAlert();
-        GeneralHelper::redirect();
+        GeneralHelper::redirect(App::getBaseUrl() . '?controller=budget&action=view&date=' . $date);
     }
 }
