@@ -107,6 +107,7 @@ class OperationCollection extends OperationDb
             'date',
             'week' => 'WEEK(date, 3)',
             'month' => 'MONTH(date)',
+            'year' => 'YEAR(date)',
             'category',
         ));
         if ($where) {
@@ -114,6 +115,7 @@ class OperationCollection extends OperationDb
         }
         if ($having) {
             $select->having($having, GeneralHelper::getDateValue($date, $dateType));
+            $select->having('year', GeneralHelper::getDateValue($date, 'year'));
         }
         $select->group(array($dateType, 'category'));
         $select->order('amount DESC');
